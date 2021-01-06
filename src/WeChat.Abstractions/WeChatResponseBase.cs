@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
 namespace WeChat
 {
@@ -7,9 +8,12 @@ namespace WeChat
         [JsonIgnore]
         public byte[] Raw { get; set; }
 
+        [JsonIgnore]
+        public HttpStatusCode StatusCode { get; set; }
+
         public virtual bool IsSuccessed()
         {
-            return false;
+            return StatusCode == HttpStatusCode.OK;
         }
     }
 }

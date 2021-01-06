@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EB0CBCD3-157
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat", "src\WeChat\WeChat.csproj", "{DE496CAB-745F-411B-9E46-8913338B59E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat.Abstractions", "src\WeChat.Abstractions\WeChat.Abstractions.csproj", "{7E8872CE-EF1A-4EAC-9537-B1DABBDF754E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Abstractions", "src\WeChat.Abstractions\WeChat.Abstractions.csproj", "{7E8872CE-EF1A-4EAC-9537-B1DABBDF754E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat.Mp", "src\WeChat.Mp\WeChat.Mp.csproj", "{60C51CE0-7CAF-49DF-8180-F6D0C8C285CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{7E8872CE-EF1A-4EAC-9537-B1DABBDF754E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E8872CE-EF1A-4EAC-9537-B1DABBDF754E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E8872CE-EF1A-4EAC-9537-B1DABBDF754E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C51CE0-7CAF-49DF-8180-F6D0C8C285CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C51CE0-7CAF-49DF-8180-F6D0C8C285CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C51CE0-7CAF-49DF-8180-F6D0C8C285CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C51CE0-7CAF-49DF-8180-F6D0C8C285CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DE496CAB-745F-411B-9E46-8913338B59E2} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
 		{7E8872CE-EF1A-4EAC-9537-B1DABBDF754E} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
+		{60C51CE0-7CAF-49DF-8180-F6D0C8C285CE} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D70104D6-A557-42B3-A5A8-C1224E8AC52D}

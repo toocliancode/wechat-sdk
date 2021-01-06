@@ -1,6 +1,5 @@
 ﻿
 using System.Collections.Generic;
-using System.Text.Encodings.Web;
 
 namespace WeChat
 {
@@ -9,6 +8,39 @@ namespace WeChat
         public T GetValue(string key)
         {
             return TryGetValue(key, out var value) ? value : default;
+        }
+
+        public void AddRange(IDictionary<string, T> dict)
+        {
+            if (dict == null || dict.Count == 0)
+            {
+                return;
+            }
+            foreach (var item in dict)
+            {
+                TryAdd(item.Key, item.Value);
+            }
+        }
+
+        public new bool TryAdd(string key, T value)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                return false;
+            }
+            this[key] = value;
+            return true;
+        }
+
+        public new void Add(string key, T value)
+        {
+            TryAdd(key, value);
+        }
+
+        public WeChatDictionary<T> Set(string key, T value)
+        {
+            TryAdd(key, value);
+            return this;
         }
     }
 }

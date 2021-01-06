@@ -13,7 +13,6 @@ namespace WeChat
     [OnHandler(typeof(IWeChatRequestHandler<,>))]
     public abstract class WeChatRequestBase<TWeChatResponse> : IRequest<TWeChatResponse>
     {
-        [JsonIgnore]
         public Func<IServiceProvider, string, WeChatConfiguration> ConfigurationFactory { get; set; }
             = (prodiver, configurationName)
             => prodiver.GetRequiredService<IOptions<WeChatOptions>>().Value.GetConfiguration(configurationName);

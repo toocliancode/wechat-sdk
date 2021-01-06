@@ -6,7 +6,6 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WeChat
@@ -19,6 +18,11 @@ namespace WeChat
         : HttpRequestBase<TWeChatResponse>
         where TWeChatResponse : WeChatResponseBase
     {
+        private Func<IServiceProvider, string, WeChatConfiguration> _configurationFactory = (prodiver, configurationName)
+                          => prodiver.GetRequiredService<IOptions<WeChatOptions>>().Value.GetConfiguration(configurationName);
+
+        private Action<IServiceProvider, WeChatConfiguration, WeChatDictionary> _parameterFactory = (provider, configuration, body) => { };
+
         protected WeChatHttpRequestBase()
         {
         }
@@ -32,10 +36,14 @@ namespace WeChat
             ConfigurationFactory = configurationFactory;
         }
 
-        [JsonIgnore]
-        public Func<IServiceProvider, string, WeChatConfiguration> ConfigurationFactory { get; set; }
-            = (prodiver, configurationName)
-            => prodiver.GetRequiredService<IOptions<WeChatOptions>>().Value.GetConfiguration(configurationName);
+        /// <summary>
+        /// 配置获取委托方法
+        /// </summary>
+        public Func<IServiceProvider, string, WeChatConfiguration> ConfigurationFactory
+        {
+            get => _configurationFactory;
+            set => _configurationFactory = value ?? throw new ArgumentNullException(nameof(ConfigurationFactory));
+        }
 
         public override async Task CreateAsync(IHttpRequestContext context)
         {
@@ -44,7 +52,9 @@ namespace WeChat
 
             ParameterHandler(configuration);
 
-            var dictionary = ToDictionary();
+            _parameterFactory?.Invoke(context.RequestService, configuration, Body);
+
+            var dictionary = Body;
             var method = GetHttpMethod();
 
             if (method.Equals(HttpMethod.Get))
@@ -97,25 +107,11 @@ namespace WeChat
             var response = JsonSerializer.Deserialize<TWeChatResponse>(content);
 
             response.Raw = content;
+            response.StatusCode = context.Message.StatusCode;
             return response;
         }
 
-        public virtual WeChatDictionary ToDictionary()
-        {
-            var dictionary = new WeChatDictionary();
-            using var document = JsonDocument.Parse(JsonSerializer.Serialize((object)this));
-
-            foreach (var jsonProperty in document.RootElement.EnumerateObject())
-            {
-                var value = jsonProperty.Value.GetString();
-                if (!string.IsNullOrEmpty(value))
-                {
-                    dictionary[jsonProperty.Name] = value;
-                }
-            }
-
-            return dictionary;
-        }
+        public WeChatDictionary Body { get; } = new WeChatDictionary();
 
         /// <summary>
         /// 主要参数处理
@@ -124,6 +120,8 @@ namespace WeChat
         protected virtual void ParameterHandler(WeChatConfiguration configuration)
         {
         }
+
+        public Action<IServiceProvider, WeChatConfiguration, WeChatDictionary> ParameterFactory { get => _parameterFactory; set => _parameterFactory = value; }
 
         /// <summary>
         /// 获取Http请求方法
