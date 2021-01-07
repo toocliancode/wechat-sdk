@@ -21,7 +21,7 @@ namespace WeChat
         private Func<IServiceProvider, string, WeChatConfiguration> _configurationFactory = (prodiver, configurationName)
                           => prodiver.GetRequiredService<IOptions<WeChatOptions>>().Value.GetConfiguration(configurationName);
 
-        private Action<IServiceProvider, WeChatConfiguration, WeChatDictionary> _parameterFactory = (provider, configuration, body) => { };
+        private Action<IServiceProvider, WeChatConfiguration, WeChatDictionary<object>> _parameterFactory = (provider, configuration, body) => { };
 
         protected WeChatHttpRequestBase()
         {
@@ -71,7 +71,7 @@ namespace WeChat
             await Task.CompletedTask;
         }
 
-        protected virtual async Task<Uri> HandleEndpointAsync(IServiceProvider serviceProvider, string endpointName, HttpMethod method, WeChatDictionary dictionary)
+        protected virtual async Task<Uri> HandleEndpointAsync(IServiceProvider serviceProvider, string endpointName, HttpMethod method, WeChatDictionary<object> dictionary)
         {
             var options = serviceProvider.GetRequiredService<IOptions<WeChatOptions>>().Value;
             var endpoint = options.GetEndpoint(endpointName);
@@ -79,7 +79,7 @@ namespace WeChat
             return (method.Equals(HttpMethod.Get), (this) is IEnableAccessToken) switch
             {
                 (true, true) => await GetTokenUri(),
-                (true, false) => new Uri($"{endpoint}?{HttpUtility.ToQuery(dictionary)}"),
+                (true, false) => new Uri($"{endpoint}?{HttpUtility.ToQuery(dictionary.ToStringValue())}"),
                 (false, false) => new Uri(endpoint),
                 _ => await GetTokenPostUri()
             };
@@ -89,14 +89,14 @@ namespace WeChat
                 var tokenStore = serviceProvider.GetRequiredService<IAccessTokenStore>();
                 var accessToken = await tokenStore.GetAsync(ConfigurationFactory);
                 dictionary["access_token"] = accessToken;
-                return new Uri($"{endpoint}?{HttpUtility.ToQuery(dictionary)}");
+                return new Uri($"{endpoint}?{HttpUtility.ToQuery(dictionary.ToStringValue())}");
             }
 
             async Task<Uri> GetTokenPostUri()
             {
                 var tokenStore = serviceProvider.GetRequiredService<IAccessTokenStore>();
                 var accessToken = await tokenStore.GetAsync(ConfigurationFactory);
-                dictionary["access_token"] = accessToken;
+                //dictionary["access_token"] = accessToken;
                 return new Uri($"{endpoint}?access_token={accessToken}");
             }
         }
@@ -111,7 +111,7 @@ namespace WeChat
             return response;
         }
 
-        public WeChatDictionary Body { get; } = new WeChatDictionary();
+        public WeChatDictionary<object> Body { get; } = new WeChatDictionary<object>();
 
         /// <summary>
         /// 主要参数处理
@@ -121,7 +121,7 @@ namespace WeChat
         {
         }
 
-        public Action<IServiceProvider, WeChatConfiguration, WeChatDictionary> ParameterFactory { get => _parameterFactory; set => _parameterFactory = value; }
+        public Action<IServiceProvider, WeChatConfiguration, WeChatDictionary<object>> ParameterFactory { get => _parameterFactory; set => _parameterFactory = value; }
 
         /// <summary>
         /// 获取Http请求方法

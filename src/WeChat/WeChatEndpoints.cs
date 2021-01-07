@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeChat
 {
-    public static class WeChatEndpoints
+    public partial class WeChatEndpoints
     {
         /// <summary>
         /// 微信接口token端点名称

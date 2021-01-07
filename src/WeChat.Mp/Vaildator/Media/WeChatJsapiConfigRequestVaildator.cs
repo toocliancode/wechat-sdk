@@ -4,7 +4,7 @@ using WeChat.Mp.Request;
 
 namespace WeChat.Mp.Vaildator
 {
-    public class WeChatJsapiConfigRequestVaildator : AbstractValidator<WeChatJsapiConfigRequest>
+    public partial class WeChatJsapiConfigRequestVaildator : AbstractValidator<WeChatJsapiConfigRequest>
     {
         public WeChatJsapiConfigRequestVaildator()
         {

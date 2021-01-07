@@ -42,5 +42,15 @@ namespace WeChat
             TryAdd(key, value);
             return this;
         }
+
+        public WeChatDictionary<string> ToStringValue()
+        {
+            var dict = new WeChatDictionary<string>();
+            foreach (var item in this)
+            {
+                dict.Add(item.Key, item.Value?.ToString());
+            }
+            return dict;
+        }
     }
 }
