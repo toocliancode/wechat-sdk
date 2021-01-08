@@ -86,7 +86,7 @@ namespace WeChat
 
             async Task<Uri> GetTokenUri()
             {
-                var tokenStore = serviceProvider.GetRequiredService<IAccessTokenStore>();
+                var tokenStore = serviceProvider.GetRequiredService<IWeChatAccessTokenStore>();
                 var accessToken = await tokenStore.GetAsync(ConfigurationFactory);
                 dictionary["access_token"] = accessToken;
                 return new Uri($"{endpoint}?{HttpUtility.ToQuery(dictionary.ToStringValue())}");
@@ -94,7 +94,7 @@ namespace WeChat
 
             async Task<Uri> GetTokenPostUri()
             {
-                var tokenStore = serviceProvider.GetRequiredService<IAccessTokenStore>();
+                var tokenStore = serviceProvider.GetRequiredService<IWeChatAccessTokenStore>();
                 var accessToken = await tokenStore.GetAsync(ConfigurationFactory);
                 //dictionary["access_token"] = accessToken;
                 return new Uri($"{endpoint}?access_token={accessToken}");

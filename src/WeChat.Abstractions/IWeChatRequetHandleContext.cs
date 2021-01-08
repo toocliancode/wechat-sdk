@@ -11,6 +11,6 @@ namespace WeChat
         /// <summary>
         /// 服务提供程序
         /// </summary>
-        IServiceProvider RequestService { get; }
+        IServiceProvider RequestServices { get; }
     }
 }

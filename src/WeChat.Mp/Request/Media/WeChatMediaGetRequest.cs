@@ -1,6 +1,7 @@
 ﻿
 using Mediator.HttpClient;
 
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 using WeChat.Mp.Response;
@@ -12,11 +13,21 @@ namespace WeChat.Mp.Request
     /// </summary>
     public class WeChatMediaGetRequest : WeChatHttpRequestBase<WeChatMediaGetResponse>, IEnableAccessToken
     {
+        /// <summary>
+        /// 实例化一个新的 获取临时素材 请求
+        /// </summary>
+        /// <param name="mediaId">媒体文件Id</param>
+        public WeChatMediaGetRequest(string mediaId)
+        {
+            MediaId = mediaId;
+        }
+
         protected override string GetEndpointName() => WeChatMpEndpoints.MediaGet;
 
         /// <summary>
         /// 媒体文件Id
         /// </summary>
+        [JsonPropertyName("media_id")]
         public string MediaId { get; set; }
 
         protected override void ParameterHandler(WeChatConfiguration configuration)

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 using WeChat.Response;
 
 namespace WeChat.Request
@@ -8,6 +10,14 @@ namespace WeChat.Request
     /// </summary>
     public class WeChatAccessTokenRequest : WeChatHttpRequestBase<WeChatAccessTokenResponse>
     {
+        public WeChatAccessTokenRequest()
+        {
+        }
+
+        public WeChatAccessTokenRequest(Func<IServiceProvider, string, WeChatConfiguration> configurationFactory) : base(configurationFactory)
+        {
+        }
+
         protected override string GetEndpointName() => WeChatEndpoints.AccessToken;
 
         protected override void ParameterHandler(WeChatConfiguration configuration)

@@ -12,6 +12,38 @@ namespace WeChat.Mp.Request.Message
     /// </summary>
     public class WeChatTemplateSendRequest : WeChatHttpRequestBase<WeChatTemplateSendResponse>
     {
+        /// <summary>
+        /// 实例化一个新的 发送模板消息 请求
+        /// </summary>
+        /// <param name="toUser">接收者openid</param>
+        /// <param name="templateId">模板Id</param>
+        /// <param name="url">模板跳转链接（海外帐号没有跳转能力）</param>
+        /// <param name="data">
+        /// 模板数据
+        /// name:{
+        ///     value:"",
+        ///     color:""
+        /// }
+        /// </param>
+        /// <param name="miniProgram">
+        /// 跳小程序所需数据，不需跳小程序可不用传该数据
+        /// appid:所需跳转到的小程序appid（该小程序appid必须与发模板消息的公众号是绑定关联关系，暂不支持小游戏）
+        /// pagepath:所需跳转到小程序的具体页面路径，支持带参数,（示例index?foo=bar），要求该小程序已发布，暂不支持小游戏
+        /// </param>
+        public WeChatTemplateSendRequest(
+            string toUser,
+            string templateId,
+            Dictionary<string, Dictionary<string, string>> data,
+             string url = null,
+            Dictionary<string, string> miniProgram = null)
+        {
+            ToUser = toUser;
+            TemplateId = templateId;
+            Url = url;
+            MiniProgram = miniProgram;
+            Data = data;
+        }
+
         protected override string GetEndpointName() => WeChatMpEndpoints.MessageTemplateSend;
         protected override HttpMethod GetHttpMethod() => HttpMethod.Post;
 
@@ -22,7 +54,7 @@ namespace WeChat.Mp.Request.Message
         public string ToUser { get; set; }
 
         /// <summary>
-        /// 模板ID
+        /// 模板Id
         /// </summary>
         [JsonPropertyName("template_id")]
         public string TemplateId { get; set; }

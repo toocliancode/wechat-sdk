@@ -6,7 +6,7 @@ namespace WeChat
     /// <summary>
     /// 微信jsapi凭据存储
     /// </summary>
-    public interface IJsapiTicketStore
+    public interface IWeChatJsapiTicketStore
     {
         /// <summary>
         /// 获取默认配置凭证

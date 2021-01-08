@@ -1,4 +1,4 @@
-﻿namespace WeChat.Applet
+﻿namespace WeChat
 {
     public static class WeChatAppletEndpoints
     {

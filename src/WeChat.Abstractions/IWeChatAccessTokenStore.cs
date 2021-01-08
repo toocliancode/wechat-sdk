@@ -6,7 +6,7 @@ namespace WeChat
     /// <summary>
     /// 微信acces_token存储
     /// </summary>
-    public interface IAccessTokenStore
+    public interface IWeChatAccessTokenStore
     {
         /// <summary>
         /// 获取默认配置的access_token

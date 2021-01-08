@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-using WeChat.Applet.Response;
+using WeChat.Applet.Response.Login;
 
 namespace WeChat.Applet.Request
 {
@@ -10,6 +10,15 @@ namespace WeChat.Applet.Request
     /// </summary>
     public class WeChatCode2SessionRequest : WeChatHttpRequestBase<WeChatCode2SessionResponse>
     {
+        /// <summary>
+        /// 实例化一个新的 登录凭证校验 请求
+        /// </summary>
+        /// <param name="jsCode">登录时获取的 code</param>
+        public WeChatCode2SessionRequest(string jsCode)
+        {
+            JsCode = jsCode;
+        }
+
         protected override string GetEndpointName() => WeChatAppletEndpoints.Code2Session;
 
         /// <summary>
