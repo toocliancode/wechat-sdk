@@ -49,7 +49,7 @@ namespace WeChat.Applet.Request.Decrypt
         /// </summary>
         public string Iv { get; set; }
 
-        public override Task<TDecryptResponse> HandleAsync(IWeChatRequetHandleContext context)
+        public override Task<TDecryptResponse> Handler(IWeChatRequetHandleContext context)
         {
             AesManaged aes = new AesManaged
             {

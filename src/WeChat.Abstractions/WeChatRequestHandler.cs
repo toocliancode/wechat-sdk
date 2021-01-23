@@ -18,7 +18,7 @@ namespace WeChat
 
         public Task<TWeChatResponse> Handle(TWeChatRequet request, CancellationToken cancellationToken)
         {
-            return request.HandleAsync(new WeChatRequetHandleContext(_serviceProvider));
+            return request.Handler(new WeChatRequetHandleContext(_serviceProvider));
         }
     }
 }

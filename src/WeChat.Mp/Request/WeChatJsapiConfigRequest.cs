@@ -29,7 +29,7 @@ namespace WeChat.Mp.Request
         [JsonPropertyName("url")]
         public string Url { get; set; }
 
-        public override async Task<WeChatJsapiConfigResponse> HandleAsync(IWeChatRequetHandleContext context)
+        public override async Task<WeChatJsapiConfigResponse> Handler(IWeChatRequetHandleContext context)
         {
             var configuration = ConfigurationFactory(context.RequestServices, WeChatEndpoints.Ticket);
 

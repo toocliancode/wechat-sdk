@@ -17,6 +17,6 @@ namespace WeChat
             = (prodiver, configurationName)
             => prodiver.GetRequiredService<IOptions<WeChatOptions>>().Value.GetConfiguration(configurationName);
 
-        public abstract Task<TWeChatResponse> HandleAsync(IWeChatRequetHandleContext context);
+        public abstract Task<TWeChatResponse> Handler(IWeChatRequetHandleContext context);
     }
 }
