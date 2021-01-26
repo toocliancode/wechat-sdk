@@ -12,15 +12,15 @@ namespace WeChat
         /// </summary>
         public IDictionary<string, string> Endpoints { get; } = new Dictionary<string, string>();
 
-        /// <summary>
-        /// 默认配置
-        /// </summary>
-        public WeChatConfiguration Configuration { get; } = new WeChatConfiguration();
+        ///// <summary>
+        ///// 默认配置
+        ///// </summary>
+        //public WeChatConfiguration Configuration { get; } = new WeChatConfiguration();
 
         /// <summary>
         /// 端点配置
         /// </summary>
-        public IDictionary<string, WeChatConfiguration> EndpointConfigurations { get; } = new Dictionary<string, WeChatConfiguration>();
+        public IDictionary<string, WeChatConfiguration> Configurations { get; } = new Dictionary<string, WeChatConfiguration>();
 
         /// <summary>
         /// 添加或修改端点
@@ -60,18 +60,17 @@ namespace WeChat
         }
 
         /// <summary>
-        /// 获取端点配置，如果没有匹配则返回默认配置
+        /// 根据配置名称获取配置
         /// </summary>
-        /// <param name="endpointName"></param>
+        /// <param name="configurationName">配置名称。例如：wecaht</param>
         /// <returns></returns>
-        public WeChatConfiguration GetConfiguration(string endpointName)
+        public WeChatConfiguration GetConfiguration(string configurationName)
         {
-            if (EndpointConfigurations.TryGetValue(endpointName, out var configuration))
+            if (Configurations.TryGetValue(configurationName, out var configuration))
             {
                 return configuration;
             }
-
-            return Configuration;
+            throw new KeyNotFoundException($"未找到名为{configurationName}的配置");
         }
     }
 }

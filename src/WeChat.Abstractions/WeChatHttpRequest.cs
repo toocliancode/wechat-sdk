@@ -16,21 +16,21 @@ namespace WeChat
         }
 
         public WeChatHttpRequest(
-            Func<IHttpRequestContext, Task> request,
-            Func<IHttpResponseContext, Task<TWeChatResponse>> response)
+            Func<IHttpRequestContext, Task> requestFactory,
+            Func<IHttpResponseContext, Task<TWeChatResponse>> responseFactory)
         {
-            Request = request;
-            Response = response;
+            RequestFactory = requestFactory;
+            ResponseFactory = responseFactory;
         }
 
-        public override Task CreateAsync(IHttpRequestContext context) 
-            => Request is null ? throw new ArgumentNullException(nameof(Request)) : Request(context);
+        public override Task Request(IHttpRequestContext context)
+            => RequestFactory is null ? throw new ArgumentNullException(nameof(Request)) : Request(context);
 
-        public override Task<TWeChatResponse> ParserAsync(IHttpResponseContext context) 
-            => Response is null ? throw new ArgumentNullException(nameof(Response)) : Response(context);
+        public override Task<TWeChatResponse> Response(IHttpResponseContext context)
+            => ResponseFactory is null ? throw new ArgumentNullException(nameof(Response)) : Response(context);
 
-        public Func<IHttpRequestContext,Task> Request { get; set; }
+        public Func<IHttpRequestContext, Task> RequestFactory { get; set; }
 
-        public Func<IHttpResponseContext,Task<TWeChatResponse>> Response { get; set; }
+        public Func<IHttpResponseContext, Task<TWeChatResponse>> ResponseFactory { get; set; }
     }
 }

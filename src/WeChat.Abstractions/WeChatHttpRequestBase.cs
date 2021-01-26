@@ -45,33 +45,37 @@ namespace WeChat
             set => _configurationFactory = value ?? throw new ArgumentNullException(nameof(ConfigurationFactory));
         }
 
-        public override async Task CreateAsync(IHttpRequestContext context)
+        public override async Task Request(IHttpRequestContext context)
         {
             var endpointName = GetEndpointName();
-            var configuration = ConfigurationFactory(context.RequestService, endpointName);
+            var configuration = ConfigurationFactory(context.RequestServices, endpointName);
 
             ParameterHandler(configuration);
 
-            _parameterFactory?.Invoke(context.RequestService, configuration, Body);
+            _parameterFactory?.Invoke(context.RequestServices, configuration, Body);
 
             var dictionary = Body;
             var method = GetHttpMethod();
 
             if (method.Equals(HttpMethod.Get))
             {
-                context.Message.RequestUri = await HandleEndpointAsync(context.RequestService, endpointName, method, dictionary);
+                context.Message.RequestUri = await HandleEndpointAsync(context.RequestServices, endpointName, method, dictionary);
             }
             else
             {
                 context.Message.Method = method;
-                context.Message.RequestUri = await HandleEndpointAsync(context.RequestService, endpointName, method, dictionary);
+                context.Message.RequestUri = await HandleEndpointAsync(context.RequestServices, endpointName, method, dictionary);
                 context.Message.Content = new StringContent(JsonSerializer.Serialize(dictionary));
             }
 
             await Task.CompletedTask;
         }
 
-        protected virtual async Task<Uri> HandleEndpointAsync(IServiceProvider serviceProvider, string endpointName, HttpMethod method, WeChatDictionary<object> dictionary)
+        protected virtual async Task<Uri> HandleEndpointAsync(
+            IServiceProvider serviceProvider,
+            string endpointName,
+            HttpMethod method,
+            WeChatDictionary<object> dictionary)
         {
             var options = serviceProvider.GetRequiredService<IOptions<WeChatOptions>>().Value;
             var endpoint = options.GetEndpoint(endpointName);
@@ -101,7 +105,7 @@ namespace WeChat
             }
         }
 
-        public override async Task<TWeChatResponse> ParserAsync(IHttpResponseContext context)
+        public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
         {
             var content = await context.Message.Content.ReadAsByteArrayAsync();
             var response = JsonSerializer.Deserialize<TWeChatResponse>(content);
@@ -134,5 +138,10 @@ namespace WeChat
         /// </summary>
         /// <returns></returns>
         protected abstract string GetEndpointName();
+
+        public override HttpClient CreateClient(IHttpClientCreateContext context)
+        {
+            return context.HttpClientFactory.CreateClient("WeChatHttpClient");
+        }
     }
 }

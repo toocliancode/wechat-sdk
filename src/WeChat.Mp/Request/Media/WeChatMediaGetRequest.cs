@@ -36,7 +36,7 @@ namespace WeChat.Mp.Request
                 .Set("media_id", MediaId);
         }
 
-        public override async Task<WeChatMediaGetResponse> ParserAsync(IHttpResponseContext context)
+        public override async Task<WeChatMediaGetResponse> Response(IHttpResponseContext context)
         {
             var content = await context.Message.Content.ReadAsByteArrayAsync();
             WeChatMediaGetResponse response;

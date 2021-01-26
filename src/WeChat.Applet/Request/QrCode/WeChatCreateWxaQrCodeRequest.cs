@@ -48,7 +48,7 @@ namespace WeChat.Applet.Request.QrCode
                 .Set("width", Width);
         }
 
-        public override async Task<WeChatResponse> ParserAsync(IHttpResponseContext context)
+        public override async Task<WeChatResponse> Response(IHttpResponseContext context)
         {
             var data = await context.Message.Content.ReadAsByteArrayAsync();
             WeChatResponse response;
