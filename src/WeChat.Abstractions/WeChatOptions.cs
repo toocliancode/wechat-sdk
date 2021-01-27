@@ -18,7 +18,8 @@ namespace WeChat
         //public WeChatConfiguration Configuration { get; } = new WeChatConfiguration();
 
         /// <summary>
-        /// 端点配置
+        /// 微信配置
+        /// 名称：微信应用配置
         /// </summary>
         public IDictionary<string, WeChatConfiguration> Configurations { get; } = new Dictionary<string, WeChatConfiguration>();
 

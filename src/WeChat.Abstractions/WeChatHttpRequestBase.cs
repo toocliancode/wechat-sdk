@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace WeChat
@@ -142,6 +143,29 @@ namespace WeChat
         public override HttpClient CreateClient(IHttpClientCreateContext context)
         {
             return context.HttpClientFactory.CreateClient("WeChatHttpClient");
+        }
+    }
+
+    public abstract class WeChatHttpRequestBase2<TWeChatResponse> : HttpRequestBase<TWeChatResponse>
+        where TWeChatResponse : WeChatResponseBase
+    {
+        [JsonIgnore]
+        public virtual WeChatConfiguration Configuration { get; } = new WeChatConfiguration();
+
+        public virtual WeChatConfiguration Configure(IWeChatSettings settings)
+        {
+            Configuration.Configure(settings);
+            return Configuration;
+        }
+
+        public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
+        {
+            var content = await context.Message.Content.ReadAsByteArrayAsync();
+            var response = JsonSerializer.Deserialize<TWeChatResponse>(content);
+
+            response.Raw = content;
+            response.StatusCode = context.Message.StatusCode;
+            return response;
         }
     }
 }
