@@ -57,7 +57,7 @@ namespace WeChat
                 return endpoint;
             }
 
-            throw new KeyNotFoundException($"未找到名为{endpointName}的端点");
+            throw new KeyNotFoundException($"未找到名为{endpointName}的端点，需进行配置");
         }
 
         /// <summary>
