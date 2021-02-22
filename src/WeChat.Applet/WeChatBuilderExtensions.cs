@@ -10,6 +10,8 @@ namespace WeChat
         {
             return builder.Configure(options =>
             {
+                options.Configurations.Add("Applet", new WeChatConfiguration("Applet"));
+
                 options.AddOrUpdateEndpoints(new Dictionary<string, string>
                 {
                     [WeChatAppletEndpoints.Code2Session] = WeChatAppletEndpoints.Code2SessionValue,

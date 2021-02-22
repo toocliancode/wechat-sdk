@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Text.Json.Serialization;
 
 using WeChat.Response;
 
@@ -7,6 +8,8 @@ namespace WeChat.Request
 {
     /// <summary>
     /// 微信 access_token 请求
+    /// 
+    /// https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html
     /// </summary>
     public class WeChatAccessTokenRequest : WeChatHttpRequestBase<WeChatAccessTokenResponse>
     {
@@ -14,19 +17,38 @@ namespace WeChat.Request
         {
         }
 
-        public WeChatAccessTokenRequest(Func<IServiceProvider, string, WeChatConfiguration> configurationFactory) : base(configurationFactory)
+        public WeChatAccessTokenRequest(string appId, string secret)
         {
+            AppId = appId;
+            Secret = secret;
         }
 
-        protected override string GetEndpointName() => WeChatEndpoints.AccessToken;
+        protected override string EndpointName => WeChatEndpoints.AccessToken;
 
-        protected override void ParameterHandler(WeChatConfiguration configuration)
+        /// <summary>
+        /// 微信公众号、小程序 appid
+        /// </summary>
+        [JsonPropertyName("appid")]
+        public string AppId { get; set; }
+
+        /// <summary>
+        /// 密钥
+        /// </summary>
+        [JsonPropertyName("secret")]
+        public string Secret { get; set; }
+
+        /// <summary>
+        /// 授权类型
+        /// </summary>
+        [JsonPropertyName("grant_type")]
+        public string GrantType { get; } = "client_credential";
+
+        public override WeChatConfiguration Configure(IWeChatSettings settings)
         {
-            Body
-                .Set("appid", configuration.AppId)
-                .Set("secret", configuration.Secret)
+            AppId = settings.AppId;
+            Secret = settings.Secret;
 
-                .Set("grant_type", "client_credential");
+            return base.Configure(settings);
         }
     }
 }

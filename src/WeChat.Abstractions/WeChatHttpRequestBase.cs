@@ -11,161 +11,109 @@ using System.Threading.Tasks;
 
 namespace WeChat
 {
-    /// <summary>
-    /// 微信Http请求基类
-    /// </summary>
-    /// <typeparam name="TWeChatResponse"></typeparam>
-    public abstract class WeChatHttpRequestBase<TWeChatResponse>
-        : HttpRequestBase<TWeChatResponse>
+    public abstract class WeChatHttpRequestBase<TWeChatResponse> : HttpRequestBase<TWeChatResponse>
         where TWeChatResponse : WeChatResponseBase
     {
-        private Func<IServiceProvider, string, WeChatConfiguration> _configurationFactory = (prodiver, configurationName)
-                          => prodiver.GetRequiredService<IOptions<WeChatOptions>>().Value.GetConfiguration(configurationName);
-
-        private Action<IServiceProvider, WeChatConfiguration, WeChatDictionary<object>> _parameterFactory = (provider, configuration, body) => { };
-
-        protected WeChatHttpRequestBase()
+        private readonly static JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
         {
-        }
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true
+        };
 
         /// <summary>
-        /// 实例化一个Http请求
+        /// 微信配置
         /// </summary>
-        /// <param name="configurationFactory">端点自定义配置获取</param>
-        protected WeChatHttpRequestBase(Func<IServiceProvider, string, WeChatConfiguration> configurationFactory)
-        {
-            ConfigurationFactory = configurationFactory;
-        }
+        [JsonIgnore]
+        protected virtual WeChatConfiguration Configuration => new WeChatConfiguration();
 
         /// <summary>
-        /// 配置获取委托方法
+        /// 设置主要参数
         /// </summary>
-        public Func<IServiceProvider, string, WeChatConfiguration> ConfigurationFactory
+        /// <param name="settings"></param>
+        /// <returns></returns>
+        public virtual WeChatConfiguration Configure(IWeChatSettings settings) => Configuration.Configure(settings);
+
+        public virtual WeChatConfiguration Configure(string appId, string secret) => Configuration.Configure(appId, secret);
+
+        public override HttpClient CreateClient(IHttpClientCreateContext context) => context.HttpClientFactory.CreateClient(Configuration.Name);
+
+        public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
         {
-            get => _configurationFactory;
-            set => _configurationFactory = value ?? throw new ArgumentNullException(nameof(ConfigurationFactory));
+            var content = await context.Message.Content.ReadAsByteArrayAsync();
+            var response = JsonSerializer.Deserialize<TWeChatResponse>(content);
+
+            response.Raw = content;
+            response.StatusCode = context.Message.StatusCode;
+            return response;
         }
 
         public override async Task Request(IHttpRequestContext context)
         {
-            var endpointName = GetEndpointName();
-            var configuration = ConfigurationFactory(context.RequestServices, endpointName);
+            var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
 
-            ParameterHandler(configuration);
-
-            _parameterFactory?.Invoke(context.RequestServices, configuration, Body);
-
-            var dictionary = Body;
-            var method = GetHttpMethod();
-
-            if (method.Equals(HttpMethod.Get))
+            if (string.IsNullOrWhiteSpace(Configuration.AppId))
             {
-                context.Message.RequestUri = await HandleEndpointAsync(context.RequestServices, endpointName, method, dictionary);
+                var configuration = options.GetConfiguration(Configuration.Name);
+                Configuration.Configure(configuration.AppId, configuration.Secret);
+            }
+
+            var endpoint = options.GetEndpoint(EndpointName);
+            var auth = new WeChatDictionary();
+
+            if ((this) is IEnableAccessToken)
+            {
+                var token = await context.RequestServices.GetRequiredService<IWeChatAccessTokenStore>().GetAsync(Configuration.AppId, Configuration.Secret);
+                auth["access_token"] = token;
+            }
+
+            //if((this) is IEnableJsapiTicket)
+            //{
+            //    var ticket = await context.RequestServices.GetRequiredService<IWeChatJsapiTicketStore>().GetAsync(Configuration.AppId, Configuration.Secret);
+            //    auth["jsapi_ticket"] = ticket;
+            //}
+
+            if (Method.Equals(HttpMethod.Get))
+            {
+                var body = ToDictionary();
+                body.AddRange(auth);
+                endpoint = $"{endpoint}?{HttpUtility.ToQuery(body)}"; 
             }
             else
             {
-                context.Message.Method = method;
-                context.Message.RequestUri = await HandleEndpointAsync(context.RequestServices, endpointName, method, dictionary);
-                context.Message.Content = new StringContent(JsonSerializer.Serialize(dictionary));
+                endpoint = $"{endpoint}?{HttpUtility.ToQuery(auth)}";
+                context.Message.Content = new StringContent(ToSerialize());
             }
 
-            await Task.CompletedTask;
+            context.Message.Method = Method;
+            context.Message.RequestUri = new Uri(endpoint);
         }
 
-        protected virtual async Task<Uri> HandleEndpointAsync(
-            IServiceProvider serviceProvider,
-            string endpointName,
-            HttpMethod method,
-            WeChatDictionary<object> dictionary)
-        {
-            var options = serviceProvider.GetRequiredService<IOptions<WeChatOptions>>().Value;
-            var endpoint = options.GetEndpoint(endpointName);
-
-            return (method.Equals(HttpMethod.Get), (this) is IEnableAccessToken) switch
-            {
-                (true, true) => await GetTokenUri(),
-                (true, false) => new Uri($"{endpoint}?{HttpUtility.ToQuery(dictionary.ToStringValue())}"),
-                (false, false) => new Uri(endpoint),
-                _ => await GetTokenPostUri()
-            };
-
-            async Task<Uri> GetTokenUri()
-            {
-                var tokenStore = serviceProvider.GetRequiredService<IWeChatAccessTokenStore>();
-                var accessToken = await tokenStore.GetAsync(ConfigurationFactory);
-                dictionary["access_token"] = accessToken;
-                return new Uri($"{endpoint}?{HttpUtility.ToQuery(dictionary.ToStringValue())}");
-            }
-
-            async Task<Uri> GetTokenPostUri()
-            {
-                var tokenStore = serviceProvider.GetRequiredService<IWeChatAccessTokenStore>();
-                var accessToken = await tokenStore.GetAsync(ConfigurationFactory);
-                //dictionary["access_token"] = accessToken;
-                return new Uri($"{endpoint}?access_token={accessToken}");
-            }
-        }
-
-        public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
-        {
-            var content = await context.Message.Content.ReadAsByteArrayAsync();
-            var response = JsonSerializer.Deserialize<TWeChatResponse>(content);
-
-            response.Raw = content;
-            response.StatusCode = context.Message.StatusCode;
-            return response;
-        }
-
-        public WeChatDictionary<object> Body { get; } = new WeChatDictionary<object>();
-
-        /// <summary>
-        /// 主要参数处理
-        /// </summary>
-        /// <param name="configuration"></param>
-        protected virtual void ParameterHandler(WeChatConfiguration configuration)
-        {
-        }
-
-        public Action<IServiceProvider, WeChatConfiguration, WeChatDictionary<object>> ParameterFactory { get => _parameterFactory; set => _parameterFactory = value; }
-
-        /// <summary>
-        /// 获取Http请求方法
-        /// </summary>
-        /// <returns></returns>
-        protected virtual HttpMethod GetHttpMethod() => HttpMethod.Get;
-
-        /// <summary>
-        /// 获取端点名称
-        /// </summary>
-        /// <returns></returns>
-        protected abstract string GetEndpointName();
-
-        public override HttpClient CreateClient(IHttpClientCreateContext context)
-        {
-            return context.HttpClientFactory.CreateClient("WeChatHttpClient");
-        }
-    }
-
-    public abstract class WeChatHttpRequestBase2<TWeChatResponse> : HttpRequestBase<TWeChatResponse>
-        where TWeChatResponse : WeChatResponseBase
-    {
         [JsonIgnore]
-        public virtual WeChatConfiguration Configuration { get; } = new WeChatConfiguration();
+        protected virtual HttpMethod Method => HttpMethod.Get;
 
-        public virtual WeChatConfiguration Configure(IWeChatSettings settings)
+        /// <summary>
+        /// 端点名称
+        /// </summary>
+        [JsonIgnore]
+        protected abstract string EndpointName { get; }
+
+        public virtual WeChatDictionary ToDictionary()
         {
-            Configuration.Configure(settings);
-            return Configuration;
+            var dictionary = new WeChatDictionary();
+            using var document = JsonDocument.Parse(ToSerialize());
+
+            foreach (var jsonProperty in document.RootElement.EnumerateObject())
+            {
+                dictionary.Add(jsonProperty.Name, jsonProperty.Value.ValueKind == JsonValueKind.Null ? null : jsonProperty.Value.ToString());
+            }
+
+            return dictionary;
         }
 
-        public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
+        public virtual string ToSerialize()
         {
-            var content = await context.Message.Content.ReadAsByteArrayAsync();
-            var response = JsonSerializer.Deserialize<TWeChatResponse>(content);
-
-            response.Raw = content;
-            response.StatusCode = context.Message.StatusCode;
-            return response;
+            return JsonSerializer.Serialize((object)this, _serializerOptions);
         }
     }
 }

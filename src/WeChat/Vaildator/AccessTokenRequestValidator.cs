@@ -14,9 +14,8 @@ namespace WeChat.Vaildator
     {
         public WeChatAccessTokenRequestValidator()
         {
-            //RuleFor(x => x.Body["appid"]).NotEmpty();
-            //RuleFor(x => x.Body["secret"]).NotEmpty();
-            RuleFor(x => x.Body["grant_Type"]).Equal("client_credential");
+            RuleFor(x => x.AppId).NotEmpty();
+            RuleFor(x => x.Secret).NotEmpty();
         }
     }
 }

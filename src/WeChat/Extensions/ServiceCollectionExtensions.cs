@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static WeChatBuilder AddWeChat(this IServiceCollection services,string httpClientName="WeChatHttpClient")
+        public static WeChatBuilder AddWeChat(this IServiceCollection services)
         {
             if (services == null)
             {
@@ -41,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IWeChatJsapiTicketStore, WeChatJsapiTicketStore>();
             services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));
 
-            services.AddHttpClient(httpClientName);
+            //services.AddHttpClient(httpClientName);
 
             return builder;
         }

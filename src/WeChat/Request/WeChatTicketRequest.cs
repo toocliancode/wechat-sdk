@@ -8,37 +8,20 @@ namespace WeChat.Request
 {
     /// <summary>
     /// 微信 ticket 请求
+    /// 
+    /// https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Nontax_Bill/API_list.html#2.1%20%E8%8E%B7%E5%8F%96ticket
     /// </summary>
     public class WeChatTicketRequest : WeChatHttpRequestBase<WeChatTicketResponse>, IEnableAccessToken
     {
+
         /// <summary>
         /// 实例化一个新的 微信ticket请求
         /// </summary>
         /// <param name="type">凭证类型： jsapi、wx_card</param>
-        public WeChatTicketRequest(string type)
+        public WeChatTicketRequest(string type= "jsapi")
         {
             Type = type;
         }
-
-        /// <summary>
-        /// 实例化一个新的 微信ticket请求
-        /// </summary>
-        /// <param name="configurationFactory"></param>
-        public WeChatTicketRequest(Func<IServiceProvider, string, WeChatConfiguration> configurationFactory) : base(configurationFactory)
-        {
-        }
-
-        /// <summary>
-        /// 实例化一个新的 微信ticket请求
-        /// </summary>
-        /// <param name="configurationFactory"></param>
-        /// <param name="type">凭证类型： jsapi、wx_card</param>
-        public WeChatTicketRequest(Func<IServiceProvider, string, WeChatConfiguration> configurationFactory,string type) : base(configurationFactory)
-        {
-            Type = type;
-        }
-
-        protected override string GetEndpointName() => WeChatEndpoints.Ticket;
 
         /// <summary>
         /// 凭证类型： jsapi、wx_card
@@ -46,9 +29,6 @@ namespace WeChat.Request
         [JsonPropertyName("type")]
         public string Type { get; set; } = "jsapi";
 
-        protected override void ParameterHandler(WeChatConfiguration configuration)
-        {
-            Body.Set("type", Type); 
-        }
+        protected override string EndpointName => WeChatEndpoints.Ticket;
     }
 }

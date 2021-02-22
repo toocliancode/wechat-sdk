@@ -8,6 +8,6 @@ namespace WeChat.Mp.Request
     /// </summary>
     public class WeChatApiIpRequest : WeChatHttpRequestBase<WeChatIpResponse>, IEnableAccessToken
     {
-        protected override string GetEndpointName() => WeChatMpEndpoints.ApiIp;
+        protected override string EndpointName => WeChatMpEndpoints.ApiIp;
     }
 }

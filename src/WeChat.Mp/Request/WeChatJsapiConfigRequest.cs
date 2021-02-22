@@ -1,6 +1,7 @@
 ﻿using Mediator.HttpClient;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -31,11 +32,17 @@ namespace WeChat.Mp.Request
 
         public override async Task<WeChatJsapiConfigResponse> Handler(IWeChatRequetHandleContext context)
         {
-            var configuration = ConfigurationFactory(context.RequestServices, WeChatEndpoints.Ticket);
+            var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
+
+            if (string.IsNullOrWhiteSpace(Configuration.AppId))
+            {
+                var configuration = options.GetConfiguration(Configuration.Name);
+                Configuration.Configure(configuration.AppId, configuration.Secret);
+            }
 
             //获取凭证
             var ticketStore = context.RequestServices.GetRequiredService<IWeChatJsapiTicketStore>();
-            var jsapiTicket = await ticketStore.GetAsync(ConfigurationFactory);
+            var ticket = await ticketStore.GetAsync(Configuration.AppId, Configuration.Secret);
 
             // 设置随机字符串
             var noncestr = HttpUtility.GenerateNonceStr();
@@ -47,10 +54,10 @@ namespace WeChat.Mp.Request
                 {"noncestr",noncestr },
                 {"timestamp",timestamp },
                 {"url",Url },
-                {"jsapi_ticket",jsapiTicket }
+                {"jsapi_ticket",ticket }
             };
 
-            var response = new WeChatJsapiConfigResponse(configuration.AppId, timestamp, noncestr)
+            var response = new WeChatJsapiConfigResponse(Configuration.AppId, timestamp, noncestr)
             {
                 Signature = WeChatSignature.Sign(dictionary, WeChatSignType.SHA1)
             };

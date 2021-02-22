@@ -12,6 +12,10 @@ namespace WeChat.Mp.Request.Message
     /// </summary>
     public class WeChatTemplateSendRequest : WeChatHttpRequestBase<WeChatTemplateSendResponse>
     {
+        public WeChatTemplateSendRequest()
+        {
+        }
+
         /// <summary>
         /// 实例化一个新的 发送模板消息 请求
         /// </summary>
@@ -44,8 +48,8 @@ namespace WeChat.Mp.Request.Message
             Data = data;
         }
 
-        protected override string GetEndpointName() => WeChatMpEndpoints.MessageTemplateSend;
-        protected override HttpMethod GetHttpMethod() => HttpMethod.Post;
+        protected override string EndpointName => WeChatMpEndpoints.MessageTemplateSend;
+        protected override HttpMethod Method => HttpMethod.Post;
 
         /// <summary>
         /// 接收者openid
@@ -83,14 +87,5 @@ namespace WeChat.Mp.Request.Message
         [JsonPropertyName("data")]
         public Dictionary<string, Dictionary<string, string>> Data { get; set; }
 
-        protected override void ParameterHandler(WeChatConfiguration configuration)
-        {
-            Body
-                .Set("touser", ToUser)
-                .Set("template_id", TemplateId)
-                .Set("url", Url)
-                .Set("miniprogram", MiniProgram)
-                .Set("data", Data);
-        }
     }
 }

@@ -35,8 +35,8 @@ namespace WeChat.Applet.Request.Message
             Lang = lang;
         }
 
-        protected override string GetEndpointName() => WeChatAppletEndpoints.SubscribeMessageSend;
-        protected override HttpMethod GetHttpMethod() => HttpMethod.Post;
+        protected override string EndpointName => WeChatAppletEndpoints.SubscribeMessageSend;
+        protected override HttpMethod Method => HttpMethod.Post;
 
         /// <summary>
         /// 接收者（用户）的 openid
@@ -73,16 +73,5 @@ namespace WeChat.Applet.Request.Message
         /// </summary>
         [JsonPropertyName("lang")]
         public string Lang { get; set; }
-
-        protected override void ParameterHandler(WeChatConfiguration configuration)
-        {
-            Body
-                .Set("touser", ToUser)
-                .Set("template_id", TemplateId)
-                .Set("page", Page)
-                .Set("data", Data)
-                .Set("miniprogram_state", MiniProgramState)
-                .Set("lang", Lang);
-        }
     }
 }

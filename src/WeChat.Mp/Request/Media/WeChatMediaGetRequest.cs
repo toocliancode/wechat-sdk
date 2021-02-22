@@ -22,19 +22,13 @@ namespace WeChat.Mp.Request
             MediaId = mediaId;
         }
 
-        protected override string GetEndpointName() => WeChatMpEndpoints.MediaGet;
+        protected override string EndpointName => WeChatMpEndpoints.MediaGet;
 
         /// <summary>
         /// 媒体文件Id
         /// </summary>
         [JsonPropertyName("media_id")]
         public string MediaId { get; set; }
-
-        protected override void ParameterHandler(WeChatConfiguration configuration)
-        {
-            Body
-                .Set("media_id", MediaId);
-        }
 
         public override async Task<WeChatMediaGetResponse> Response(IHttpResponseContext context)
         {

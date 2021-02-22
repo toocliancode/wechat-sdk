@@ -40,9 +40,9 @@ namespace WeChat.Applet.Request.QrCode
             IsHyaline = isHyaline;
         }
 
-        protected override string GetEndpointName() => WeChatAppletEndpoints.GetWxaCodeUnlimit;
+        protected override string EndpointName => WeChatAppletEndpoints.GetWxaCodeUnlimit;
 
-        protected override HttpMethod GetHttpMethod() => HttpMethod.Post;
+        protected override HttpMethod Method => HttpMethod.Post;
 
         /// <summary>
         /// 最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&amp;'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）
@@ -79,16 +79,6 @@ namespace WeChat.Applet.Request.QrCode
         /// </summary>
         [JsonPropertyName("is_hyaline")]
         public bool IsHyaline { get; set; }
-
-        protected override void ParameterHandler(WeChatConfiguration configuration)
-        {
-            Body
-                .Set("path", Path)
-                .Set("width", Width)
-                .Set("auto_color", AutoColor)
-                .Set("line_color", LineColor)
-                .Set("is_hyaline", IsHyaline);
-        }
 
         public override async Task<WeChatResponse> Response(IHttpResponseContext context)
         {

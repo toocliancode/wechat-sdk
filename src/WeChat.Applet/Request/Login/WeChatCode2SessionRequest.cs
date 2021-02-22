@@ -19,7 +19,7 @@ namespace WeChat.Applet.Request
             JsCode = jsCode;
         }
 
-        protected override string GetEndpointName() => WeChatAppletEndpoints.Code2Session;
+        protected override string EndpointName => WeChatAppletEndpoints.Code2Session;
 
         /// <summary>
         /// 登录时获取的 code
@@ -27,17 +27,10 @@ namespace WeChat.Applet.Request
         [JsonPropertyName("js_code")]
         public string JsCode { get; set; }
 
-        ///// <summary>
-        ///// 授权类型，此处只需填写 authorization_code
-        ///// </summary>
-        //[JsonPropertyName("grent_code")]
-        //public string GrantType => "authorization_code";
-
-        protected override void ParameterHandler(WeChatConfiguration configuration)
-        {
-            Body
-                .Set("js_code", JsCode)
-                .Set("grent_code", "authorization_code");
-        }
+        /// <summary>
+        /// 授权类型，此处只需填写 authorization_code
+        /// </summary>
+        [JsonPropertyName("grent_code")]
+        public string GrantType => "authorization_code";
     }
 }

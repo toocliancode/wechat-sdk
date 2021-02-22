@@ -10,6 +10,8 @@ namespace WeChat
         {
             return builder.Configure(options =>
              {
+                 options.Configurations.Add("Mp", new WeChatConfiguration("Mp"));
+
                  options.AddOrUpdateEndpoints(new Dictionary<string, string>
                  {
                      [WeChatMpEndpoints.ApiIp] = WeChatMpEndpoints.ApiIpValue,

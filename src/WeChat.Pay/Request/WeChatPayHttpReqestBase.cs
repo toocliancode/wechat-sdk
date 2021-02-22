@@ -15,7 +15,7 @@ namespace WeChat.Pay.Request
     {
         public override Task Request(IHttpRequestContext context)
         {
-            var endpointName = GetEndpointName();
+            //var endpointName = GetEndpointName();
 
             return base.Request(context);
         }
