@@ -13,7 +13,7 @@ namespace WeChat.Applet.Request.QrCode
     /// 获取小程序码，适用于需要的码数量较少的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
     /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html
     /// </summary>
-    public class WeChatGetWxaCodeUnlimitRequest : WeChatHttpRequestBase<WeChatResponse>, IEnableAccessToken
+    public class WeChatGetWxaCodeUnlimitRequest : WeChatAppletHttpRequestBase<WeChatResponse>, IEnableAccessToken
     {
         /// <summary>
         /// 实例化一个新的 获取小程序码 请求

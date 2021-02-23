@@ -24,6 +24,8 @@ namespace WeChat.Mp.Request
             Url = url;
         }
 
+        protected override WeChatConfiguration Configuration => base.Configuration.Configure("Mp");
+
         /// <summary>
         /// 需要微信jssdk配置 的页面链接
         /// </summary>

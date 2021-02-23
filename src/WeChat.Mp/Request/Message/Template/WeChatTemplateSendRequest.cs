@@ -10,7 +10,7 @@ namespace WeChat.Mp.Request.Message
     /// 发送模板消息 请求
     /// https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5
     /// </summary>
-    public class WeChatTemplateSendRequest : WeChatHttpRequestBase<WeChatTemplateSendResponse>
+    public class WeChatTemplateSendRequest : WeChatMpHttpRequestBase<WeChatTemplateSendResponse>
     {
         public WeChatTemplateSendRequest()
         {

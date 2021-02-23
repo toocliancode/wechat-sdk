@@ -8,7 +8,7 @@ namespace WeChat.Applet.Request.Message
     /// 发送订阅消息 请求
     /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html
     /// </summary>
-    public class WeChatSubscribeMessageSendRequest : WeChatHttpRequestBase<WeChatResponse>, IEnableAccessToken
+    public class WeChatSubscribeMessageSendRequest : WeChatAppletHttpRequestBase<WeChatResponse>, IEnableAccessToken
     {
         /// <summary>
         /// 实例化一个发送订阅消息 请求

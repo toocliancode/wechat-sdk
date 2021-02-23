@@ -12,7 +12,7 @@ namespace WeChat.Applet.Request.QrCode
     /// 适用于需要的码数量较少的业务场景。通过该接口生成的小程序码，永久有效，有数量限制
     /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.createQRCode.html
     /// </summary>
-    public class WeChatCreateWxaQrCodeRequest : WeChatHttpRequestBase<WeChatResponse>, IEnableAccessToken
+    public class WeChatCreateWxaQrCodeRequest : WeChatAppletHttpRequestBase<WeChatResponse>, IEnableAccessToken
     {
         /// <summary>
         /// 实例化一个新的 创建小程序二维码 请求

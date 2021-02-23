@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 using WeChat.Applet.Response.Decrypt;
 
-namespace WeChat.Applet.Request.Decrypt
+namespace WeChat.Applet.Request
 {
     /// <summary>
     /// 微信开放数据解密 请求
@@ -29,6 +29,8 @@ namespace WeChat.Applet.Request.Decrypt
             EncryptedData = encryptedData;
             Iv = iv;
         }
+
+        protected override WeChatConfiguration Configuration => base.Configuration.Configure("Applet");
 
         ///// <summary>
         ///// 微信应用号

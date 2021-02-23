@@ -11,7 +11,7 @@ namespace WeChat.Mp.Request
     /// <summary>
     /// 获取临时素材 请求
     /// </summary>
-    public class WeChatMediaGetRequest : WeChatHttpRequestBase<WeChatMediaGetResponse>, IEnableAccessToken
+    public class WeChatMediaGetRequest : WeChatMpHttpRequestBase<WeChatMediaGetResponse>, IEnableAccessToken
     {
         /// <summary>
         /// 实例化一个新的 获取临时素材 请求
