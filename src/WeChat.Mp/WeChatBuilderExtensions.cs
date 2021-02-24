@@ -10,7 +10,7 @@ namespace WeChat
         {
             return builder.Configure(options =>
              {
-                 options.Configurations.Add("Mp", new WeChatConfiguration("Mp"));
+                 options.Configurations.Add("WeChatMp", new WeChatConfiguration("WeChatMp"));
 
                  options.AddOrUpdateEndpoints(new Dictionary<string, string>
                  {

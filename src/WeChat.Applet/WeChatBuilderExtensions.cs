@@ -10,7 +10,7 @@ namespace WeChat
         {
             return builder.Configure(options =>
             {
-                options.Configurations.Add("Applet", new WeChatConfiguration("Applet"));
+                options.Configurations.Add("WeChatApplet", new WeChatConfiguration("WeChatApplet"));
 
                 options.AddOrUpdateEndpoints(new Dictionary<string, string>
                 {

@@ -41,8 +41,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IWeChatJsapiTicketStore, WeChatJsapiTicketStore>();
             services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));
 
-            //services.AddHttpClient("").AddHttpMessageHandler;
-
             return builder;
         }
     }
