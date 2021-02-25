@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace WeChat
 {
-    public abstract class WeChatResponseBase
+    public class WeChatResponseBase
     {
         [JsonIgnore]
         public byte[] Raw { get; set; }

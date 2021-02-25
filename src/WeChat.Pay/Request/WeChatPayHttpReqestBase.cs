@@ -18,6 +18,14 @@ namespace WeChat.Pay.Request
         where TWeChatResponse : WeChatResponseBase
     {
         protected override WeChatConfiguration Configuration => base.Configuration.Configure("WeCahtPay");
+        protected override HttpMethod Method => HttpMethod.Post;
+
+        /// <summary>
+        /// 是否需要检查签名
+        /// </summary>
+        protected virtual bool EnabledCheckSign => false;
+        public override HttpClient CreateClient(IHttpClientCreateContext context) => context.HttpClientFactory.CreateClient(Configuration.Name);
+
         public override async Task Request(IHttpRequestContext context)
         {
             var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
@@ -82,11 +90,6 @@ namespace WeChat.Pay.Request
             return endpoint;
         }
 
-        public override HttpClient CreateClient(IHttpClientCreateContext context) => context.HttpClientFactory.CreateClient(Configuration.Name);
 
-        public override Task<TWeChatResponse> Response(IHttpResponseContext context)
-        {
-            return base.Response(context);
-        }
     }
 }

@@ -41,8 +41,18 @@ namespace WeChat
         public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
         {
             var content = await context.Message.Content.ReadAsByteArrayAsync();
-            var response = JsonSerializer.Deserialize<TWeChatResponse>(content);
+            TWeChatResponse response = null; 
 
+            try
+            {
+                response = JsonSerializer.Deserialize<TWeChatResponse>(content, _serializerOptions);
+            }
+            catch{}
+
+            if (response == null)
+            {
+                response = Activator.CreateInstance<TWeChatResponse>();
+            }
             response.Raw = content;
             response.StatusCode = context.Message.StatusCode;
             return response;
