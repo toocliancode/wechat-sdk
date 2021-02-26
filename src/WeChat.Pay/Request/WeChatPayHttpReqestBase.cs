@@ -23,66 +23,34 @@ namespace WeChat.Pay.Request
         /// <summary>
         /// 是否需要检查签名
         /// </summary>
-        protected virtual bool EnabledCheckSign => false;
+        protected virtual bool EnabledSignatureCheck => true;
+
         public override HttpClient CreateClient(IHttpClientCreateContext context) => context.HttpClientFactory.CreateClient(Configuration.Name);
 
         public override async Task Request(IHttpRequestContext context)
         {
             var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
 
+            WeChatPaySettings settings = null;
             if (string.IsNullOrWhiteSpace(Configuration.AppId))
             {
                 var configuration = options.GetConfiguration(Configuration.Name);
-                Configuration.Configure(configuration.AppId, configuration.Secret);
+                settings = configuration.Get<WeChatPaySettings>();
+
+                Configuration.Configure(settings);
             }
 
             var endpoint = options.GetEndpoint(EndpointName);
             endpoint = EndpointHandler(endpoint);
-            
-            if (Method.Equals(HttpMethod.Post))
-            {
-                context.Message.Content = new StringContent(ToSerialize());
-            }
+
+            ContentHandler(context.Message);
 
             context.Message.Method = Method;
             context.Message.RequestUri = new Uri(endpoint);
 
-            await AuthorizationHandler(context);
-        }
-
-        protected virtual async Task AuthorizationHandler(IHttpRequestContext context)
-        {
-            var token = await BuildAuthAsync(context.Message, Configuration.Get<WeChatPaySettings>());
-            context.Message.Headers.Authorization = new AuthenticationHeaderValue("WECHATPAY2-SHA256-RSA2048", token);
-            context.Message.Headers.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue("Unknown")));
-            context.Message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
-        protected async Task<string> BuildAuthAsync(HttpRequestMessage request, WeChatPaySettings settings)
-        {
-            string method = request.Method.ToString();
-            string body = "";
-            if (method == "POST" || method == "PUT" || method == "PATCH")
-            {
-                var content = request.Content;
-                body = await content.ReadAsStringAsync();
-            }
-
-            string uri = request.RequestUri.PathAndQuery;
-            var timestamp = HttpUtility.GetTimeStamp();
-            string nonce = HttpUtility.GenerateNonceStr();
-
-            string message = $"{method}\n{uri}\n{timestamp}\n{nonce}\n{body}\n";
-            string signature = Sign(settings.CertificateRSAPrivateKey, message);
-            return $"mchid=\"{settings.MchId}\",nonce_str=\"{nonce}\",timestamp=\"{timestamp}\",serial_no=\"{settings.CertificateSerialNo}\",signature=\"{signature}\"";
-        }
-
-        protected string Sign(RSA rsa, string message)
-        {
-            // NOTE： 私钥不包括私钥文件起始的-----BEGIN PRIVATE KEY-----
-            //        亦不包括结尾的-----END PRIVATE KEY-----
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-            return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+           
+            var  authorizationHandler = context.RequestServices.GetRequiredService<IWeChatPayAuthorizationHandler>();
+            await authorizationHandler.Handler(context.Message, settings);
         }
 
         protected virtual string EndpointHandler(string endpoint)
@@ -90,6 +58,25 @@ namespace WeChat.Pay.Request
             return endpoint;
         }
 
+        protected virtual void ContentHandler(HttpRequestMessage message)
+        {
+            if (Method.Equals(HttpMethod.Post))
+            {
+                message.Content = new StringContent(ToSerialize());
+            }
+        }
 
+        public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
+        {
+            var response =await base.Response(context);
+
+            if (EnabledSignatureCheck)
+            {
+                var checker = context.RequestService.GetRequiredService<IWeChatPayResponseSignatureChecker>();
+                await checker.Check(context.Message, Configuration.Get<WeChatPaySettings>());
+            }
+
+            return response;
+        }
     }
 }
