@@ -11,6 +11,6 @@ namespace WeChat.Pay.Request
 {
     public class WeChatPayTransactionsJsapiRequest : WeChatPayHttpReqestBase<WeChatPayTransactionsJsapiResponse>
     {
-        protected override string EndpointName => throw new NotImplementedException();
+        protected override string EndpointName => WeChatPayEndpoints.PayTransactionsJsapi;
     }
 }

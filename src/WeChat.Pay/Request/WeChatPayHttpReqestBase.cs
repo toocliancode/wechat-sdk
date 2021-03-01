@@ -68,15 +68,13 @@ namespace WeChat.Pay.Request
 
         public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
         {
-            var response =await base.Response(context);
-
             if (EnabledSignatureCheck)
             {
                 var checker = context.RequestService.GetRequiredService<IWeChatPayResponseSignatureChecker>();
                 await checker.Check(context.Message, Configuration.Get<WeChatPaySettings>());
             }
 
-            return response;
+            return await base.Response(context);
         }
     }
 }
