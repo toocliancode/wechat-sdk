@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace WeChat.Pay.Domain.Certificate
+namespace WeChat.Pay.Domain
 {
     /// <summary>
     /// 加密证书信息

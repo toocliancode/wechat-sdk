@@ -40,6 +40,8 @@ namespace WeChat.Pay.Request
                 Configuration.Configure(settings);
             }
 
+            ParameterHandler(settings);
+
             var endpoint = options.GetEndpoint(EndpointName);
             endpoint = EndpointHandler(endpoint);
 
@@ -56,6 +58,11 @@ namespace WeChat.Pay.Request
         protected virtual string EndpointHandler(string endpoint)
         {
             return endpoint;
+        }
+
+        protected virtual void ParameterHandler(WeChatPaySettings settings)
+        {
+
         }
 
         protected virtual void ContentHandler(HttpRequestMessage message)

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WeChat.Pay.Domain.Certificate
+namespace WeChat.Pay.Domain
 {
     /// <summary>
     /// 平台证书信息

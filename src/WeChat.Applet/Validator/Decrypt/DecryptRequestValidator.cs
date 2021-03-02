@@ -1,7 +1,7 @@
 ﻿
 using FluentValidation;
 
-using WeChat.Applet.Request.Decrypt;
+using WeChat.Applet.Request;
 using WeChat.Applet.Response.Decrypt;
 
 namespace WeChat.Applet.Validator.Decrypt

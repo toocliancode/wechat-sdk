@@ -57,5 +57,40 @@ namespace WeChat.Pay
             aesGcm.Decrypt(nonceBytes, ciphertextBytes, tagBytes, plaintextBytes, associatedDataBytes);
             return Encoding.UTF8.GetString(plaintextBytes);
         }
+
+        public static string SHA256WithRSAEncrypt(RSA rsa, string data)
+        {
+            if (rsa == null)
+            {
+                throw new ArgumentNullException(nameof(rsa));
+            }
+
+            if (string.IsNullOrEmpty(data))
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            return Convert.ToBase64String(rsa.SignData(Encoding.UTF8.GetBytes(data), HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
+        }
+
+        public static bool SHA256WithRSAEqual (RSA rsa, string data, string sign)
+        {
+            if (rsa == null)
+            {
+                throw new ArgumentNullException(nameof(rsa));
+            }
+
+            if (string.IsNullOrEmpty(data))
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (string.IsNullOrEmpty(sign))
+            {
+                throw new ArgumentNullException(nameof(sign));
+            }
+
+            return rsa.VerifyData(Encoding.UTF8.GetBytes(data), Convert.FromBase64String(sign), HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+        }
     }
 }
