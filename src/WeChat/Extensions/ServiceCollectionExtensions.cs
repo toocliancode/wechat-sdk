@@ -37,9 +37,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton(builder);
             }
 
+            services.AddDistributedMemoryCache();
+
             services.TryAddSingleton<IWeChatAccessTokenStore, WeChatAccessTokenStore>();
             services.TryAddSingleton<IWeChatJsapiTicketStore, WeChatJsapiTicketStore>();
             services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));
+            services.TryAddTransient(typeof(Mediator.HttpClient.IHttpRequestHandler<,>), typeof(Mediator.HttpClient.HttpRequestHandler<,>));
 
             return builder;
         }

@@ -12,6 +12,14 @@ namespace WeChat
         /// <summary>
         /// 实例化一个微信配置
         /// </summary>
+        public WeChatConfiguration()
+        {
+            Name = "WeChat";
+        }
+
+        /// <summary>
+        /// 实例化一个微信配置
+        /// </summary>
         public WeChatConfiguration(string name = "WeChat")
         {
             Name = name;

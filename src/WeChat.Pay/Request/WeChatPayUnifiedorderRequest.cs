@@ -39,6 +39,7 @@ namespace WeChat.Pay.Request
         /// <param name="notifyUrl">通知地址</param>
         /// <param name="amountTotal">订单金额</param>
         /// <param name="payerOpenId">支付者openid</param>
+        /// <param name="type"></param>
         public WeChatPayUnifiedorderRequest(string description, string outTradeNo, string notifyUrl, int amountTotal, string payerOpenId,string type = "Jsapi")
         {
             Description = description;

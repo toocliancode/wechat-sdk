@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Mp", "src\WeChat.Mp\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Applet", "src\WeChat.Applet\WeChat.Applet.csproj", "{04AA97F6-D280-4F7D-9D74-D5710F60E8E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat.Pay", "src\WeChat.Pay\WeChat.Pay.csproj", "{21806E74-0061-4A0C-A0D7-458106A41120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Pay", "src\WeChat.Pay\WeChat.Pay.csproj", "{21806E74-0061-4A0C-A0D7-458106A41120}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "simples", "simples", "{4EBDC10F-2EFA-46EA-A181-1DFC2D56A7EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreApi", "simples\AspNetCoreApi\AspNetCoreApi.csproj", "{78720BDB-C45E-41F2-972E-2817059EB767}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{21806E74-0061-4A0C-A0D7-458106A41120}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21806E74-0061-4A0C-A0D7-458106A41120}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21806E74-0061-4A0C-A0D7-458106A41120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78720BDB-C45E-41F2-972E-2817059EB767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78720BDB-C45E-41F2-972E-2817059EB767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78720BDB-C45E-41F2-972E-2817059EB767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78720BDB-C45E-41F2-972E-2817059EB767}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +59,7 @@ Global
 		{60C51CE0-7CAF-49DF-8180-F6D0C8C285CE} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
 		{04AA97F6-D280-4F7D-9D74-D5710F60E8E1} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
 		{21806E74-0061-4A0C-A0D7-458106A41120} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
+		{78720BDB-C45E-41F2-972E-2817059EB767} = {4EBDC10F-2EFA-46EA-A181-1DFC2D56A7EF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D70104D6-A557-42B3-A5A8-C1224E8AC52D}
