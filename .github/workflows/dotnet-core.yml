@@ -1,0 +1,25 @@
+name: publish to myget
+on:
+  push:
+    branches:
+      - master # Default release branch
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.100
+
+      # Publish
+      - name: publish on version change
+        run: dotnet restore
+      - name: Pack
+        run: dotnet pack --configuration Release --no-restore --output nupkgs
+      - name: Push
+        working-directory: nupkgs
+        run: dotnet nuget push "*.nupkg" -s https://www.myget.org/F/toocliancode/api/v2/package -k 2d63a375-620d-408e-867d-22b869d067ba
