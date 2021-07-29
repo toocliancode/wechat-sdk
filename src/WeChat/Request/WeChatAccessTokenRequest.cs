@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 using WeChat.Response;
 
@@ -21,6 +19,7 @@ namespace WeChat.Request
         {
             AppId = appId;
             Secret = secret;
+            Configuration.Configure(appId, secret);
         }
 
         protected override string EndpointName => WeChatEndpoints.AccessToken;
