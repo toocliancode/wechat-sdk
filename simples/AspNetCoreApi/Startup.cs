@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using WeChat;
+using WeChat.Mp.Request;
+using WeChat.Request;
 
 namespace AspNetCoreApi
 {
@@ -59,6 +61,13 @@ namespace AspNetCoreApi
             {
                 endpoints.MapControllers();
             });
+
+            var request = new WeChatJsapiConfigRequest("");
+            request.Configure("1", "2");
+            request.Configure("12", "233");
+
+            var a = new WeChatTicketRequest();
+                a.Configure("1", "22");
         }
     }
 }

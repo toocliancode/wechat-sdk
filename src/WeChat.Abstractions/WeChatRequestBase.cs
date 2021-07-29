@@ -13,11 +13,18 @@ namespace WeChat
     [OnHandler(typeof(IWeChatRequestHandler<,>))]
     public abstract class WeChatRequestBase<TWeChatResponse> : IRequest<TWeChatResponse>
     {
+        private readonly WeChatConfiguration _configuration;
+
+        protected WeChatRequestBase()
+        {
+            _configuration = new();
+        }
+
         /// <summary>
         /// 微信配置
         /// </summary>
         [JsonIgnore]
-        protected virtual WeChatConfiguration Configuration => new WeChatConfiguration();
+        protected virtual WeChatConfiguration Configuration => _configuration;
 
         /// <summary>
         /// 设置主要参数

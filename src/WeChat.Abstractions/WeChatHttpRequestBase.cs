@@ -20,7 +20,11 @@ namespace WeChat
             IgnoreNullValues = true,
             PropertyNameCaseInsensitive = true
         };
-        private readonly WeChatConfiguration _configuration = new();
+        private readonly WeChatConfiguration _configuration;
+        public WeChatHttpRequestBase()
+        {
+            _configuration = new();
+        }
 
         /// <summary>
         /// 微信配置
