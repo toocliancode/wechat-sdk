@@ -14,18 +14,19 @@ namespace WeChat
     public abstract class WeChatHttpRequestBase<TWeChatResponse> : HttpRequestBase<TWeChatResponse>
         where TWeChatResponse : WeChatResponseBase
     {
-        private readonly static JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+        private readonly static JsonSerializerOptions _serializerOptions = new()
         {
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             IgnoreNullValues = true,
             PropertyNameCaseInsensitive = true
         };
+        private readonly WeChatConfiguration _configuration = new();
 
         /// <summary>
         /// 微信配置
         /// </summary>
         [JsonIgnore]
-        protected virtual WeChatConfiguration Configuration => new WeChatConfiguration();
+        protected virtual WeChatConfiguration Configuration => _configuration;
 
         /// <summary>
         /// 设置主要参数
@@ -41,13 +42,13 @@ namespace WeChat
         public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
         {
             var content = await context.Message.Content.ReadAsByteArrayAsync();
-            TWeChatResponse response = null; 
+            TWeChatResponse response = null;
 
             try
             {
                 response = JsonSerializer.Deserialize<TWeChatResponse>(content, _serializerOptions);
             }
-            catch{}
+            catch { }
 
             if (response == null)
             {
@@ -87,7 +88,7 @@ namespace WeChat
             {
                 var body = ToDictionary();
                 body.AddRange(auth);
-                endpoint = $"{endpoint}?{HttpUtility.ToQuery(body)}"; 
+                endpoint = $"{endpoint}?{HttpUtility.ToQuery(body)}";
             }
             else
             {
