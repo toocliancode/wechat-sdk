@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeChat.Applet.Response.Decrypt
+namespace WeChat.Applet.Response
 {
     public class DecryptWatermark
     {

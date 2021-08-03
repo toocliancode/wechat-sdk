@@ -7,7 +7,6 @@
         /// GET  https://api.weixin.qq.com/sns/jscode2session?appid=APPID&amp;secret=SECRET&amp;js_code=JSCODE&amp;grant_type=authorization_code
         /// </summary>
         public const string Code2Session = "Code2SessionEndpoint";
-
         public const string Code2SessionValue = "https://api.weixin.qq.com/sns/jscode2session";
 
         /// <summary>
@@ -16,7 +15,6 @@
         /// POST https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=ACCESS_TOKEN
         /// </summary>
         public const string CreateQrCode = "CreateQrCodeEndpoint";
-
         public const string CreateQrCodeValue = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode";
 
         /// <summary>
@@ -25,7 +23,6 @@
         /// POST https://api.weixin.qq.com/wxa/getwxacode?access_token=ACCESS_TOKEN..
         /// </summary>
         public const string GetWxaCode = "GetWxaCodeEndpoint";
-
         public const string GetWxaCodeValue = "https://api.weixin.qq.com/wxa/getwxacode";
 
         /// <summary>
@@ -34,14 +31,28 @@
         /// POST POST https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=ACCESS_TOKEN
         /// </summary>
         public const string GetWxaCodeUnlimit = "GetWxaCodeUnlimitEndpoint";
-
         public const string GetWxaCodeUnlimitValue = "https://api.weixin.qq.com/wxa/getwxacodeunlimit";
 
         /// <summary>
         /// 发送订阅消息
         /// </summary>
         public const string SubscribeMessageSend = "SubscribeMessageSendEndpoint";
-
         public const string SubscribeMessageSendValue = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
+
+        /// <summary>
+        /// 获取小程序 scheme 
+        /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/url-scheme/urlscheme.generate.html
+        /// POST https://api.weixin.qq.com/wxa/generatescheme?access_token=ACCESS_TOKEN
+        /// </summary>
+        public const string GenerateScheme = "GenerateSchemeEndpoint";
+        public const string GenerateSchemeValue = "https://api.weixin.qq.com/wxa/generatescheme";
+
+        /// <summary>
+        /// 获取小程序 URL Link
+        /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/url-link/urllink.generate.html
+        /// POST https://api.weixin.qq.com/wxa/generate_urllink?access_token=ACCESS_TOKEN
+        /// </summary>
+        public const string GenerateUrlLink = "GenerateUrlLinkEndpoint";
+        public const string GenerateUrlLinkValue = "https://api.weixin.qq.com/wxa/generate_urllink";
     }
 }

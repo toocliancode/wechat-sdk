@@ -21,6 +21,8 @@ namespace WeChat
                     [WeChatAppletEndpoints.CreateQrCode] = WeChatAppletEndpoints.CreateQrCodeValue,
                     [WeChatAppletEndpoints.GetWxaCode] = WeChatAppletEndpoints.GetWxaCodeValue,
                     [WeChatAppletEndpoints.GetWxaCodeUnlimit] = WeChatAppletEndpoints.GetWxaCodeUnlimitValue,
+                    [WeChatAppletEndpoints.GenerateScheme] = WeChatAppletEndpoints.GenerateSchemeValue,
+                    [WeChatAppletEndpoints.GenerateUrlLink] = WeChatAppletEndpoints.GenerateUrlLinkValue,
                 });
             });
         }

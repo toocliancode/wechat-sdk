@@ -1,4 +1,4 @@
-﻿namespace WeChat.Applet.Response.Decrypt
+﻿namespace WeChat.Applet.Response
 {
     public abstract class DecryptResponseBase
     {

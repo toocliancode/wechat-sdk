@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using WeChat.Applet.Response.Decrypt;
+using WeChat.Applet.Response;
 
 namespace WeChat.Applet.Request
 {

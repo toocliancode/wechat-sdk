@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace WeChat
 {
-    public abstract class WeChatHttpRequestBase<TWeChatResponse> : HttpRequestBase<TWeChatResponse>
+    public abstract class WeChatHttpRequestBase<TWeChatResponse>
+        : HttpRequestBase<TWeChatResponse>
         where TWeChatResponse : WeChatResponseBase
     {
-        private readonly static JsonSerializerOptions _serializerOptions = new()
+        protected readonly static JsonSerializerOptions SerializerOptions = new()
         {
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             IgnoreNullValues = true,
@@ -50,7 +51,7 @@ namespace WeChat
 
             try
             {
-                response = JsonSerializer.Deserialize<TWeChatResponse>(content, _serializerOptions);
+                response = JsonSerializer.Deserialize<TWeChatResponse>(content, SerializerOptions);
             }
             catch { }
 
@@ -128,7 +129,7 @@ namespace WeChat
 
         public virtual string ToSerialize()
         {
-            return JsonSerializer.Serialize((object)this, _serializerOptions);
+            return JsonSerializer.Serialize((object)this, SerializerOptions);
         }
     }
 }

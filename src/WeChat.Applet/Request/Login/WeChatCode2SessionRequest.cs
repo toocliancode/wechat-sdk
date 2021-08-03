@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-using WeChat.Applet.Response.Login;
+using WeChat.Applet.Response;
 
 namespace WeChat.Applet.Request
 {
