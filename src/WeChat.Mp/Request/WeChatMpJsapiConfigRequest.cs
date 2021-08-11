@@ -13,13 +13,13 @@ namespace WeChat.Mp.Request
     /// <summary>
     /// 微信jssdk配置 请求
     /// </summary>
-    public class WeChatJsapiConfigRequest : WeChatRequestBase<WeChatJsapiConfigResponse>
+    public class WeChatMpJsapiConfigRequest : WeChatRequestBase<WeChatMpJsapiConfigResponse>
     {
         /// <summary>
         /// 实例化一个新的 微信jssdk配置 请求
         /// </summary>
         /// <param name="url">需要微信jssdk配置 的页面链接</param>
-        public WeChatJsapiConfigRequest(string url)
+        public WeChatMpJsapiConfigRequest(string url)
         {
             Url = url;
         }
@@ -30,7 +30,7 @@ namespace WeChat.Mp.Request
         [JsonPropertyName("url")]
         public string Url { get; set; }
 
-        public override async Task<WeChatJsapiConfigResponse> Handler(IWeChatRequetHandleContext context)
+        public override async Task<WeChatMpJsapiConfigResponse> Handler(IWeChatRequetHandleContext context)
         {
             var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
 
@@ -57,7 +57,7 @@ namespace WeChat.Mp.Request
                 {"jsapi_ticket",ticket }
             };
 
-            var response = new WeChatJsapiConfigResponse(Configuration.AppId, timestamp, noncestr)
+            var response = new WeChatMpJsapiConfigResponse(Configuration.AppId, timestamp, noncestr)
             {
                 Signature = WeChatSignature.Sign(dictionary, WeChatSignType.SHA1)
             };

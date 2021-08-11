@@ -5,7 +5,7 @@ namespace WeChat.Mp.Response
     /// <summary>
     /// 获取临时素材
     /// </summary>
-    public class WeChatMediaGetResponse : WeChatResponse
+    public class WeChatMpMediaGetResponse : WeChatResponse
     {
         /// <summary>
         /// 内容类型

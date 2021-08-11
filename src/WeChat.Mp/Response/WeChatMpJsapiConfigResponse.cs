@@ -3,14 +3,14 @@
     /// <summary>
     /// jssdk配置 响应
     /// </summary>
-    public class WeChatJsapiConfigResponse
+    public class WeChatMpJsapiConfigResponse
     {
 
-        public WeChatJsapiConfigResponse()
+        public WeChatMpJsapiConfigResponse()
         {
         }
 
-        public WeChatJsapiConfigResponse(string appId, string timestamp, string nonceStr)
+        public WeChatMpJsapiConfigResponse(string appId, string timestamp, string nonceStr)
         {
             AppId = appId;
             Timestamp = timestamp;

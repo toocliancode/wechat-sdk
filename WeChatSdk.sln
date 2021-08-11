@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}"
 EndProject
@@ -17,7 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Pay", "src\WeChat.Pa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "simples", "simples", "{4EBDC10F-2EFA-46EA-A181-1DFC2D56A7EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreApi", "simples\AspNetCoreApi\AspNetCoreApi.csproj", "{78720BDB-C45E-41F2-972E-2817059EB767}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreApi", "simples\AspNetCoreApi\AspNetCoreApi.csproj", "{78720BDB-C45E-41F2-972E-2817059EB767}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Mp.Web", "src\WeChat.Mp.Web\WeChat.Mp.Web.csproj", "{66A95B76-787E-427E-BFF9-66C864F37313}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{13265E2E-D65E-4AB4-870E-1D0E28204B2E}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		NuGet.config = NuGet.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +57,10 @@ Global
 		{78720BDB-C45E-41F2-972E-2817059EB767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78720BDB-C45E-41F2-972E-2817059EB767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78720BDB-C45E-41F2-972E-2817059EB767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A95B76-787E-427E-BFF9-66C864F37313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A95B76-787E-427E-BFF9-66C864F37313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A95B76-787E-427E-BFF9-66C864F37313}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A95B76-787E-427E-BFF9-66C864F37313}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,7 @@ Global
 		{04AA97F6-D280-4F7D-9D74-D5710F60E8E1} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
 		{21806E74-0061-4A0C-A0D7-458106A41120} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
 		{78720BDB-C45E-41F2-972E-2817059EB767} = {4EBDC10F-2EFA-46EA-A181-1DFC2D56A7EF}
+		{66A95B76-787E-427E-BFF9-66C864F37313} = {EB0CBCD3-1570-4299-96FE-B7C6697FDCEE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D70104D6-A557-42B3-A5A8-C1224E8AC52D}
