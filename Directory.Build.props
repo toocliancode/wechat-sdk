@@ -1,8 +1,8 @@
 ﻿<Project>
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.4</Version>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Version>1.0.5</Version>
+    <NoWarn>$(NoWarn);1591</NoWarn>
     <Authors>tooclian</Authors>
     <Company>toocliancode</Company>
     <PackageIconUrl></PackageIconUrl>

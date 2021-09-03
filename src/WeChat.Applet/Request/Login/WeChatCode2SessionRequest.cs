@@ -1,5 +1,9 @@
-﻿using System.Text.Json.Serialization;
-
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using Mediator.HttpClient;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using WeChat.Applet.Response;
 
 namespace WeChat.Applet.Request
@@ -32,5 +36,28 @@ namespace WeChat.Applet.Request
         /// </summary>
         [JsonPropertyName("grent_code")]
         public string GrantType => "authorization_code";
+
+        public override Task Request(IHttpRequestContext context)
+        {
+            var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
+
+            if (string.IsNullOrWhiteSpace(Configuration.AppId))
+            {
+                var configuration = options.GetConfiguration(Configuration.Name);
+                Configuration.Configure(configuration.AppId, configuration.Secret);
+            }
+
+            var endpoint = options.GetEndpoint(EndpointName);
+            var body = new Dictionary<string, string>
+            {
+                ["appid"] = Configuration.AppId,
+                ["secret"] = Configuration.Secret,
+                ["js_code"] = JsCode,
+                ["grent_code"] = GrantType
+            };
+            context.Message.RequestUri = new System.Uri($"{endpoint}{HttpUtility.ToQuery(body)}");
+
+            return Task.CompletedTask;
+        }
     }
 }
