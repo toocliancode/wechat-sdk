@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <Authors>tooclian</Authors>
     <Company>toocliancode</Company>
