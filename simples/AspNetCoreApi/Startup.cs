@@ -62,7 +62,7 @@ namespace AspNetCoreApi
                 endpoints.MapControllers();
             });
 
-            var request = new WeChatJsapiConfigRequest("");
+            var request = new WeChatMpJsapiConfigRequest("");
             request.Configure("1", "2");
             request.Configure("12", "233");
 

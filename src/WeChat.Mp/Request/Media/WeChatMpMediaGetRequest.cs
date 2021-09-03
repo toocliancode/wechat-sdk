@@ -11,13 +11,13 @@ namespace WeChat.Mp.Request
     /// <summary>
     /// 获取临时素材 请求
     /// </summary>
-    public class WeChatMediaGetRequest : WeChatMpHttpRequestBase<WeChatMediaGetResponse>, IEnableAccessToken
+    public class WeChatMpMediaGetRequest : WeChatMpHttpRequestBase<WeChatMpMediaGetResponse>, IEnableAccessToken
     {
         /// <summary>
         /// 实例化一个新的 获取临时素材 请求
         /// </summary>
         /// <param name="mediaId">媒体文件Id</param>
-        public WeChatMediaGetRequest(string mediaId)
+        public WeChatMpMediaGetRequest(string mediaId)
         {
             MediaId = mediaId;
         }
@@ -30,24 +30,24 @@ namespace WeChat.Mp.Request
         [JsonPropertyName("media_id")]
         public string MediaId { get; set; }
 
-        public override async Task<WeChatMediaGetResponse> Response(IHttpResponseContext context)
+        public override async Task<WeChatMpMediaGetResponse> Response(IHttpResponseContext context)
         {
             var content = await context.Message.Content.ReadAsByteArrayAsync();
-            WeChatMediaGetResponse response;
+            WeChatMpMediaGetResponse response;
             if (content.Length < 200)
             {
                 try
                 {
-                    response = System.Text.Json.JsonSerializer.Deserialize<WeChatMediaGetResponse>(content);
+                    response = System.Text.Json.JsonSerializer.Deserialize<WeChatMpMediaGetResponse>(content);
                 }
                 catch
                 {
-                    response = new WeChatMediaGetResponse();
+                    response = new WeChatMpMediaGetResponse();
                 }
             }
             else
             {
-                response = new WeChatMediaGetResponse();
+                response = new WeChatMpMediaGetResponse();
             }
 
             response.Raw = content;

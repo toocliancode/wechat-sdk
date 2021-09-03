@@ -6,7 +6,7 @@ namespace WeChat.Mp.Vaildator
 {
     public partial class WeChatJsapiConfigRequestVaildator
     {
-        public class WeChatMediaGetRequestVaildator : AbstractValidator<WeChatMediaGetRequest>
+        public class WeChatMediaGetRequestVaildator : AbstractValidator<WeChatMpMediaGetRequest>
         {
             public WeChatMediaGetRequestVaildator()
             {
