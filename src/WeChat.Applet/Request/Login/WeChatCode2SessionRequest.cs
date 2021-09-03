@@ -55,7 +55,7 @@ namespace WeChat.Applet.Request
                 ["js_code"] = JsCode,
                 ["grent_code"] = GrantType
             };
-            context.Message.RequestUri = new System.Uri($"{endpoint}{HttpUtility.ToQuery(body)}");
+            context.Message.RequestUri = new System.Uri($"{endpoint}?{HttpUtility.ToQuery(body)}");
 
             return Task.CompletedTask;
         }
