@@ -33,15 +33,15 @@ namespace WeChat.Pay.Request
         public string PrepayId { get; set; }
 
         protected override WeChatConfiguration Configuration => base.Configuration.Configure("WeChatPay");
-        public override Task<WeChatPayAppSdkResponse> Handler(IWeChatRequetHandleContext context)
+        public override Task<WeChatPayAppSdkResponse> Handle(IWeChatRequetHandleContext context)
         {
             var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
 
-            WeChatPaySettings settings = null;
+            WeChatPayOptions settings = null;
             if (string.IsNullOrWhiteSpace(Configuration.AppId))
             {
                 var configuration = options.GetConfiguration(Configuration.Name);
-                settings = configuration.Get<WeChatPaySettings>();
+                settings = configuration.Get<WeChatPayOptions>();
 
                 Configuration.Configure(settings);
             }

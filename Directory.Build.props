@@ -1,8 +1,11 @@
 ﻿<Project>
   <PropertyGroup>
+		<TargetFrameworkVersion>net6.0</TargetFrameworkVersion>
     <LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
     <Version>1.0.6</Version>
-    <NoWarn>$(NoWarn);1591</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;CS8618</NoWarn>
     <Authors>tooclian</Authors>
     <Company>toocliancode</Company>
     <PackageIconUrl></PackageIconUrl>

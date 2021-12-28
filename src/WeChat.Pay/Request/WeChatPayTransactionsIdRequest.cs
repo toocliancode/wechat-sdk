@@ -41,7 +41,7 @@ namespace WeChat.Pay.Request
         /// </summary>
         public string TransactionId { get; set; }
 
-        protected override void ParameterHandler(WeChatPaySettings settings)
+        protected override void ParameterHandler(WeChatPayOptions settings)
         {
             MchId = settings.MchId;
         }

@@ -43,7 +43,7 @@ namespace WeChat.Pay.Request
         [System.Text.Json.Serialization.JsonIgnore]
         public string OutTradeNo { get; set; }
 
-        protected override void ParameterHandler(WeChatPaySettings settings)
+        protected override void ParameterHandler(WeChatPayOptions settings)
         {
             MchId = settings.MchId;
         }

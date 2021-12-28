@@ -2,15 +2,14 @@
 
 using System.Threading.Tasks;
 
-namespace WeChat
+namespace WeChat;
+
+public static class MediatorExtensions
 {
-    public static class MediatorExtensions
+    public static Task<TWeChatResponse> Send<TWeChatResponse>(this IMediator mediator, WeChatHttpRequestBase<TWeChatResponse> request, IWeChatSettings settings)
+        where TWeChatResponse : WeChatResponseBase
     {
-        public static Task<TWeChatResponse> Send<TWeChatResponse>(this IMediator mediator,WeChatHttpRequestBase<TWeChatResponse> request,IWeChatSettings settings)
-            where TWeChatResponse : WeChatResponseBase
-        {
-            request.Configure(settings);
-            return mediator.Send(request);
-        }
+        request.Configure(settings);
+        return mediator.Send(request);
     }
 }

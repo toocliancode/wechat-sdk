@@ -1,15 +1,14 @@
 ﻿
 using System;
 
-namespace WeChat
-{
-    public class WeChatRequetHandleContext : IWeChatRequetHandleContext
-    {
-        public WeChatRequetHandleContext(IServiceProvider serviceProvider)
-        {
-            RequestServices = serviceProvider;
-        }
+namespace WeChat;
 
-        public IServiceProvider RequestServices { get; set; }
+public class WeChatRequetHandleContext : IWeChatRequetHandleContext
+{
+    public WeChatRequetHandleContext(IServiceProvider serviceProvider)
+    {
+        RequestServices = serviceProvider;
     }
+
+    public IServiceProvider RequestServices { get; set; }
 }

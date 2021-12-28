@@ -128,7 +128,7 @@ namespace WeChat.Pay.Request
         public SceneInfo SceneInfo { get; set; }
 
 
-        protected override void ParameterHandler(WeChatPaySettings settings)
+        protected override void ParameterHandler(WeChatPayOptions settings)
         {
             AppId = settings.AppId;
             MchId = settings.MchId;

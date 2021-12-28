@@ -1,67 +1,79 @@
-﻿using Mediator.HttpClient;
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿
+using Mediator.HttpClient;
 
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
-using WeChat.Mp.Response;
+namespace WeChat.Mp;
 
-namespace WeChat.Mp.Request
+/// <summary>
+/// JS-SDK使用权限签名算法(微信jssdk配置)
+/// 
+/// https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62
+/// </summary>
+public class WeChatMpJsapiConfigRequest
+    : WeChatRequestBase<WeChatMpJsapiConfigResponse>
 {
     /// <summary>
-    /// 微信jssdk配置 请求
+    /// 实例化一个新的 <see cref="WeChatMpJsapiConfigRequest"/>
     /// </summary>
-    public class WeChatMpJsapiConfigRequest : WeChatRequestBase<WeChatMpJsapiConfigResponse>
+    public WeChatMpJsapiConfigRequest()
     {
-        /// <summary>
-        /// 实例化一个新的 微信jssdk配置 请求
-        /// </summary>
-        /// <param name="url">需要微信jssdk配置 的页面链接</param>
-        public WeChatMpJsapiConfigRequest(string url)
-        {
-            Url = url;
-        }
-        protected override WeChatConfiguration Configuration => base.Configuration.Configure("WeChatMp");
-        /// <summary>
-        /// 需要微信jssdk配置 的页面链接
-        /// </summary>
-        [JsonPropertyName("url")]
-        public string Url { get; set; }
 
-        public override async Task<WeChatMpJsapiConfigResponse> Handler(IWeChatRequetHandleContext context)
-        {
-            var options = context.RequestServices.GetRequiredService<IOptions<WeChatOptions>>().Value;
+    }
 
-            if (string.IsNullOrWhiteSpace(Configuration.AppId))
-            {
-                var configuration = options.GetConfiguration(Configuration.Name);
-                Configuration.Configure(configuration.AppId, configuration.Secret);
-            }
+    /// <summary>
+    /// 实例化一个新的 <see cref="WeChatMpJsapiConfigRequest"/>
+    /// </summary>
+    /// <param name="appId">微信应用号</param>
+    /// <param name="jsapiTicket">公众号用于调用微信JS接口的临时票据</param>
+    /// <param name="url">需要微信jssdk配置 的页面链接</param>
+    public WeChatMpJsapiConfigRequest(
+        string appId,
+        string jsapiTicket,
+        string url)
+    {
+        AppId = appId;
+        JsapiTicket = jsapiTicket;
+        Url = url;
+    }
 
-            //获取凭证
-            var ticketStore = context.RequestServices.GetRequiredService<IWeChatJsapiTicketStore>();
-            var ticket = await ticketStore.GetAsync(Configuration.AppId, Configuration.Secret);
+    /// <summary>
+    /// 微信应用号
+    /// </summary>
+    [JsonPropertyName("appid")]
+    public string AppId { get; set; }
 
-            // 设置随机字符串
-            var noncestr = HttpUtility.GenerateNonceStr();
-            // 设置时间戳
-            var timestamp = HttpUtility.GetTimeStamp();
+    /// <summary>
+    /// 公众号用于调用微信JS接口的临时票据
+    /// </summary>
+    [JsonPropertyName("jsapi_ticket")]
+    public string JsapiTicket { get; set; }
 
-            var dictionary = new WeChatDictionary
+    /// <summary>
+    /// 需要微信jssdk配置 的页面链接
+    /// </summary>
+    [JsonPropertyName("url")]
+    public string Url { get; set; }
+
+    public override Task<WeChatMpJsapiConfigResponse> Handle(IWeChatRequetHandleContext context)
+    {
+        // 设置随机字符串
+        var noncestr = HttpUtility.GenerateNonceStr();
+        // 设置时间戳
+        var timestamp = HttpUtility.GetTimeStamp();
+
+        var dictionary = new WeChatDictionary
             {
                 {"noncestr",noncestr },
                 {"timestamp",timestamp },
                 {"url",Url },
-                {"jsapi_ticket",ticket }
+                {"jsapi_ticket",JsapiTicket }
             };
 
-            var response = new WeChatMpJsapiConfigResponse(Configuration.AppId, timestamp, noncestr)
-            {
-                Signature = WeChatSignature.Sign(dictionary, WeChatSignType.SHA1)
-            };
-            return response;
-        }
+        var response = new WeChatMpJsapiConfigResponse(AppId, timestamp, noncestr)
+        {
+            Signature = WeChatSignature.Sign(dictionary, WeChatSignType.SHA1)
+        };
+        return Task.FromResult(response);
     }
 }

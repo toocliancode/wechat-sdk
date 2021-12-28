@@ -1,9 +1,8 @@
-﻿namespace WeChat
+﻿namespace WeChat;
+
+/// <summary>
+/// 需要Jsapi ticket
+/// </summary>
+public interface IEnableJsapiTicket
 {
-    /// <summary>
-    /// 需要Jsapi ticket
-    /// </summary>
-    public interface IEnableJsapiTicket
-    {
-    }
 }
