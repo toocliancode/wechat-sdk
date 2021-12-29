@@ -20,11 +20,11 @@ public class SceneInfo
     /// 示例值：013467007045764
     /// </summary>
     [JsonPropertyName("device_id")]
-    public string DeviceId { get; set; }
+    public string? DeviceId { get; set; }
 
     /// <summary>
     /// 商户门店信息
     /// </summary>
     [JsonPropertyName("store_info")]
-    public StoreInfo StoreInfo { get; set; }
+    public StoreInfo? StoreInfo { get; set; }
 }

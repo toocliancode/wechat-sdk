@@ -1,11 +1,8 @@
-﻿
-using System.Collections.Generic;
-
-namespace WeChat;
+﻿namespace WeChat;
 
 public class WeChatDictionary<T> : Dictionary<string, T>
 {
-    public T GetValue(string key)
+    public T? GetValue(string key)
     {
         return TryGetValue(key, out var value) ? value : default;
     }
@@ -43,9 +40,9 @@ public class WeChatDictionary<T> : Dictionary<string, T>
         return this;
     }
 
-    public WeChatDictionary<string> ToStringValue()
+    public WeChatDictionary<string?> ToStringValue()
     {
-        var dict = new WeChatDictionary<string>();
+        var dict = new WeChatDictionary<string?>();
         foreach (var item in this)
         {
             dict.Add(item.Key, item.Value?.ToString());

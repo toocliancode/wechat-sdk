@@ -57,6 +57,25 @@ public class WeChatHttpRequest<TWeChatResponse>
     }
 
     /// <summary>
+    /// 微信支付配置选项
+    /// </summary>
+    [JsonIgnore]
+    public virtual WeChatOptions Options { get; protected set; }
+
+    public virtual WeChatHttpRequest<TWeChatResponse> WithOptions(WeChatOptions options)
+    {
+        Options = options;
+        return this;
+    }
+
+    public virtual WeChatHttpRequest<TWeChatResponse> Configure(Action<WeChatOptions> configure)
+    {
+        Options ??= new();
+        configure(Options);
+        return this;
+    }
+
+    /// <summary>
     /// Http 请求方式
     /// </summary>
     [JsonIgnore]

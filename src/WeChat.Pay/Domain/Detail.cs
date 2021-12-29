@@ -15,7 +15,7 @@ public class Detail
     /// 示例值：608800
     /// </summary>
     [JsonPropertyName("cost_price")]
-    public int CostPrice { get; set; }
+    public int? CostPrice { get; set; }
 
     /// <summary>
     /// 商品小票ID
@@ -23,7 +23,7 @@ public class Detail
     /// 示例值：微信123
     /// </summary>
     [JsonPropertyName("invoice_id")]
-    public string InvoiceId { get; set; }
+    public string? InvoiceId { get; set; }
 
     /// <summary>
     /// 单品列表
@@ -31,5 +31,5 @@ public class Detail
     /// 条目个数限制：【1，undefined】
     /// </summary>
     [JsonPropertyName("goods_detail")]
-    public List<GoodsDetail> GoodsDetail { get; set; }
+    public List<GoodsDetail>? GoodsDetail { get; set; }
 }

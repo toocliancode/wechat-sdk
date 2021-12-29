@@ -86,5 +86,5 @@ public class PromotionDetail
     /// 单品列表信息
     /// </summary>
     [JsonPropertyName("goods_detail")]
-    public List<PromotionGoodsDetail> goods_detail { get; set; }
+    public List<PromotionGoodsDetail> GoodsDetail { get; set; }
 }

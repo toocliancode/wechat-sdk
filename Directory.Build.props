@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
     <Version>1.0.6</Version>
-    <NoWarn>$(NoWarn);CS1591;CS8618</NoWarn>
+    <NoWarn>$(NoWarn);CS1591;CS8618;CA2211</NoWarn>
     <Authors>tooclian</Authors>
     <Company>toocliancode</Company>
     <PackageIconUrl></PackageIconUrl>

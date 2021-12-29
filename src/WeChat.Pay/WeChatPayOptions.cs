@@ -22,6 +22,16 @@ public class WeChatPayOptions : WeChatOptions
     /// </summary>
     public string SubMchId { get; set; }
 
+    /// <summary>
+    /// 默认的支付通知地址。如果未设置，则请求接口时必须传入
+    /// </summary>
+    public string? TransactionNotifyUrl { get; set; }
+
+    /// <summary>
+    /// 默认的退款通知地址
+    /// </summary>
+    public string? RefundNotifyUrl { get; set; }
+
     private string certificate;
     private string certificatePassword;
 

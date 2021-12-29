@@ -1,72 +1,58 @@
 ﻿using System.Text.Json.Serialization;
 
 using WeChat.Pay.Domain;
+using WeChat.Pay.Jsapi;
 
 namespace WeChat.Pay;
 
 /// <summary>
-/// 统一下单
+/// JSAPI 统一下单API
+/// https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_2.shtml
 /// </summary>
-public class WeChatPayUnifiedorderRequest
-    : WeChatPayHttpRequest<WeChatPayUnifiedorderResponse>
+public class WeChatPayTransactionsJsapiRequest
+    : WeChatPayHttpRequest<WeChatPayTransactionsJsapiResponse>
     , IHasAppId
     , IHasMchId
     , IHasTransactionNotifyUrl
 {
-    private readonly string _type = "Jsapi";
+    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi";
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatPayUnifiedorderRequest"/>
+    /// 实例化一个新的 <see cref="WeChatPayTransactionsJsapiRequest"/>
     /// </summary>
-    public WeChatPayUnifiedorderRequest()
+    public WeChatPayTransactionsJsapiRequest()
     {
-
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatPayUnifiedorderRequest"/>
-    /// </summary>
-    /// <param name="type">下单类型：App、Jsapi、Native、H5</param>
-    public WeChatPayUnifiedorderRequest(string type = "Jsapi")
-    {
-        _type = type;
-    }
-
-    /// <summary>
-    /// 实例化一个新的 <see cref="WeChatPayUnifiedorderRequest"/>
+    /// 实例化一个新的 <see cref="WeChatPayTransactionsJsapiRequest"/>
     /// </summary>
     /// <param name="description">商品描述</param>
     /// <param name="outTradeNo">商户订单号</param>
     /// <param name="amountTotal">订单金额</param>
-    /// <param name="payerOpenId">支付者openid,Jsapi 支付时使用</param>
+    /// <param name="payerOpenId">支付者openid</param>
     /// <param name="notifyUrl">通知地址，不传则使用 <see cref="WeChatPayOptions.TransactionNotifyUrl"/></param>
-    /// <param name="type">下单类型：App、Jsapi、Native、H5</param>
-    public WeChatPayUnifiedorderRequest(
+    public WeChatPayTransactionsJsapiRequest(
         string description,
         string outTradeNo,
         int amountTotal,
-        string? payerOpenId = default,
-        string? notifyUrl = default,
-        string type = "Jsapi")
+        string payerOpenId,
+        string? notifyUrl = default)
     {
         Description = description;
         OutTradeNo = outTradeNo;
         NotifyUrl = notifyUrl ?? string.Empty;
         Amount = new Amount(amountTotal);
-        if (payerOpenId != null)
-        {
-            Payer = new PayerInfo(payerOpenId);
-        }
-        _type = type;
+        Payer = new PayerInfo(payerOpenId);
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatPayUnifiedorderRequest"/>
+    /// 实例化一个新的 <see cref="WeChatPayTransactionsJsapiRequest"/>
     /// </summary>
     /// <param name="description">商品描述</param>
     /// <param name="outTradeNo">商户订单号</param>
     /// <param name="amount">订单金额</param>
-    /// <param name="payer">支付者,Jsapi 支付时使用</param>
+    /// <param name="payer">支付者</param>
     /// <param name="notifyUrl">通知地址，不传则使用 <see cref="WeChatPayOptions.TransactionNotifyUrl"/></param>
     /// <param name="appId">应用号，此处填写则使用自定义，不使用配置</param>
     /// <param name="mchId">商户号，此处填写则使用自定义，不使用配置</param>
@@ -76,12 +62,11 @@ public class WeChatPayUnifiedorderRequest
     /// <param name="detail">优惠功能</param>
     /// <param name="sceneInfo">场景信息</param>
     /// <param name="settleInfo">结算信息</param>
-    /// <param name="type">下单类型：App、Jsapi、Native、H5</param>
-    public WeChatPayUnifiedorderRequest(
+    public WeChatPayTransactionsJsapiRequest(
         string description,
         string outTradeNo,
         Amount amount,
-        PayerInfo? payer = default,
+        PayerInfo payer,
         string? notifyUrl = default,
         string? appId = default,
         string? mchId = default,
@@ -90,8 +75,7 @@ public class WeChatPayUnifiedorderRequest
         string? goodsTag = default,
         Detail? detail = default,
         SceneInfo? sceneInfo = default,
-        SettleInfo? settleInfo = default,
-        string type = "Jsapi")
+        SettleInfo? settleInfo = default)
     {
         AppId = appId ?? string.Empty;
         MchId = mchId ?? string.Empty;
@@ -106,7 +90,6 @@ public class WeChatPayUnifiedorderRequest
         Detail = detail;
         SceneInfo = sceneInfo;
         SettleInfo = settleInfo;
-        _type = type;
     }
 
     /// <summary>
@@ -152,7 +135,6 @@ public class WeChatPayUnifiedorderRequest
     public DateTimeOffset? TimeExpire { get; set; }
 
     /// <summary>
-    /// 附加数据
     /// 附加数据，在查询API和支付通知中原样返回，可作为自定义参数使用
     /// 示例值：自定义数据
     /// </summary>
@@ -160,7 +142,7 @@ public class WeChatPayUnifiedorderRequest
     public string? Attach { get; set; }
 
     /// <summary>
-    /// 通知地址
+    /// 通知地址，不传则使用 <see cref="WeChatPayOptions.TransactionNotifyUrl"/>。
     /// 通知URL必须为直接可访问的URL，不允许携带查询串。
     /// 格式：URL
     /// 示例值：https://www.weixin.qq.com/wxpay/pay.php
@@ -183,10 +165,10 @@ public class WeChatPayUnifiedorderRequest
     public Amount Amount { get; set; }
 
     /// <summary>
-    /// 支付者,Jsapi 支付时使用
+    /// 支付者
     /// </summary>
     [JsonPropertyName("payer")]
-    public PayerInfo? Payer { get; set; }
+    public PayerInfo Payer { get; set; }
 
     /// <summary>
     /// 优惠功能
@@ -206,11 +188,8 @@ public class WeChatPayUnifiedorderRequest
     [JsonPropertyName("settle_info")]
     public SettleInfo? SettleInfo { get; set; }
 
-    protected override string GetRequestUri() => _type switch
+    protected override string GetRequestUri()
     {
-        "App" => WeChatPayTransactionsAppRequest.Endpoint,
-        "Native" => WeChatPayTransactionsNativeRequest.Endpoint,
-        "H5" => WeChatPayTransactionsH5Request.Endpoint,
-        "Jsapi" or _ => WeChatPayTransactionsJsapiRequest.Endpoint,
-    };
+        return Endpoint;
+    }
 }

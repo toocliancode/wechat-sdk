@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace WeChat;
@@ -73,7 +71,7 @@ public static class WeChatSignature
     /// <returns>密文</returns>
     public static string MD5Encrypt(
         this string input,
-        Encoding encoding = null)
+        Encoding? encoding = null)
     {
         encoding ??= Encoding.UTF8;
 
@@ -97,7 +95,7 @@ public static class WeChatSignature
     /// <returns>密文</returns>
     public static string SHA1Encrypt(
         this string input,
-        Encoding encoding = null)
+        Encoding? encoding = null)
     {
         encoding ??= Encoding.UTF8;
 
@@ -119,11 +117,11 @@ public static class WeChatSignature
     /// <returns>密文</returns>
     public static string SHA256Encrypt(
         this string input,
-        Encoding encoding = null)
+        Encoding? encoding = null)
     {
         encoding ??= Encoding.UTF8;
 
-        using var sha256 = new SHA256CryptoServiceProvider();
+        using var sha256 = SHA256.Create();
         var bytes = encoding.GetBytes(input);
         var data = sha256.ComputeHash(bytes);
         return Convert.ToBase64String(data);

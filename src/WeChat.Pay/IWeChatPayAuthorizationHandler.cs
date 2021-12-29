@@ -2,5 +2,5 @@
 
 public interface IWeChatPayAuthorizationHandler
 {
-    Task Handler(HttpRequestMessage message, WeChatPayOptions settings);
+    Task Handle(HttpRequestMessage message, WeChatPayOptions settings);
 }

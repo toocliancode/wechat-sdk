@@ -38,5 +38,5 @@ public class Amount
     /// 示例值：CNY
     /// </summary>
     [JsonPropertyName("currency")]
-    public string Currency { get; set; }
+    public string? Currency { get; set; }
 }

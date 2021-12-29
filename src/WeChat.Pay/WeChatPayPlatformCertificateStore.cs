@@ -4,8 +4,6 @@ using System.Collections.Concurrent;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-using WeChat.Pay.Request;
-
 namespace WeChat.Pay;
 
 public class WeChatPayPlatformCertificateStore : IWeChatPayPlatformCertificateStore
@@ -27,7 +25,7 @@ public class WeChatPayPlatformCertificateStore : IWeChatPayPlatformCertificateSt
         }
 
         var request = new WeChatPayCertificatesRequest();
-        request.Configure(settings);
+        request.WithOptions(settings);
 
         var response = await _mediator.Send(request);
 

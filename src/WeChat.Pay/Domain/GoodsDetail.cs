@@ -21,7 +21,7 @@ public class GoodsDetail
     /// 示例值：1001
     /// </summary>
     [JsonPropertyName("wechatpay_goods_id")]
-    public string WeChatPayGoodsId { get; set; }
+    public string? WeChatPayGoodsId { get; set; }
 
     /// <summary>
     /// 商品名称
@@ -29,7 +29,7 @@ public class GoodsDetail
     /// 示例值：iPhoneX 256G
     /// </summary>
     [JsonPropertyName("goods_name")]
-    public string GoodsName { get; set; }
+    public string? GoodsName { get; set; }
 
     /// <summary>
     /// 商品数量

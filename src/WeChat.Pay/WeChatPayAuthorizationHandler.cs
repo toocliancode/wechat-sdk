@@ -18,7 +18,7 @@ public class WeChatPayAuthorizationHandler : IWeChatPayAuthorizationHandler
         _certificateStore = certificateStore;
     }
 
-    public async Task Handler(HttpRequestMessage message, WeChatPayOptions settings)
+    public async Task Handle(HttpRequestMessage message, WeChatPayOptions settings)
     {
         if (!_certificateStore.TryGet(settings, out var certificate))
         {
