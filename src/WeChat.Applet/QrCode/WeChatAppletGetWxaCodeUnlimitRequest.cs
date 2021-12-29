@@ -11,7 +11,9 @@ namespace WeChat.Applet.QrCode;
 /// 获取小程序码，适用于需要的码数量较少的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
 /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html
 /// </summary>
-public class WeChatAppletGetWxaCodeUnlimitRequest : WeChatHttpRequest<WeChatResponse>
+public class WeChatAppletGetWxaCodeUnlimitRequest
+    : WeChatHttpRequest<WeChatResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/wxa/getwxacodeunlimit";
 
@@ -39,13 +41,13 @@ public class WeChatAppletGetWxaCodeUnlimitRequest : WeChatHttpRequest<WeChatResp
     /// <param name="lineColor">auto_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"} 十进制表示</param>
     /// <param name="isHyaline">是否需要透明底色，为 true 时，生成透明底色的小程序码</param>
     public WeChatAppletGetWxaCodeUnlimitRequest(
-        string accessToken,
         string scene,
         string path,
         int width = 430,
         bool autoColor = false,
         QrCodeLineColor? lineColor = null,
-        bool isHyaline = false)
+        bool isHyaline = false,
+        string? accessToken = default)
         : this()
     {
         AccessToken = accessToken;
@@ -57,11 +59,9 @@ public class WeChatAppletGetWxaCodeUnlimitRequest : WeChatHttpRequest<WeChatResp
         IsHyaline = isHyaline;
     }
 
-    /// <summary>
-    /// 微信API access_token
-    /// </summary>
+    /// <inheritdoc/>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 最大32个可见字符，只支持数字，

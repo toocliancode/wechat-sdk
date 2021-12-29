@@ -7,7 +7,9 @@ namespace WeChat.Mp.Message;
 /// 
 /// https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5
 /// </summary>
-public class WeChatMpTemplateSendRequest : WeChatHttpRequest<WeChatMpTemplateSendResponse>
+public class WeChatMpTemplateSendRequest
+    : WeChatHttpRequest<WeChatMpTemplateSendResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/media/get";
 
@@ -39,7 +41,6 @@ public class WeChatMpTemplateSendRequest : WeChatHttpRequest<WeChatMpTemplateSen
     /// <param name="pagePath">所需跳转到小程序的具体页面路径，支持带参数,（示例index?foo=bar），要求该小程序已发布，暂不支持小游戏</param>
     /// <param name="color">模板内容字体颜色，不填默认为黑色</param>
     public WeChatMpTemplateSendRequest(
-        string accessToken,
         string toUser,
         string templateId,
         string appId,
@@ -47,7 +48,8 @@ public class WeChatMpTemplateSendRequest : WeChatHttpRequest<WeChatMpTemplateSen
         string? url = default,
         IDictionary<string, string>? miniProgram = default,
         string? pagePath = default,
-        string? color = default)
+        string? color = default,
+        string? accessToken = default)
         : this()
     {
         AccessToken = accessToken;
@@ -61,11 +63,9 @@ public class WeChatMpTemplateSendRequest : WeChatHttpRequest<WeChatMpTemplateSen
         Color = color;
     }
 
-    /// <summary>
-    /// 微信API access_token
-    /// </summary>
+    /// <inheritdoc/>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 接收者openid

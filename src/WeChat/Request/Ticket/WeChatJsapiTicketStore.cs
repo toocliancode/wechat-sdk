@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace WeChat.Ticket;
 
-public class WeChatJsapiTicketStore : IWeChatJsapiTicketStore
+public class WeChatJsapiTicketStore : IWeChatTicketStore
 {
     private readonly IMediator _mediator;
     private readonly IDistributedCache _cache;

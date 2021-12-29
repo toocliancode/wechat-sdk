@@ -1,6 +1,8 @@
 ﻿
 using Mediator.HttpClient;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using System.Text.Json.Serialization;
 
 namespace WeChat.Mp;
@@ -12,6 +14,8 @@ namespace WeChat.Mp;
 /// </summary>
 public class WeChatMpJsapiConfigRequest
     : WeChatRequestBase<WeChatMpJsapiConfigResponse>
+    , IHasAppId
+    , IHasJsapiTicket
 {
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatMpJsapiConfigRequest"/>
@@ -28,9 +32,9 @@ public class WeChatMpJsapiConfigRequest
     /// <param name="jsapiTicket">公众号用于调用微信JS接口的临时票据</param>
     /// <param name="url">需要微信jssdk配置 的页面链接</param>
     public WeChatMpJsapiConfigRequest(
-        string appId,
-        string jsapiTicket,
-        string url)
+        string url,
+        string? appId = default,
+        string? jsapiTicket = default)
     {
         AppId = appId;
         JsapiTicket = jsapiTicket;
@@ -41,13 +45,13 @@ public class WeChatMpJsapiConfigRequest
     /// 微信应用号
     /// </summary>
     [JsonPropertyName("appid")]
-    public string AppId { get; set; }
+    public string? AppId { get; set; }
 
     /// <summary>
     /// 公众号用于调用微信JS接口的临时票据
     /// </summary>
     [JsonPropertyName("jsapi_ticket")]
-    public string JsapiTicket { get; set; }
+    public string? JsapiTicket { get; set; }
 
     /// <summary>
     /// 需要微信jssdk配置 的页面链接
@@ -55,8 +59,21 @@ public class WeChatMpJsapiConfigRequest
     [JsonPropertyName("url")]
     public string Url { get; set; }
 
-    public override Task<WeChatMpJsapiConfigResponse> Handle(IWeChatRequetHandleContext context)
+    public override async Task<WeChatMpJsapiConfigResponse> Handle(IWeChatRequetHandleContext context)
     {
+        if (string.IsNullOrWhiteSpace(AppId))
+        {
+            AppId = Options.AppId;
+        }
+
+        if (string.IsNullOrWhiteSpace(JsapiTicket))
+        {
+            JsapiTicket = await context
+                     .RequestServices
+                     .GetRequiredService<IWeChatTicketStore>()
+                     .GetAsync(Options.AppId, Options.Secret, "jsapi");
+        }
+
         // 设置随机字符串
         var noncestr = HttpUtility.GenerateNonceStr();
         // 设置时间戳
@@ -74,6 +91,6 @@ public class WeChatMpJsapiConfigRequest
         {
             Signature = WeChatSignature.Sign(dictionary, WeChatSignType.SHA1)
         };
-        return Task.FromResult(response);
+        return response;
     }
 }

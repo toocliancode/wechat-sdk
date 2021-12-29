@@ -2,5 +2,5 @@
 
 public interface IHasAppId
 {
-    string AppId { get; set; }
+    string? AppId { get; set; }
 }

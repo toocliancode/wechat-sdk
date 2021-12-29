@@ -40,7 +40,7 @@ public class WeChatPayTransactionsOutTradeNoCloseRequest
     /// 直连商户的商户号，由微信支付生成并下发。
     /// 示例值：1230000109
     /// </summary>
-    public string MchId { get; set; }
+    public string? MchId { get; set; }
 
     /// <summary>
     /// 商户订单号

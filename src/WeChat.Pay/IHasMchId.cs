@@ -2,5 +2,5 @@
 
 public interface IHasMchId
 {
-    string MchId { get; set; }
+    string? MchId { get; set; }
 }

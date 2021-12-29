@@ -1,5 +1,7 @@
 ﻿using Mediator.HttpClient;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -62,17 +64,12 @@ public class WeChatHttpRequest<TWeChatResponse>
     [JsonIgnore]
     public virtual WeChatOptions Options { get; protected set; }
 
-    public virtual WeChatHttpRequest<TWeChatResponse> WithOptions(WeChatOptions options)
-    {
-        Options = options;
-        return this;
-    }
+    public virtual void WithOptions(WeChatOptions options) => Options = options;
 
-    public virtual WeChatHttpRequest<TWeChatResponse> Configure(Action<WeChatOptions> configure)
+    public virtual void Configure(Action<WeChatOptions> configure)
     {
         Options ??= new();
         configure(Options);
-        return this;
     }
 
     /// <summary>
@@ -116,6 +113,41 @@ public class WeChatHttpRequest<TWeChatResponse>
 
     public override async Task Request(IHttpRequestContext context)
     {
+        // 主要参数处理,AppId,MchId等
+        if (this is IHasAppId appId &&
+            string.IsNullOrWhiteSpace(appId.AppId))
+        {
+            appId.AppId = Options.AppId;
+        }
+
+        if (this is IHasSecret secret &&
+            string.IsNullOrWhiteSpace(secret.Secret))
+        {
+            secret.Secret = Options.Secret;
+        }
+
+        switch (this)
+        {
+            case IHasAccessToken accessToken when string.IsNullOrWhiteSpace(accessToken.AccessToken):
+                accessToken.AccessToken = await context
+                     .RequestServices
+                     .GetRequiredService<IWeChatAccessTokenStore>()
+                     .GetAsync(Options.AppId, Options.Secret);
+                break;
+            case IHasCardTicket cardTicket when string.IsNullOrWhiteSpace(cardTicket.CardTicket):
+                cardTicket.CardTicket = await context
+                     .RequestServices
+                     .GetRequiredService<IWeChatTicketStore>()
+                     .GetAsync(Options.AppId, Options.Secret, "wx_card");
+                break;
+            case IHasJsapiTicket jsapiTicket when string.IsNullOrWhiteSpace(jsapiTicket.JsapiTicket):
+                jsapiTicket.JsapiTicket = await context
+                     .RequestServices
+                     .GetRequiredService<IWeChatTicketStore>()
+                     .GetAsync(Options.AppId, Options.Secret, "jsapi");
+                break;
+        }
+
         context.Message.Method = Method ?? HttpMethod.Get;
         if (RequestUriFactory != null)
         {

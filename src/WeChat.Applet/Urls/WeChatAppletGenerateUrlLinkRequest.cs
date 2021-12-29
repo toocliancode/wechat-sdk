@@ -9,8 +9,8 @@ namespace WeChat.Applet.Urls;
 /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/url-link/urllink.generate.html
 /// </summary>
 public class WeChatAppletGenerateUrlLinkRequest
-       : WeChatHttpRequest<WeChatAppletGenerateUrlLinkResponse>
-    , IEnableAccessToken
+    : WeChatHttpRequest<WeChatAppletGenerateUrlLinkResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/wxa/generate_urllink";
 
@@ -60,7 +60,7 @@ public class WeChatAppletGenerateUrlLinkRequest
     /// 微信API access_token
     /// </summary>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 通过 URL Link 进入的小程序页面路径，必须是已经发布的小程序存在的页面，不可携带 query 。path 为空时会跳转小程序主页

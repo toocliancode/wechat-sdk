@@ -9,6 +9,7 @@ namespace WeChat.Applet.Urls;
 /// </summary>
 public class WeChatAppletGenerateSchemeRequest
     : WeChatHttpRequest<WeChatAppletGenerateSchemeResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode";
 
@@ -32,12 +33,12 @@ public class WeChatAppletGenerateSchemeRequest
     /// <param name="expireInterval">到期失效的 scheme 码的失效间隔天数。生成的到期失效 scheme 码在该间隔时间到达前有效。
     /// 最长间隔天数为365天。is_expire 为 true 且 expire_type 为 1 时必填</param>
     public WeChatAppletGenerateSchemeRequest(
-        string accessToken,
         GenerateSchemeJumpWxa? jumpWxa = default,
         bool isExpire = false,
         int expireType = 0,
         DateTime? expireTime = null,
-        int? expireInterval = null)
+        int? expireInterval = null,
+        string? accessToken = default)
         : this()
     {
         AccessToken = accessToken;
@@ -48,11 +49,9 @@ public class WeChatAppletGenerateSchemeRequest
         ExpireInterval = expireInterval;
     }
 
-    /// <summary>
-    /// 微信API access_token
-    /// </summary>
+    /// <inheritdoc/>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 跳转到的目标小程序信息

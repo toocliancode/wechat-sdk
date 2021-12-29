@@ -13,6 +13,7 @@ namespace WeChat.Applet.QrCode;
 /// </summary>
 public class WeChatAppletGetWxaCodeRequest
     : WeChatHttpRequest<WeChatResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/wxa/getwxacode";
 
@@ -33,12 +34,12 @@ public class WeChatAppletGetWxaCodeRequest
     /// <param name="lineColor">auto_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"} 十进制表示</param>
     /// <param name="isHyaline">是否需要透明底色，为 true 时，生成透明底色的小程序码</param>
     public WeChatAppletGetWxaCodeRequest(
-        string accessToken,
         string path,
         int width = 430,
         bool autoColor = false,
         QrCodeLineColor? lineColor = null,
-        bool isHyaline = false)
+        bool isHyaline = false,
+        string? accessToken = default)
         : this()
     {
         AccessToken = accessToken;
@@ -49,11 +50,9 @@ public class WeChatAppletGetWxaCodeRequest
         IsHyaline = isHyaline;
     }
 
-    /// <summary>
-    /// 微信API access_token
-    /// </summary>
+    /// <inheritdoc/>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 扫码进入的小程序页面路径，最大长度 128 字节，不能为空；对于小游戏，可以只传入 query 部分，来实现传参效果，

@@ -11,7 +11,10 @@ namespace WeChat.Applet.Login;
 /// 登录凭证校验。通过 wx.login 接口获得临时登录凭证 code 后传到开发者服务器调用此接口完成登录流程。更多使用方法详见
 /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html
 /// </summary>
-public class WeChatAppletCode2SessionRequest : WeChatHttpRequest<WeChatAppletCode2SessionResponse>
+public class WeChatAppletCode2SessionRequest
+    : WeChatHttpRequest<WeChatAppletCode2SessionResponse>
+    , IHasAppId
+    , IHasSecret
 {
     public static string Endpoint = "https://api.weixin.qq.com/sns/jscode2session";
 
@@ -19,13 +22,13 @@ public class WeChatAppletCode2SessionRequest : WeChatHttpRequest<WeChatAppletCod
     /// 微信小程序应用号
     /// </summary>
     [JsonPropertyName("appid")]
-    public string AppId { get; set; }
+    public string? AppId { get; set; }
 
     /// <summary>
     /// 微信小程序密钥
     /// </summary>
     [JsonPropertyName("secret")]
-    public string Secret { get; set; }
+    public string? Secret { get; set; }
 
     /// <summary>
     /// 登录时获取的 code
@@ -44,6 +47,11 @@ public class WeChatAppletCode2SessionRequest : WeChatHttpRequest<WeChatAppletCod
 
     }
 
+    public WeChatAppletCode2SessionRequest(string jsCode)
+    {
+        JsCode = jsCode;
+    }
+
     public WeChatAppletCode2SessionRequest(string appId, string secret, string jsCode)
     {
         AppId = appId;
@@ -52,7 +60,7 @@ public class WeChatAppletCode2SessionRequest : WeChatHttpRequest<WeChatAppletCod
     }
     protected override string GetRequestUri()
     {
-        var body = new Dictionary<string, string>
+        var body = new Dictionary<string, string?>
         {
             ["appid"] = AppId,
             ["secret"] = Secret,

@@ -42,15 +42,6 @@ public class WeChatPayHttpRequest<TWeChatResponse>
 
     public override async Task Request(IHttpRequestContext context)
     {
-        await base.Request(context);
-
-        // 主要参数处理,AppId,MchId等
-        if (this is IHasAppId appId &&
-            string.IsNullOrWhiteSpace(appId.AppId))
-        {
-            appId.AppId = Options.AppId;
-        }
-
         if (this is IHasMchId mchId &&
             string.IsNullOrWhiteSpace(mchId.MchId))
         {
@@ -70,6 +61,9 @@ public class WeChatPayHttpRequest<TWeChatResponse>
         {
             mayRefundNotifyUrl.NotifyUrl = Options.RefundNotifyUrl;
         }
+
+        await base.Request(context);
+
         // 签名处理
         await context
              .RequestServices

@@ -9,14 +9,13 @@ namespace WeChat.Applet.Message;
 /// </summary>
 public class WeChatAppletSubscribeMessageSendRequest
     : WeChatHttpRequest<WeChatResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
 
-    /// <summary>
-    /// 微信API access_token
-    /// </summary>
+    /// <inheritdoc/>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 接收者（用户）的 openid
@@ -74,13 +73,13 @@ public class WeChatAppletSubscribeMessageSendRequest
     /// <param name="miniProgramState">跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版</param>
     /// <param name="lang">进入小程序查看”的语言类型，支持zh_CN(简体中文)、en_US(英文)、zh_HK(繁体中文)、zh_TW(繁体中文)，默认为zh_CN</param>
     public WeChatAppletSubscribeMessageSendRequest(
-        string accessToken,
         string toUser,
         string templateId,
         IDictionary<string, IDictionary<string, string>> data,
         string? page,
-        string? miniProgramState = null,
-        string? lang = null)
+        string? miniProgramState = default,
+        string? lang = default,
+        string? accessToken = default)
         : this()
     {
         AccessToken = accessToken;

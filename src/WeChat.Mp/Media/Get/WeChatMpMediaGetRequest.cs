@@ -13,25 +13,24 @@ namespace WeChat.Mp.Media;
 /// </summary>
 public class WeChatMpMediaGetRequest
     : WeChatHttpRequest<WeChatMpMediaGetResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/media/get";
 
     /// <summary>
     /// 实例化一个新的 获取临时素材 请求
     /// </summary>
-    /// <param name="accessToken">微信API access_token</param>
     /// <param name="mediaId">媒体文件Id</param>
-    public WeChatMpMediaGetRequest(string accessToken, string mediaId)
+    /// <param name="accessToken">微信API access_token</param>
+    public WeChatMpMediaGetRequest(string mediaId, string? accessToken = default)
     {
         AccessToken = accessToken;
         MediaId = mediaId;
     }
 
-    /// <summary>
-    /// 微信API access_token
-    /// </summary>
+    /// <inheritdoc/>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 媒体文件Id
@@ -41,7 +40,7 @@ public class WeChatMpMediaGetRequest
 
     protected override string GetRequestUri()
     {
-        var body = new Dictionary<string, string>
+        var body = new Dictionary<string, string?>
         {
             ["access_token"] = AccessToken,
             ["media_id"] = MediaId,

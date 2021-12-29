@@ -10,6 +10,7 @@ namespace WeChat.Mp.Ip;
 /// </summary>
 public class WeChatMpApiDomainIpRequest
     : WeChatHttpRequest<WeChatMpApiDomainIpResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/get_api_domain_ip";
 
@@ -34,10 +35,7 @@ public class WeChatMpApiDomainIpRequest
     /// 微信API access_token
     /// </summary>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
-    protected override string GetRequestUri()
-    {
-        return $"{Endpoint}?access_token={AccessToken}";
-    }
+    protected override string GetRequestUri() => $"{Endpoint}?access_token={AccessToken}";
 }

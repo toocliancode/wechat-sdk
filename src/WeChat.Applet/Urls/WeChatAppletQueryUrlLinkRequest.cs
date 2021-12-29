@@ -11,6 +11,7 @@ namespace WeChat.Applet.Urls;
 /// </summary>
 public class WeChatAppletQueryUrlLinkRequest
     : WeChatHttpRequest<WeChatAppletQueryUrlLinkResponse>
+    , IHasAccessToken
 {
     public static string Endpoint = "https://api.weixin.qq.com/wxa/query_urllink";
 
@@ -29,19 +30,17 @@ public class WeChatAppletQueryUrlLinkRequest
     /// <param name="accessToken">微信API access_token</param>
     /// <param name="urlLink">小程序 url_link</param>
     public WeChatAppletQueryUrlLinkRequest(
-        string accessToken,
-        string urlLink)
+        string urlLink,
+        string? accessToken = default)
         : this()
     {
         AccessToken = accessToken;
         UrlLink = urlLink;
     }
 
-    /// <summary>
-    /// 微信API access_token
-    /// </summary>
+    /// <inheritdoc/>
     [JsonIgnore]
-    public string AccessToken { get; set; }
+    public string? AccessToken { get; set; }
 
     /// <summary>
     /// 小程序 scheme 码

@@ -92,7 +92,7 @@ public class WeChatPayTransactionsNativeRequest
     /// 示例值：wxd678efh567hg6787
     /// </summary>
     [JsonPropertyName("appid")]
-    public string AppId { get; set; }
+    public string? AppId { get; set; }
 
     /// <summary>
     /// 直连商户号
@@ -100,7 +100,7 @@ public class WeChatPayTransactionsNativeRequest
     /// 示例值：1230000109
     /// </summary>
     [JsonPropertyName("mchid")]
-    public string MchId { get; set; }
+    public string? MchId { get; set; }
 
     /// <summary>
     /// 商品描述
