@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.Message;
+﻿namespace WeChat.Applet.Message;
 
 /// <summary>
 /// <b>[subscribeMessage.send]</b>
@@ -8,10 +6,10 @@ namespace WeChat.Applet.Message;
 /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html
 /// </summary>
 public class WeChatAppletSubscribeMessageSendRequest
-    : WeChatHttpRequest<WeChatResponse>
+    : WeChatHttpRequest<WeChatHttpResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
+    public static string Endpoint = "/cgi-bin/message/subscribe/send?access_token={access_token}";
 
     /// <inheritdoc/>
     [JsonIgnore]
@@ -92,7 +90,6 @@ public class WeChatAppletSubscribeMessageSendRequest
     }
 
     protected override string GetRequestUri()
-    {
-        return $"{Endpoint}?access_token={AccessToken}";
-    }
+        => $"{WeChatProperties.Domain}{Endpoint}"
+        .Replace("access_token", AccessToken);
 }

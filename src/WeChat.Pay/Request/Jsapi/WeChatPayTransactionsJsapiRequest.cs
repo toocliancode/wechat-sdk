@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
+﻿
 using WeChat.Pay.Domain;
 using WeChat.Pay.Jsapi;
 
@@ -15,7 +14,7 @@ public class WeChatPayTransactionsJsapiRequest
     , IHasMchId
     , IHasTransactionNotifyUrl
 {
-    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi";
+    public static string Endpoint = "/v3/pay/transactions/jsapi";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatPayTransactionsJsapiRequest"/>
@@ -188,8 +187,5 @@ public class WeChatPayTransactionsJsapiRequest
     [JsonPropertyName("settle_info")]
     public SettleInfo? SettleInfo { get; set; }
 
-    protected override string GetRequestUri()
-    {
-        return Endpoint;
-    }
+    protected override string GetRequestUri() => $"{WeChatPayProperties.Domain}{Endpoint}";
 }

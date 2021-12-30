@@ -2,8 +2,6 @@
 
 using Microsoft.Extensions.Caching.Distributed;
 
-using System.Text.Json;
-
 namespace WeChat.AccessToken;
 
 public class WeChatAccessTokenStore : IWeChatAccessTokenStore
@@ -30,7 +28,7 @@ public class WeChatAccessTokenStore : IWeChatAccessTokenStore
         if (string.IsNullOrWhiteSpace(token))
         {
             var response = await _mediator.Send(new WeChatAccessTokenRequest(appId, secret, grantType));
-            if (!response.IsSuccessed())
+            if (!response.IsSucceed())
             {
                 throw new Exception($"获取微信access_token失败：{JsonSerializer.Serialize(response)}");
             }

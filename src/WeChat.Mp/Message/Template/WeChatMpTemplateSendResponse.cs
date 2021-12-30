@@ -1,8 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace WeChat.Mp.Message;
 
-namespace WeChat.Mp.Message;
-
-public class WeChatMpTemplateSendResponse : WeChatResponse
+public class WeChatMpTemplateSendResponse : WeChatHttpResponse
 {
     /// <summary>
     /// 消息Id

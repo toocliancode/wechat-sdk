@@ -1,7 +1,4 @@
-﻿
-using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.QrCode;
+﻿namespace WeChat.Applet.QrCode;
 
 public class QrCodeLineColor
 {

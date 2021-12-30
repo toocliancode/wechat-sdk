@@ -33,30 +33,30 @@ public static class CardTypes
     /// <summary>
     /// 会员卡
     /// </summary>
-    public const string MEMBER_CARD= "MEMBER_CARD";
+    public const string MEMBER_CARD = "MEMBER_CARD";
 
     /// <summary>
     /// 门票
     /// </summary>
-    public const string SCENIC_TICKET= "SCENIC_TICKET";
+    public const string SCENIC_TICKET = "SCENIC_TICKET";
 
     /// <summary>
     /// 电影票
     /// </summary>
-    public const string MOVIE_TICKET= "MOVIE_TICKET";
+    public const string MOVIE_TICKET = "MOVIE_TICKET";
 
     /// <summary>
     /// 飞机票
     /// </summary>
-    public const string BOARDING_PASS= "BOARDING_PASS";
+    public const string BOARDING_PASS = "BOARDING_PASS";
 
     /// <summary>
     /// 红包
     /// </summary>
-    public const string LUCKY_MONEY= "LUCKY_MONEY";
+    public const string LUCKY_MONEY = "LUCKY_MONEY";
 
     /// <summary>
     /// 会议门票
     /// </summary>
-    public const string MEETING_TICKET= "MEETING_TICKET";
+    public const string MEETING_TICKET = "MEETING_TICKET";
 }

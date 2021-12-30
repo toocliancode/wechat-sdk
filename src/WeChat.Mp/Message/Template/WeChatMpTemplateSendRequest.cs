@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Message;
+﻿namespace WeChat.Mp.Message;
 
 /// <summary>
 /// 发送模板消息
@@ -11,7 +9,7 @@ public class WeChatMpTemplateSendRequest
     : WeChatHttpRequest<WeChatMpTemplateSendResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/media/get";
+    public static string Endpoint = "/cgi-bin/media/get?access_token={access_token}";
 
     public WeChatMpTemplateSendRequest()
         : base(HttpMethod.Post)
@@ -123,6 +121,7 @@ public class WeChatMpTemplateSendRequest
 
     protected override string GetRequestUri()
     {
-        return $"{Endpoint}?access_token={AccessToken}";
+        return $"{WeChatProperties.Domain}{Endpoint}"
+        .Replace("{access_token}", AccessToken);
     }
 }

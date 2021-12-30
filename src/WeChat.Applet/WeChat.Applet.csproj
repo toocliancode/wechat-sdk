@@ -3,6 +3,11 @@
   <PropertyGroup>
 		<TargetFramework>$(TargetFrameworkVersion)</TargetFramework>
   </PropertyGroup>
+	
+	<ItemGroup>
+		<Using Include="System.Text.Json"/>
+		<Using Include="System.Text.Json.Serialization"/>
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WeChat\WeChat.csproj" />

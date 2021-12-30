@@ -1,22 +1,20 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Card;
+﻿namespace WeChat.Mp.Card;
 
 /// <summary>
 /// 封面摘要信息
 /// </summary>
-public class WeChatMpCardCreateAbstract
+public class WeChatMpCardAbstract
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateAbstract"/>
+    /// 实例化一个新的 <see cref="WeChatMpCardAbstract"/>
     /// </summary>
-    public WeChatMpCardCreateAbstract()
+    public WeChatMpCardAbstract()
     {
 
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateAbstract"/>
+    /// 实例化一个新的 <see cref="WeChatMpCardAbstract"/>
     /// </summary>
     /// <param name="abstract">封面摘要简介</param>
     /// <param name="iconUrlList">
@@ -24,7 +22,7 @@ public class WeChatMpCardCreateAbstract
     /// <see cref="Media.WeChatMpMediaUploadImgRequest"/> 上传获取图片获得链接，填写 非CDN链接会报错，并在此填入。 
     /// 建议图片尺寸像素850*350
     /// </param>
-    public WeChatMpCardCreateAbstract(
+    public WeChatMpCardAbstract(
         string? @abstract = default,
         List<string>? iconUrlList = default)
     {

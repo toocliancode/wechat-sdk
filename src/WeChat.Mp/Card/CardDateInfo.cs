@@ -1,14 +1,12 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Card;
+﻿namespace WeChat.Mp.Card;
 
 /// <summary>
 /// 卡券使用日期，有效期的信息。
 /// </summary>
-public class WeChatMpCardCreateDateInfo
+public class CardDateInfo
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateDateInfo"/>。
+    /// 实例化一个新的 <see cref="CardDateInfo"/>。
     /// 使用类型 <see cref="DateTypes.DATE_TYPE_FIX_TIME_RANGE"/>
     /// </summary>
     /// <param name="beginTime">
@@ -19,7 +17,7 @@ public class WeChatMpCardCreateDateInfo
     /// <see cref="Type"/> = <see cref="DateTypes.DATE_TYPE_FIX_TIME_RANGE"/> 或 <see cref="DateTypes.DATE_TYPE_FIX_TERM"/> 时专用，表示结束时间。
     /// 建议设置为截止日期的23:59:59过期。（ 东八区时间,UTC+8，单位为秒 ）
     /// </param>
-    public WeChatMpCardCreateDateInfo(
+    public CardDateInfo(
         DateTime beginTime,
         DateTime endTime)
     {
@@ -30,7 +28,7 @@ public class WeChatMpCardCreateDateInfo
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateDateInfo"/>。
+    /// 实例化一个新的 <see cref="CardDateInfo"/>。
     /// 使用类型 <see cref="DateTypes.DATE_TYPE_FIX_TERM"/>
     /// </summary>
     /// <param name="fixedTime">
@@ -43,7 +41,7 @@ public class WeChatMpCardCreateDateInfo
     /// 表示卡券统一过期时间 ， 建议设置为截止日期的23:59:59过期。（ 东八区时间,UTC+8，单位为秒 ）。
     /// 设置了 <see cref="FixedTerm"/> 卡券，当时间达到 <see cref="EndTimeStamp"/> 时卡券统一过期
     /// </param>
-    public WeChatMpCardCreateDateInfo(
+    public CardDateInfo(
         uint fixedTime,
         uint fixedBeginTerm,
         DateTime? endTime)

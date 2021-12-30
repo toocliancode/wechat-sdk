@@ -1,13 +1,10 @@
-﻿
-using System.Text.Json.Serialization;
-
-namespace WeChat.Pay.H5;
+﻿namespace WeChat.Pay.H5;
 
 /// <summary>
 /// H5下单API 响应
 /// https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_4.shtml
 /// </summary>
-public class WeChatPayTransactionsH5Response : WeChatResponseBase
+public class WeChatPayTransactionsH5Response : WeChatHttpResponseBase
 {
     /// <summary>
     /// 支付跳转链接

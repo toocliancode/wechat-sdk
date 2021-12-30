@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.Urls;
+﻿namespace WeChat.Applet.Urls;
 
 /// <summary>
 /// 跳转到的目标小程序信息

@@ -1,11 +1,9 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.Login
+﻿namespace WeChat.Applet.Login
 {
     /// <summary>
     /// 登录凭证校验
     /// </summary>
-    public class WeChatAppletCode2SessionResponse : WeChatResponse
+    public class WeChatAppletCode2SessionResponse : WeChatHttpResponse
     {
         /// <summary>
         /// 用户唯一标识

@@ -1,6 +1,4 @@
 ﻿
-using System.Text.Json.Serialization;
-
 using WeChat.Pay.Query;
 
 namespace WeChat.Pay;
@@ -13,7 +11,7 @@ public class WeChatPayTransactionsIdRequest
     : WeChatPayHttpRequest<WeChatPayTransactionsIdResponse>
     , IHasMchId
 {
-    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/pay/transactions/id/{transaction_id}?mchid={mchid}";
+    public static string Endpoint = "/v3/pay/transactions/id/{transaction_id}?mchid={mchid}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatPayTransactionsIdRequest"/>
@@ -53,7 +51,5 @@ public class WeChatPayTransactionsIdRequest
     public override HttpMethod Method { get; set; } = HttpMethod.Get;
 
     protected override string GetRequestUri()
-        => Endpoint
-        .Replace("{transaction_id}", TransactionId)
-        .Replace("{mchid}", MchId);
+        => $"{WeChatPayProperties.Domain}{Endpoint.Replace("{transaction_id}", TransactionId).Replace("{mchid}", MchId)}";
 }

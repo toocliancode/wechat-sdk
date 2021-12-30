@@ -1,7 +1,4 @@
-﻿
-using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.Urls;
+﻿namespace WeChat.Applet.Urls;
 
 /// <summary>
 /// <b>[urllink.query]</b>
@@ -13,7 +10,7 @@ public class WeChatAppletQueryUrlLinkRequest
     : WeChatHttpRequest<WeChatAppletQueryUrlLinkResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/wxa/query_urllink";
+    public static string Endpoint = "/wxa/query_urllink?access_token={access_token}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatAppletQuerySchemeRequest"/>
@@ -50,6 +47,7 @@ public class WeChatAppletQueryUrlLinkRequest
 
     protected override string GetRequestUri()
     {
-        return $"{Endpoint}?access_token={AccessToken}";
+        return $"{WeChatProperties.Domain}{Endpoint}"
+        .Replace("{access_token}", AccessToken);
     }
 }

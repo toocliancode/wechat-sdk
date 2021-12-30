@@ -2,6 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -13,9 +14,8 @@ namespace WeChat;
 /// <typeparam name="TWeChatResponse"></typeparam>
 public class WeChatHttpRequest<TWeChatResponse>
     : HttpRequestBase<TWeChatResponse>
-    where TWeChatResponse : WeChatResponseBase, new()
+    where TWeChatResponse : WeChatHttpResponseBase, new()
 {
-
     public WeChatHttpRequest()
     {
 
@@ -64,12 +64,41 @@ public class WeChatHttpRequest<TWeChatResponse>
     [JsonIgnore]
     public virtual WeChatOptions Options { get; protected set; }
 
-    public virtual void WithOptions(WeChatOptions options) => Options = options;
+    public virtual void WithOptions(WeChatOptions options)
+    {
+        Options = options;
+
+        SetAppId(Options.AppId);
+        SetSecret(Options.Secret);
+    }
 
     public virtual void Configure(Action<WeChatOptions> configure)
     {
         Options ??= new();
         configure(Options);
+
+        SetAppId(Options.AppId);
+        SetSecret(Options.Secret);
+    }
+
+    protected virtual void SetAppId(string appId)
+    {
+        if (!string.IsNullOrWhiteSpace(appId) &&
+            this is IHasAppId request &&
+            request.AppId != appId)
+        {
+            request.AppId = appId;
+        }
+    }
+
+    protected virtual void SetSecret(string secret)
+    {
+        if (!string.IsNullOrWhiteSpace(secret) &&
+            this is IHasSecret request &&
+            request.Secret != secret)
+        {
+            request.Secret = secret;
+        }
     }
 
     /// <summary>
@@ -113,19 +142,6 @@ public class WeChatHttpRequest<TWeChatResponse>
 
     public override async Task Request(IHttpRequestContext context)
     {
-        // 主要参数处理,AppId,MchId等
-        if (this is IHasAppId appId &&
-            string.IsNullOrWhiteSpace(appId.AppId))
-        {
-            appId.AppId = Options.AppId;
-        }
-
-        if (this is IHasSecret secret &&
-            string.IsNullOrWhiteSpace(secret.Secret))
-        {
-            secret.Secret = Options.Secret;
-        }
-
         switch (this)
         {
             case IHasAccessToken accessToken when string.IsNullOrWhiteSpace(accessToken.AccessToken):
@@ -172,8 +188,9 @@ public class WeChatHttpRequest<TWeChatResponse>
     [JsonIgnore]
     public virtual JsonSerializerOptions? JsonSerializerOptions { get; set; } = new()
     {
-        Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
     };
 
     public override async Task<TWeChatResponse> Response(IHttpResponseContext context)

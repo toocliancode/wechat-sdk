@@ -3,8 +3,6 @@ using Mediator.HttpClient;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using System.Text.Json.Serialization;
-
 namespace WeChat.Mp;
 
 /// <summary>

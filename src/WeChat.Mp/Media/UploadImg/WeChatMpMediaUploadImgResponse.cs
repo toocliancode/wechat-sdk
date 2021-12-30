@@ -1,9 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Media;
+﻿namespace WeChat.Mp.Media;
 
 public class WeChatMpMediaUploadImgResponse
-    : WeChatResponse
+    : WeChatHttpResponse
 {
     /// <summary>
     /// 商户图片url，用于创建卡券接口中填入。

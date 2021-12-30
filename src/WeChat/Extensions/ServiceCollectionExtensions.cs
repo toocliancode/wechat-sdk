@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
 
         services.AddDistributedMemoryCache();
 
+        services.TryAddTransient<IWeChatXmlSerializer, WeChatXmlSerializer>();
         services.TryAddTransient<IWeChatAccessTokenStore, WeChatAccessTokenStore>();
         services.TryAddTransient<IWeChatTicketStore, WeChatJsapiTicketStore>();
         services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));

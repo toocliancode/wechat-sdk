@@ -1,9 +1,6 @@
 ﻿
 using Mediator.HttpClient;
 
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace WeChat.Mp.Media;
 
 /// <summary>
@@ -15,7 +12,7 @@ public class WeChatMpMediaGetRequest
     : WeChatHttpRequest<WeChatMpMediaGetResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/media/get";
+    public static string Endpoint = "/cgi-bin/media/get?access_token={access_token}&media_id={media_id}";
 
     /// <summary>
     /// 实例化一个新的 获取临时素材 请求
@@ -39,15 +36,9 @@ public class WeChatMpMediaGetRequest
     public string MediaId { get; set; }
 
     protected override string GetRequestUri()
-    {
-        var body = new Dictionary<string, string?>
-        {
-            ["access_token"] = AccessToken,
-            ["media_id"] = MediaId,
-        };
-
-        return $"{Endpoint}?{HttpUtility.ToQuery(body)}";
-    }
+        => $"{WeChatProperties.Domain}{Endpoint}"
+            .Replace("{access_token}", AccessToken)
+            .Replace("{media_id}", MediaId);
 
     public override async Task<WeChatMpMediaGetResponse> Response(IHttpResponseContext context)
     {

@@ -1,7 +1,4 @@
-﻿
-using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.Urls;
+﻿namespace WeChat.Applet.Urls;
 
 /// <summary>
 /// <b>[urllink.generate]</b>
@@ -12,7 +9,7 @@ public class WeChatAppletGenerateUrlLinkRequest
     : WeChatHttpRequest<WeChatAppletGenerateUrlLinkResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/wxa/generate_urllink";
+    public static string Endpoint = "/wxa/generate_urllink?access_token={access_token}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatAppletGenerateUrlLinkRequest"/>
@@ -105,7 +102,6 @@ public class WeChatAppletGenerateUrlLinkRequest
     public GenerateUrlLinkCcloudBase? CcloudBase { get; set; }
 
     protected override string GetRequestUri()
-    {
-        return $"{Endpoint}?access_token={AccessToken}";
-    }
+        => $"{WeChatProperties.Domain}{Endpoint}"
+        .Replace("{access_token}", AccessToken);
 }

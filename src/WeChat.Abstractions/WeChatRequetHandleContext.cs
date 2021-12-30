@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace WeChat;
+﻿namespace WeChat;
 
 public class WeChatRequetHandleContext : IWeChatRequetHandleContext
 {

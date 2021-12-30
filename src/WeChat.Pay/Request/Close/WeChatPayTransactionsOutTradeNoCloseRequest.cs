@@ -1,6 +1,4 @@
 ﻿
-using System.Text.Json.Serialization;
-
 using WeChat.Pay.Close;
 
 namespace WeChat.Pay;
@@ -13,7 +11,7 @@ public class WeChatPayTransactionsOutTradeNoCloseRequest
     : WeChatPayHttpRequest<WeChatPayTransactionsOutTradeNoCloseResponse>
     , IHasMchId
 {
-    public static string Endpoint = " https://api.mch.weixin.qq.com/v3/pay/transactions/out-trade-no/{out_trade_no}/close";
+    public static string Endpoint = "/v3/pay/transactions/out-trade-no/{out_trade_no}/close";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatPayTransactionsOutTradeNoCloseRequest"/>
@@ -51,5 +49,5 @@ public class WeChatPayTransactionsOutTradeNoCloseRequest
     [JsonIgnore]
     public string OutTradeNo { get; set; }
 
-    protected override string GetRequestUri() => Endpoint.Replace("{out_trade_no}", OutTradeNo);
+    protected override string GetRequestUri() => $"{WeChatPayProperties.Domain}{Endpoint.Replace("{out_trade_no}", OutTradeNo)}";
 }

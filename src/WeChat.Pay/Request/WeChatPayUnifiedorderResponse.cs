@@ -1,9 +1,6 @@
-﻿
-using System.Text.Json.Serialization;
+﻿namespace WeChat.Pay;
 
-namespace WeChat.Pay;
-
-public class WeChatPayUnifiedorderResponse : WeChatResponseBase
+public class WeChatPayUnifiedorderResponse : WeChatHttpResponseBase
 {
     /// <summary>
     /// 预支付交易会话标识

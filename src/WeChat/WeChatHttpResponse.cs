@@ -1,8 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace WeChat;
 
-namespace WeChat;
-
-public class WeChatResponse : WeChatResponseBase
+public class WeChatHttpResponse : WeChatHttpResponseBase
 {
     /// <summary>
     /// 错误码
@@ -16,7 +14,7 @@ public class WeChatResponse : WeChatResponseBase
     [JsonPropertyName("errmsg")]
     public string ErrMsg { get; set; }
 
-    public override bool IsSuccessed()
+    public override bool IsSucceed()
     {
         return ErrCode == 0;
     }

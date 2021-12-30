@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Pay.Domain;
+﻿namespace WeChat.Pay.Domain;
 
 /// <summary>
 /// 订单金额信息

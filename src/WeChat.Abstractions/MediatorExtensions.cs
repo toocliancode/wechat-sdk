@@ -8,7 +8,7 @@ public static class MediatorExtensions
         this IMediator mediator,
         WeChatHttpRequest<TWeChatResponse> request,
         WeChatOptions options)
-        where TWeChatResponse : WeChatResponseBase, new()
+        where TWeChatResponse : WeChatHttpResponseBase, new()
     {
         request.WithOptions(options);
         return mediator.Send(request);

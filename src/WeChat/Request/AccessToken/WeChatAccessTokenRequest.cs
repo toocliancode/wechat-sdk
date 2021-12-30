@@ -1,6 +1,4 @@
-﻿
-using Mediator.HttpClient;
-namespace WeChat.AccessToken;
+﻿namespace WeChat.AccessToken;
 
 /// <summary>
 /// 微信 access_token 请求
@@ -12,7 +10,7 @@ public class WeChatAccessTokenRequest
     , IHasAppId
     , IHasSecret
 {
-    public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/token";
+    public static string Endpoint = "/cgi-bin/token?appId={appId}&secret={secret}&grant_type={grant_type}";
 
     /// <summary>
     /// 微信应用号
@@ -54,14 +52,8 @@ public class WeChatAccessTokenRequest
     }
 
     protected override string GetRequestUri()
-    {
-        var body = new Dictionary<string, string?>
-        {
-            ["appid"] = AppId,
-            ["secret"] = Secret,
-            ["grant_type"] = GrantType
-        };
-
-        return $"{Endpoint}?{HttpUtility.ToQuery(body)}";
-    }
+        => $"{WeChatProperties.Domain}{Endpoint}"
+            .Replace("{appid}", AppId)
+            .Replace("{secret}", Secret)
+            .Replace("{grant_type}", GrantType);
 }

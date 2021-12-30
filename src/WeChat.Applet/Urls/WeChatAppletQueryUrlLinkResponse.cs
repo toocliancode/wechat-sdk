@@ -1,9 +1,6 @@
-﻿
-using System.Text.Json.Serialization;
+﻿namespace WeChat.Applet.Urls;
 
-namespace WeChat.Applet.Urls;
-
-public class WeChatAppletQueryUrlLinkResponse : WeChatResponse
+public class WeChatAppletQueryUrlLinkResponse : WeChatHttpResponse
 {
     /// <summary>
     /// scheme 配置

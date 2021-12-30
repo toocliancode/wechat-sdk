@@ -2,13 +2,11 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-using System.Text.Json.Serialization;
-
 namespace WeChat.Pay;
 
 public class WeChatPayHttpRequest<TWeChatResponse>
     : WeChatHttpRequest<TWeChatResponse>
-    where TWeChatResponse : WeChatResponseBase, new()
+    where TWeChatResponse : WeChatHttpResponseBase, new()
 {
     /// <inheritdoc/>
     [JsonIgnore]

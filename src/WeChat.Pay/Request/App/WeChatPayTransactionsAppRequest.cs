@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
+﻿
 using WeChat.Pay.App;
 using WeChat.Pay.Domain;
 
@@ -16,7 +15,7 @@ public class WeChatPayTransactionsAppRequest
     , IHasMchId
     , IHasTransactionNotifyUrl
 {
-    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/pay/transactions/app";
+    public static string Endpoint = "/v3/pay/transactions/app";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatPayTransactionsAppRequest"/>

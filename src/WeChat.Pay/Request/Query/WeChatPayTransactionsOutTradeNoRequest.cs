@@ -1,6 +1,4 @@
 ﻿
-using System.Text.Json.Serialization;
-
 using WeChat.Pay.Query;
 
 namespace WeChat.Pay;
@@ -12,7 +10,7 @@ namespace WeChat.Pay;
 public class WeChatPayTransactionsOutTradeNoRequest
     : WeChatPayHttpRequest<WeChatPayTransactionsOutTradeNoResponse>
 {
-    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/pay/transactions/out-trade-no/{out_trade_no}?mchid={mchid}";
+    public static string Endpoint = "/v3/pay/transactions/out-trade-no/{out_trade_no}?mchid={mchid}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatPayTransactionsOutTradeNoRequest"/>
@@ -49,13 +47,10 @@ public class WeChatPayTransactionsOutTradeNoRequest
     /// </summary>
     public string OutTradeNo { get; set; }
 
-
     [JsonIgnore]
     public override HttpMethod Method { get; set; } = HttpMethod.Get;
 
     protected override string GetRequestUri()
-        => Endpoint
-        .Replace("{out_trade_no}", OutTradeNo)
-        .Replace("{mchid}", MchId);
+        => $"{WeChatPayProperties.Domain}{Endpoint.Replace("{out_trade_no}", OutTradeNo).Replace("{mchid}", MchId)}";
 
 }

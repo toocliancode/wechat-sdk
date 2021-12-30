@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using System.Text.Json.Serialization;
 
 namespace WeChat.Mp.Media;
 
@@ -12,7 +11,7 @@ public class WeChatMpMediaUploadImgRequest
     : WeChatHttpRequest<WeChatMpMediaUploadImgResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/media/uploadimg";
+    public static string Endpoint = "/cgi-bin/media/uploadimg?access_token={access_token}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatMpMediaUploadImgRequest"/>
@@ -52,7 +51,8 @@ public class WeChatMpMediaUploadImgRequest
     [JsonIgnore]
     public override HttpMethod Method { get; set; } = HttpMethod.Post;
 
-    protected override string GetRequestUri() => $"{Endpoint}?access_token={AccessToken}";
+    protected override string GetRequestUri() => $"{WeChatProperties.Domain}{Endpoint}"
+        .Replace("{access_token}", AccessToken);
 
     protected override async Task<HttpContent?> GetContent()
     {

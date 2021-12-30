@@ -1,9 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Card;
+﻿namespace WeChat.Mp.Card;
 
 public class WeChatMpCardCreateResponse
-    : WeChatResponse
+    : WeChatHttpResponse
 {
     /// <summary>
     /// 卡券Id

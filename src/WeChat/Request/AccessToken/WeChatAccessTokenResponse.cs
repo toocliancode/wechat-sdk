@@ -1,11 +1,9 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.AccessToken;
+﻿namespace WeChat.AccessToken;
 
 /// <summary>
 /// 响应 access_token 请求
 /// </summary>
-public class WeChatAccessTokenResponse : WeChatResponse
+public class WeChatAccessTokenResponse : WeChatHttpResponse
 {
     /// <summary>
     /// 获取到的凭证

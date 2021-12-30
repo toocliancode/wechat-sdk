@@ -1,11 +1,9 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Card;
+﻿namespace WeChat.Mp.Card;
 
 /// <summary>
 /// 卡券基础信息
 /// </summary>
-public class WeChatMpCardCreateBaseInfo
+public class CardBaseInfo
 {
     #region 必填
 
@@ -85,13 +83,13 @@ public class WeChatMpCardCreateBaseInfo
     /// 商品库存信息
     /// </summary>
     [JsonPropertyName("sku")]
-    public WeChatMpCardCreateSku Sku { get; set; }
+    public CardSku Sku { get; set; }
 
     /// <summary>
     /// 使用日期，有效期的信息。
     /// </summary>
     [JsonPropertyName("date_info")]
-    public WeChatMpCardCreateDateInfo DateInfo { get; set; }
+    public CardDateInfo DateInfo { get; set; }
 
     #endregion
 

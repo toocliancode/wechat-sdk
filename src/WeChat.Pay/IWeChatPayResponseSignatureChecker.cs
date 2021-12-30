@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Net.Http;
-
-namespace WeChat.Pay;
+﻿namespace WeChat.Pay;
 
 public interface IWeChatPayResponseSignatureChecker
 {

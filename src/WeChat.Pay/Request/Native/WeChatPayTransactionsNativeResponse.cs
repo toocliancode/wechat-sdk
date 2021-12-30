@@ -1,13 +1,10 @@
-﻿
-using System.Text.Json.Serialization;
-
-namespace WeChat.Pay.Native;
+﻿namespace WeChat.Pay.Native;
 
 /// <summary>
 /// Native下单API 响应
 /// https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_3.shtml
 /// </summary>
-public class WeChatPayTransactionsNativeResponse : WeChatResponseBase
+public class WeChatPayTransactionsNativeResponse : WeChatHttpResponseBase
 {
     /// <summary>
     /// 二维码链接

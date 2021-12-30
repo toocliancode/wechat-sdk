@@ -1,7 +1,4 @@
-﻿
-using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Ip;
+﻿namespace WeChat.Mp.Ip;
 
 /// <summary>
 /// 微信API接口IP地址 请求
@@ -12,7 +9,7 @@ public class WeChatMpApiDomainIpRequest
     : WeChatHttpRequest<WeChatMpApiDomainIpResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/get_api_domain_ip";
+    public static string Endpoint = "/cgi-bin/get_api_domain_ip?access_token={access_token}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatMpApiDomainIpRequest"/>
@@ -37,5 +34,6 @@ public class WeChatMpApiDomainIpRequest
     [JsonIgnore]
     public string? AccessToken { get; set; }
 
-    protected override string GetRequestUri() => $"{Endpoint}?access_token={AccessToken}";
+    protected override string GetRequestUri() => $"{WeChatProperties.Domain}{Endpoint}"
+        .Replace("{access_token}", AccessToken);
 }

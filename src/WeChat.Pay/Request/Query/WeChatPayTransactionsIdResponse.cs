@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
+﻿
 using WeChat.Pay.Domain;
 
 namespace WeChat.Pay.Query;
@@ -8,7 +7,7 @@ namespace WeChat.Pay.Query;
 /// 查询订单API-微信支付订单号查询-返回参数
 /// https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_5.shtml#menu1
 /// </summary>
-public class WeChatPayTransactionsIdResponse : WeChatResponseBase
+public class WeChatPayTransactionsIdResponse : WeChatHttpResponseBase
 {
     /// <summary>
     /// 公众号ID

@@ -1,8 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace WeChat.Ticket;
 
-namespace WeChat.Ticket;
-
-public class WeChatTicketResponse : WeChatResponse
+public class WeChatTicketResponse : WeChatHttpResponse
 {
     /// <summary>
     /// 获取到的凭证

@@ -1,24 +1,22 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Card;
+﻿namespace WeChat.Mp.Card;
 
 /// <summary>
 /// 使用门槛（条件）字段，
 /// 若不填写使用条件则在券面拼写：无最低消费限制，全场通用，不限品类；
 /// 并在使用说明显示： 可与其他优惠共享
 /// </summary>
-public class WeChatMpCardCreateUseCondition
+public class CardUseCondition
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateUseCondition"/>
+    /// 实例化一个新的 <see cref="CardUseCondition"/>
     /// </summary>
-    public WeChatMpCardCreateUseCondition()
+    public CardUseCondition()
     {
 
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateUseCondition"/>
+    /// 实例化一个新的 <see cref="CardUseCondition"/>
     /// </summary>
     /// <param name="acceptCategory">指定可用的商品类目，仅用于代金券类型 ，填入后将在券面拼写适用于 <see cref="AcceptCategory"/></param>
     /// <param name="rejectCategory">指定不可用的商品类目，仅用于代金券类型 ，填入后将在券面拼写不适用于 <see cref="RejectCategory"/></param>
@@ -28,7 +26,7 @@ public class WeChatMpCardCreateUseCondition
     /// 不可以与其他类型共享门槛 ，填写false时系统将在使用须知里 拼写“不可与其他优惠共享”， 
     /// 填写true时系统将在使用须知里 拼写“可与其他优惠共享”， 默认为true
     /// </param>
-    public WeChatMpCardCreateUseCondition(
+    public CardUseCondition(
         string? acceptCategory = default,
         string? rejectCategory = default,
         int? leastCost = default,

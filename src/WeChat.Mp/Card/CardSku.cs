@@ -3,13 +3,13 @@
 /// <summary>
 /// 商品库存信息
 /// </summary>
-public class WeChatMpCardCreateSku
+public class CardSku
 {
-    public WeChatMpCardCreateSku()
+    public CardSku()
     {
     }
 
-    public WeChatMpCardCreateSku(int quantity)
+    public CardSku(int quantity)
     {
         Quantity = quantity;
     }

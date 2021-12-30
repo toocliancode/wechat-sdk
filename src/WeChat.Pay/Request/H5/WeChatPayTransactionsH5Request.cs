@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
+﻿
 using WeChat.Pay.Domain;
 using WeChat.Pay.H5;
 
@@ -16,7 +15,7 @@ public class WeChatPayTransactionsH5Request
     , IHasMchId
     , IHasTransactionNotifyUrl
 {
-    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/pay/transactions/h5";
+    public static string Endpoint = "/v3/pay/transactions/h5";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatPayTransactionsAppRequest"/>
@@ -178,5 +177,5 @@ public class WeChatPayTransactionsH5Request
     [JsonPropertyName("settle_info")]
     public SettleInfo? SettleInfo { get; set; }
 
-    protected override string GetRequestUri() => Endpoint;
+    protected override string GetRequestUri() => $"{WeChatPayProperties.Domain}{Endpoint}";
 }

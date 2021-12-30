@@ -1,7 +1,4 @@
-﻿
-using System.Text.Json.Serialization;
-
-namespace WeChat.Pay;
+﻿namespace WeChat.Pay;
 
 public abstract class WeChatPayRequest<TWeChatResponse>
     : WeChatRequestBase<TWeChatResponse>

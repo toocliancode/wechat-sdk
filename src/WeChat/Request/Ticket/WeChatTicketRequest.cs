@@ -1,7 +1,4 @@
-﻿
-using Mediator.HttpClient;
-
-namespace WeChat.Ticket;
+﻿namespace WeChat.Ticket;
 
 /// <summary>
 /// 微信 ticket 请求
@@ -12,8 +9,7 @@ public class WeChatTicketRequest
     : WeChatHttpRequest<WeChatTicketResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
-    public const string EndpointFormat = "?access_token={0}&type={1}";
+    public static string Endpoint = "/cgi-bin/ticket/getticket?access_token={access_token}&type={type}";
 
     /// <inheritdoc/>
     public string? AccessToken { get; set; }
@@ -46,13 +42,7 @@ public class WeChatTicketRequest
     }
 
     protected override string GetRequestUri()
-    {
-        var body = new Dictionary<string, string?>
-        {
-            ["access_token"] = AccessToken,
-            ["type"] = Type
-        };
-
-        return $"{Endpoint}?{HttpUtility.ToQuery(body)}";
-    }
+        => $"{WeChatProperties.Domain}{Endpoint}"
+            .Replace("{access_token}", AccessToken)
+            .Replace("{type}", Type);
 }

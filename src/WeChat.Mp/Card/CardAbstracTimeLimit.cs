@@ -1,29 +1,27 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Card;
+﻿namespace WeChat.Mp.Card;
 
 /// <summary>
 /// 使用时段限制
 /// </summary>
-public class WeChatMpCardCreateAbstracTimeLimit
+public class CardAbstracTimeLimit
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateAbstracTimeLimit"/>
+    /// 实例化一个新的 <see cref="CardAbstracTimeLimit"/>
     /// </summary>
-    public WeChatMpCardCreateAbstracTimeLimit()
+    public CardAbstracTimeLimit()
     {
 
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateAbstracTimeLimit"/>
+    /// 实例化一个新的 <see cref="CardAbstracTimeLimit"/>
     /// </summary>
     /// <param name="type">限制类型枚举值（<see cref="DayOfWeek"/> 转字符串大写）, 此处只控制显示，不控制实际使用逻辑，不填默认不显示</param>
     /// <param name="beginHour">当前type类型下的起始时间（小时），如当前结构体内填写了MONDAY，此处填写了10，则此处表示周一10:00可用</param>
     /// <param name="beginMinute">当前type类型下的起始时间（分钟），如当前结构体内填写了MONDAY，begin_hour填写10，此处填写了59，则此处表示周一10:59可用</param>
     /// <param name="endHour">当前type类型下的结束时间（小时） ，如当前结构体内填写了MONDAY，此处填写了20，则此处表示周一10:00-20:00可用</param>
     /// <param name="endMinute">当前type类型下的结束时间（分钟） ，如当前结构体内填写了MONDAY，begin_hour填写10，此处填写了59，则此处表示周一10:59-00:59可用</param>
-    public WeChatMpCardCreateAbstracTimeLimit(
+    public CardAbstracTimeLimit(
         DayOfWeek? type = default,
         ushort? beginHour = default,
         ushort? beginMinute = default,

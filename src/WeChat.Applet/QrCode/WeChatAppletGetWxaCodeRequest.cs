@@ -1,9 +1,6 @@
 ﻿
 using Mediator.HttpClient;
 
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace WeChat.Applet.QrCode;
 
 /// <summary>
@@ -12,10 +9,10 @@ namespace WeChat.Applet.QrCode;
 /// https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.get.html
 /// </summary>
 public class WeChatAppletGetWxaCodeRequest
-    : WeChatHttpRequest<WeChatResponse>
+    : WeChatHttpRequest<WeChatHttpResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "https://api.weixin.qq.com/wxa/getwxacode";
+    public static string Endpoint = "/wxa/getwxacode?access_token={access_token}";
 
     public WeChatAppletGetWxaCodeRequest()
         : base(HttpMethod.Post)
@@ -87,14 +84,13 @@ public class WeChatAppletGetWxaCodeRequest
     public bool IsHyaline { get; set; }
 
     protected override string GetRequestUri()
-    {
-        return $"{Endpoint}?access_token={AccessToken}";
-    }
+        => $"{WeChatProperties.Domain}{Endpoint}"
+        .Replace("{access_token}", AccessToken);
 
-    public override async Task<WeChatResponse> Response(IHttpResponseContext context)
+    public override async Task<WeChatHttpResponse> Response(IHttpResponseContext context)
     {
         var data = await context.Message.Content.ReadAsByteArrayAsync();
-        var response = JsonSerializer.Deserialize<WeChatResponse>(data, JsonSerializerOptions) ?? new();
+        var response = JsonSerializer.Deserialize<WeChatHttpResponse>(data, JsonSerializerOptions) ?? new();
 
         response.Raw = data;
         response.StatusCode = context.Message.StatusCode;

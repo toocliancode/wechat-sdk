@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace WeChat;
+﻿namespace WeChat;
 
 /// <summary>
 /// 微信jsapi凭据存储

@@ -4,15 +4,13 @@ using System.Text.Json.Serialization;
 namespace WeChat;
 
 [Serializable]
-public class WeChatResponseBase
+public class WeChatHttpResponseBase : WeChatResponse
 {
-    [JsonIgnore]
-    public byte[] Raw { get; set; }
 
     [JsonIgnore]
     public HttpStatusCode StatusCode { get; set; }
 
-    public virtual bool IsSuccessed()
+    public override bool IsSucceed()
     {
         return StatusCode == HttpStatusCode.OK;
     }

@@ -1,11 +1,9 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Media;
+﻿namespace WeChat.Mp.Media;
 
 /// <summary>
 /// 获取临时素材
 /// </summary>
-public class WeChatMpMediaGetResponse : WeChatResponse
+public class WeChatMpMediaGetResponse : WeChatHttpResponse
 {
     /// <summary>
     /// 内容类型

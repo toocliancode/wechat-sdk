@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.Urls;
+﻿namespace WeChat.Applet.Urls;
 
 /// <summary>
 /// 云开发静态网站自定义 H5 配置参数

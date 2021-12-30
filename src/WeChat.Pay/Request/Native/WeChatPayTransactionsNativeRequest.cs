@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
+﻿
 using WeChat.Pay.Domain;
 using WeChat.Pay.Native;
 
@@ -15,7 +14,7 @@ public class WeChatPayTransactionsNativeRequest
     , IHasMchId
     , IHasTransactionNotifyUrl
 {
-    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/pay/transactions/native";
+    public static string Endpoint = "/v3/pay/transactions/native";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatPayTransactionsNativeRequest"/>
@@ -175,5 +174,5 @@ public class WeChatPayTransactionsNativeRequest
     [JsonPropertyName("settle_info")]
     public SettleInfo? SettleInfo { get; set; }
 
-    protected override string GetRequestUri() => Endpoint;
+    protected override string GetRequestUri() => $"{WeChatPayProperties.Domain}{Endpoint}";
 }

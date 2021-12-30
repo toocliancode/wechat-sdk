@@ -1,22 +1,20 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat.Mp.Card;
+﻿namespace WeChat.Mp.Card;
 
 /// <summary>
 /// 卡券高级信息
 /// </summary>
-public class WeChatMpCardCreateAdvancedInfo
+public class CardAdvancedInfo
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateAdvancedInfo"/>
+    /// 实例化一个新的 <see cref="CardAdvancedInfo"/>
     /// </summary>
-    public WeChatMpCardCreateAdvancedInfo()
+    public CardAdvancedInfo()
     {
 
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardCreateAdvancedInfo"/>
+    /// 实例化一个新的 <see cref="CardAdvancedInfo"/>
     /// </summary>
     /// <param name="useCondition">
     /// 使用门槛（条件）字段，
@@ -27,12 +25,12 @@ public class WeChatMpCardCreateAdvancedInfo
     /// <param name="textImageList">图文列表，显示在详情内页，优惠券券开发者须至少传入一组图文列表</param>
     /// <param name="businessService">商家服务类型（<see cref="BusinessServiceTypes"/>），可多选</param>
     /// <param name="timeLimit">使用时段限制</param>
-    public WeChatMpCardCreateAdvancedInfo(
-        WeChatMpCardCreateUseCondition? useCondition = default,
-        WeChatMpCardCreateAbstract? @abstract = default,
-        List<WeChatMpCardCreateAbstractTextImage>? textImageList = default,
+    public CardAdvancedInfo(
+        CardUseCondition? useCondition = default,
+        CardAbstract? @abstract = default,
+        List<CardAbstractTextImage>? textImageList = default,
         List<string>? businessService = default,
-        List<WeChatMpCardCreateAbstracTimeLimit>? timeLimit = default)
+        List<CardAbstracTimeLimit>? timeLimit = default)
     {
         UseCondition = useCondition;
         Abstract = @abstract;
@@ -47,19 +45,19 @@ public class WeChatMpCardCreateAdvancedInfo
     /// 并在使用说明显示： 可与其他优惠共享
     /// </summary>
     [JsonPropertyName("use_condition")]
-    public WeChatMpCardCreateUseCondition? UseCondition { get; set; }
+    public CardUseCondition? UseCondition { get; set; }
 
     /// <summary>
     /// 封面摘要
     /// </summary>
     [JsonPropertyName("abstract")]
-    public WeChatMpCardCreateAbstract? Abstract { get; set; }
+    public CardAbstract? Abstract { get; set; }
 
     /// <summary>
     /// 图文列表，显示在详情内页，优惠券券开发者须至少传入一组图文列表
     /// </summary>
     [JsonPropertyName("text_image_list")]
-    public List<WeChatMpCardCreateAbstractTextImage>? TextImageList { get; set; }
+    public List<CardAbstractTextImage>? TextImageList { get; set; }
 
     /// <summary>
     /// 商家服务类型（<see cref="BusinessServiceTypes"/>），可多选
@@ -77,5 +75,5 @@ public class WeChatMpCardCreateAdvancedInfo
     /// 使用时段限制
     /// </summary>
     [JsonPropertyName("time_limit")]
-    public List<WeChatMpCardCreateAbstracTimeLimit>? TimeLimit { get; set; }
+    public List<CardAbstracTimeLimit>? TimeLimit { get; set; }
 }

@@ -1,8 +1,4 @@
-﻿using Mediator.HttpClient;
-
-using System.Text.Json.Serialization;
-
-namespace WeChat.Applet.Login;
+﻿namespace WeChat.Applet.Login;
 
 #pragma warning disable CA1822
 
@@ -16,7 +12,7 @@ public class WeChatAppletCode2SessionRequest
     , IHasAppId
     , IHasSecret
 {
-    public static string Endpoint = "https://api.weixin.qq.com/sns/jscode2session";
+    public static string Endpoint = "/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type={grant_type}";
 
     /// <summary>
     /// 微信小程序应用号
@@ -59,15 +55,9 @@ public class WeChatAppletCode2SessionRequest
         JsCode = jsCode;
     }
     protected override string GetRequestUri()
-    {
-        var body = new Dictionary<string, string?>
-        {
-            ["appid"] = AppId,
-            ["secret"] = Secret,
-            ["js_code"] = JsCode,
-            ["grant_type"] = GrantType
-        };
-
-        return $"{Endpoint}?{HttpUtility.ToQuery(body)}";
-    }
+        => $"{WeChatProperties.Domain}{Endpoint}"
+            .Replace("{appid}", AppId)
+            .Replace("{secret}", Secret)
+            .Replace("{js_code}", JsCode)
+            .Replace("{grant_type}", GrantType);
 }

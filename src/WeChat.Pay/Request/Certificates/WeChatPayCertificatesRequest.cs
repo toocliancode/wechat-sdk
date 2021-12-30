@@ -1,6 +1,4 @@
 ﻿
-using System.Text.Json.Serialization;
-
 using WeChat.Pay.Certificates;
 
 namespace WeChat.Pay;
@@ -11,12 +9,12 @@ namespace WeChat.Pay;
 /// </summary>
 public class WeChatPayCertificatesRequest : WeChatPayHttpRequest<WeChatPayCertificatesResponse>
 {
-    public static string Endpoint = "https://api.mch.weixin.qq.com/v3/certificates";
+    public static string Endpoint = "/v3/certificates";
 
     [JsonIgnore]
     protected override bool SignatureCheck => false;
 
-    protected override string GetRequestUri() => Endpoint;
+    protected override string GetRequestUri() => $"{WeChatPayProperties.Domain}{Endpoint}";
 
     protected override Task<HttpContent?> GetContent() => Task.FromResult<HttpContent?>(null);
 }

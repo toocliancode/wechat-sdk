@@ -29,7 +29,7 @@ public class WeChatPayPlatformCertificateStore : IWeChatPayPlatformCertificateSt
 
         var response = await _mediator.Send(request);
 
-        if (!response.IsSuccessed())
+        if (!response.IsSucceed())
         {
             throw new WeChatPayException($"获取平台证书列表失败：Code={response.StatusCode}");
         }

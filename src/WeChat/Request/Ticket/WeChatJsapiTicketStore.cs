@@ -3,8 +3,6 @@ using Mediator;
 
 using Microsoft.Extensions.Caching.Distributed;
 
-using System.Text.Json;
-
 namespace WeChat.Ticket;
 
 public class WeChatJsapiTicketStore : IWeChatTicketStore
@@ -36,7 +34,7 @@ public class WeChatJsapiTicketStore : IWeChatTicketStore
         var token = await _accessTokenStore.GetAsync(appId, secret);
 
         var response = await _mediator.Send(new WeChatTicketRequest(token, ticketType));
-        if (response.IsSuccessed())
+        if (response.IsSucceed())
         {
             await _cache.SetStringAsync(
                 cacheKey,
