@@ -13,5 +13,5 @@ public class WeChatMpCardCodeConsumeReponse
     /// 卡券
     /// </summary>
     [JsonPropertyName("card")]
-    public WeChatMpCardCodeConsumeCardModel Card { get; set; }
+    public CardIdModel Card { get; set; }
 }

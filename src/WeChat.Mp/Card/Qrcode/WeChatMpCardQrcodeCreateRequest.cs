@@ -40,7 +40,7 @@ public class WeChatMpCardQrcodeCreateRequest
     public WeChatMpCardQrcodeCreateRequest(
         string? openId = default,
         string? accessToken = default,
-        params WeChatMpCardQrcodeCreateModel[] cards)
+        params CardQrcodeCreateModel[] cards)
         : base(HttpMethod.Post)
     {
         OpenId = openId;
@@ -75,7 +75,7 @@ public class WeChatMpCardQrcodeCreateRequest
     /// 如果只有一组，则生成领取单张卡券的二维码。
     /// 如果有多组，则生成领取多张卡券的二维码
     /// </summary>
-    public List<WeChatMpCardQrcodeCreateModel> Cards { get; set; }
+    public List<CardQrcodeCreateModel> Cards { get; set; }
 
     protected override string GetRequestUri()
         => $"{WeChatProperties.Domain}{Endpoint}"

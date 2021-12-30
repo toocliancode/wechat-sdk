@@ -35,5 +35,5 @@ public class WeChatMpCardCodeGetResponse
     /// 卡券有效时间信息
     /// </summary>
     [JsonPropertyName("card")]
-    public WeChatMpCardCodeGetCardModel Card { get; set; }
+    public CardCodeGetModel Card { get; set; }
 }

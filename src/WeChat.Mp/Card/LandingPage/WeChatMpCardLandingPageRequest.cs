@@ -41,7 +41,7 @@ public class WeChatMpCardLandingPageRequest
         string title,
         bool canShare,
         string scene,
-        params WeChatMpCardLandingPageCardModel[] cards)
+        params CardLandingPageModel[] cards)
         : base(HttpMethod.Post)
     {
         Banner = banner;
@@ -71,7 +71,7 @@ public class WeChatMpCardLandingPageRequest
         bool canShare,
         string scene,
         string accessToken,
-        params WeChatMpCardLandingPageCardModel[] cards)
+        params CardLandingPageModel[] cards)
         : base(HttpMethod.Post)
     {
         AccessToken = accessToken;
@@ -125,7 +125,7 @@ public class WeChatMpCardLandingPageRequest
     /// 卡券列表
     /// </summary>
     [JsonPropertyName("card_list")]
-    public List<WeChatMpCardLandingPageCardModel> Cards { get; set; }
+    public List<CardLandingPageModel> Cards { get; set; }
 
     protected override string GetRequestUri() => $"{WeChatProperties.Domain}{Endpoint}"
         .Replace("{access_token}", AccessToken);

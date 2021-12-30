@@ -1,6 +1,6 @@
 ﻿namespace WeChat.Mp.Card;
 
-public class WeChatMpCardCodeGetCardModel
+public class CardCodeGetModel
 {
     /// <summary>
     /// 卡券Id

@@ -1,17 +1,17 @@
 ﻿namespace WeChat.Mp.Card;
 
-public class WeChatMpCardQrcodeCreateModel
+public class CardQrcodeCreateModel
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardQrcodeCreateModel"/>
+    /// 实例化一个新的 <see cref="CardQrcodeCreateModel"/>
     /// </summary>
-    public WeChatMpCardQrcodeCreateModel()
+    public CardQrcodeCreateModel()
     {
 
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardQrcodeCreateModel"/>
+    /// 实例化一个新的 <see cref="CardQrcodeCreateModel"/>
     /// </summary>
     /// <param name="code">卡券Code码,use_custom_code字段为true的卡券必须填写，非自定义code和导入code模式的卡券不必填写。</param>
     /// <param name="cardId">卡券Id</param>
@@ -32,7 +32,7 @@ public class WeChatMpCardQrcodeCreateModel
     /// outer_id字段升级版本，字符串类型，用户首次领卡时，会通过[领取事件推送]给商户；
     /// 对于会员卡的二维码，用户每次扫码打开会员卡后点击任何url，会将该值拼入url中，方便开发者定位扫码来源
     /// </param>
-    public WeChatMpCardQrcodeCreateModel(
+    public CardQrcodeCreateModel(
         string? code = default,
         string? cardId = default,
         bool? isUniqueCode = default,

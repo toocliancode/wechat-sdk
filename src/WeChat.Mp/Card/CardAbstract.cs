@@ -3,18 +3,18 @@
 /// <summary>
 /// 封面摘要信息
 /// </summary>
-public class WeChatMpCardAbstract
+public class CardAbstract
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardAbstract"/>
+    /// 实例化一个新的 <see cref="CardAbstract"/>
     /// </summary>
-    public WeChatMpCardAbstract()
+    public CardAbstract()
     {
 
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardAbstract"/>
+    /// 实例化一个新的 <see cref="CardAbstract"/>
     /// </summary>
     /// <param name="abstract">封面摘要简介</param>
     /// <param name="iconUrlList">
@@ -22,7 +22,7 @@ public class WeChatMpCardAbstract
     /// <see cref="Media.WeChatMpMediaUploadImgRequest"/> 上传获取图片获得链接，填写 非CDN链接会报错，并在此填入。 
     /// 建议图片尺寸像素850*350
     /// </param>
-    public WeChatMpCardAbstract(
+    public CardAbstract(
         string? @abstract = default,
         List<string>? iconUrlList = default)
     {

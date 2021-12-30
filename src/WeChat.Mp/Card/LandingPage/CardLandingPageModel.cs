@@ -1,20 +1,20 @@
 ﻿namespace WeChat.Mp.Card;
 
-public class WeChatMpCardLandingPageCardModel
+public class CardLandingPageModel
 {
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardLandingPageCardModel"/>
+    /// 实例化一个新的 <see cref="CardLandingPageModel"/>
     /// </summary>
-    public WeChatMpCardLandingPageCardModel()
+    public CardLandingPageModel()
     {
     }
 
     /// <summary>
-    /// 实例化一个新的 <see cref="WeChatMpCardLandingPageCardModel"/>
+    /// 实例化一个新的 <see cref="CardLandingPageModel"/>
     /// </summary>
     /// <param name="cardId">所要在页面投放的card_id</param>
     /// <param name="thumbUrl">缩略图url</param>
-    public WeChatMpCardLandingPageCardModel(string cardId, string thumbUrl)
+    public CardLandingPageModel(string cardId, string thumbUrl)
     {
         CardId = cardId;
         ThumbUrl = thumbUrl;
