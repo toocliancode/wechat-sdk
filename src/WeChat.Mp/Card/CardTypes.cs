@@ -36,7 +36,12 @@ public static class CardTypes
     public const string MEMBER_CARD = "MEMBER_CARD";
 
     /// <summary>
-    /// 门票
+    /// 礼品卡
+    /// </summary>
+    public const string GENERAL_CARD = "GENERAL_CARD";
+
+    /// <summary>
+    /// 景区门票
     /// </summary>
     public const string SCENIC_TICKET = "SCENIC_TICKET";
 

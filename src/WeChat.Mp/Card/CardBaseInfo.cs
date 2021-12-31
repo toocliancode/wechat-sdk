@@ -280,5 +280,11 @@ public class CardBaseInfo
     [JsonPropertyName("can_give_friend")]
     public bool? CanGiveFriend { get; set; }
 
+    /// <summary>
+    /// 礼品卡（GENERAL_CARD）：true为用户点击进入礼品卡时是否推送事件
+    /// </summary>
+    [JsonPropertyName("need_push_on_view")]
+    public bool? NeedPushOnView { get; set; }
+
     #endregion
 }

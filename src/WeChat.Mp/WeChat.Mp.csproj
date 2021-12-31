@@ -13,8 +13,4 @@
     <ProjectReference Include="..\WeChat\WeChat.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Card\Get\" />
-  </ItemGroup>
-
 </Project>
