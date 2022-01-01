@@ -8,7 +8,7 @@ public class WeChatMpCardBatchGetRequest
     : WeChatHttpRequest<WeChatMpCardBatchGetResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "/card/get?access_token={access_token}";
+    public static string Endpoint = "/card/batchget?access_token={access_token}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatMpCardBatchGetRequest"/>
