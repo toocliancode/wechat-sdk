@@ -8,7 +8,7 @@ public class WeChatMpCardGiftPageAddRequest
     : WeChatHttpRequest<WeChatMpCardGiftPageAddResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "/card/batchget?access_token={access_token}";
+    public static string Endpoint = "/card/giftcard/page/get?access_token={access_token}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatMpCardGiftPageAddRequest"/>
