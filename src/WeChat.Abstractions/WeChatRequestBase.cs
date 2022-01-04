@@ -1,11 +1,11 @@
 ﻿
-using Mediator;
+using Mediation;
 
 using System.Text.Json.Serialization;
 
 namespace WeChat;
 
-[OnHandler(typeof(IWeChatRequestHandler<,>))]
+[UseHandler(typeof(IWeChatRequestHandler<,>))]
 public abstract class WeChatRequestBase<TWeChatResponse> : IRequest<TWeChatResponse>
 {
     /// <summary>

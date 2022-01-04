@@ -1,5 +1,5 @@
 ﻿
-using Mediator;
+using Mediation;
 
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -12,11 +12,11 @@ public class WeChatJsapiTicketStore : IWeChatTicketStore
     private readonly IWeChatAccessTokenStore _accessTokenStore;
 
     public WeChatJsapiTicketStore(
-        IMediator mediator,
+        IMediator Mediation,
         IDistributedCache cache,
         IWeChatAccessTokenStore accessTokenStore)
     {
-        _mediator = mediator;
+        _mediator = Mediation;
         _cache = cache;
         _accessTokenStore = accessTokenStore;
     }

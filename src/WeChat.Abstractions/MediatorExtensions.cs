@@ -1,8 +1,8 @@
-﻿using Mediator;
+﻿using Mediation;
 
 namespace WeChat;
 
-public static class MediatorExtensions
+public static class MediationExtensions
 {
     public static Task<TWeChatResponse> Send<TWeChatResponse>(
         this IMediator mediator,

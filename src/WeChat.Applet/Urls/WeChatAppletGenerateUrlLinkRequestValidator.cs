@@ -1,11 +1,11 @@
-﻿using FluentValidation;
+﻿//using FluentValidation;
 
-namespace WeChat.Applet.Urls;
+//namespace WeChat.Applet.Urls;
 
-public class WeChatAppletGenerateUrlLinkRequestValidator : AbstractValidator<WeChatAppletGenerateUrlLinkRequest>
-{
-    public WeChatAppletGenerateUrlLinkRequestValidator()
-    {
-        RuleFor(x => x.AccessToken).NotEmpty();
-    }
-}
+//public class WeChatAppletGenerateUrlLinkRequestValidator : AbstractValidator<WeChatAppletGenerateUrlLinkRequest>
+//{
+//    public WeChatAppletGenerateUrlLinkRequestValidator()
+//    {
+//        RuleFor(x => x.AccessToken).NotEmpty();
+//    }
+//}

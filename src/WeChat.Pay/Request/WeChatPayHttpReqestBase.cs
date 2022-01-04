@@ -1,4 +1,4 @@
-﻿//using Mediator.HttpClient;
+﻿//using Mediation.HttpClient;
 
 //using Microsoft.Extensions.DependencyInjection;
 //using Microsoft.Extensions.Options;

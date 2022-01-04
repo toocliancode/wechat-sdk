@@ -1,4 +1,4 @@
-﻿using Mediator;
+﻿using Mediation;
 
 namespace WeChat;
 

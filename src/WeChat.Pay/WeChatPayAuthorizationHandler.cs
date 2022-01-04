@@ -1,4 +1,4 @@
-﻿using Mediator.HttpClient;
+﻿using Mediation.HttpClient;
 
 using System.Net.Http.Headers;
 using System.Security.Cryptography;

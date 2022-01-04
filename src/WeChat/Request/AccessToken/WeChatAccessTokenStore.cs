@@ -1,4 +1,4 @@
-﻿using Mediator;
+﻿using Mediation;
 
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -10,10 +10,10 @@ public class WeChatAccessTokenStore : IWeChatAccessTokenStore
     private readonly IDistributedCache _cache;
 
     public WeChatAccessTokenStore(
-        IMediator mediator,
+        IMediator Mediation,
         IDistributedCache cache)
     {
-        _mediator = mediator;
+        _mediator = Mediation;
         _cache = cache;
     }
 

@@ -1,5 +1,5 @@
 ﻿
-using Mediator.HttpClient;
+using Mediation.HttpClient;
 
 namespace WeChat.Mp.Media;
 
