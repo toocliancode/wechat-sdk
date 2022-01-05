@@ -11,7 +11,7 @@ public class WeChatMpPoiCategoryRequest
     : WeChatHttpRequest<WeChatMpPoiCategoryResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "/cgi-bin/poi/addpoi?access_token={access_token}&media_id={media_id}";
+    public static string Endpoint = "/cgi-bin/poi/getwxcategory?access_token={access_token}&media_id={media_id}";
 
     /// <summary>
     /// 实例化一个新的 <see cref="WeChatMpPoiCategoryRequest"/>
