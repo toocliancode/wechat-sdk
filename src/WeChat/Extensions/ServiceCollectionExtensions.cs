@@ -31,7 +31,10 @@ public static class ServiceCollectionExtensions
         services.TryAddTransient<IWeChatAccessTokenStore, WeChatAccessTokenStore>();
         services.TryAddTransient<IWeChatTicketStore, WeChatJsapiTicketStore>();
         services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));
-        services.TryAddTransient(typeof(Mediation.HttpClient.IHttpRequestHandler<,>), typeof(Mediation.HttpClient.HttpRequestHandler<,>));
+
+        services
+            .AddMediation()
+            .AddHttpClient();
 
         return builder;
     }
