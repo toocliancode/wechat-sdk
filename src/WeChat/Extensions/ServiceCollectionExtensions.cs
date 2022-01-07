@@ -32,10 +32,18 @@ public static class ServiceCollectionExtensions
         services.TryAddTransient<IWeChatTicketStore, WeChatJsapiTicketStore>();
         services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));
 
-        services
-            .AddMediation()
-            .AddHttpClient();
+        return builder;
+    }
 
+    public static WeChatBuilder GetWeChatBuilder(this IServiceCollection services)
+    {
+        if (services
+            .LastOrDefault(d => d.ServiceType == typeof(WeChatBuilder))?
+            .ImplementationInstance is not WeChatBuilder builder)
+        {
+            builder = new WeChatBuilder(services);
+            services.AddSingleton(builder);
+        }
         return builder;
     }
 }
