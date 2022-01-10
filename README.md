@@ -31,10 +31,8 @@ accessTokenRequest.Confiure(options=>
 })
 var accessTokenResponse = await sender.Send(accessTokenRequest);
 
-if (!response.IsSucceed())
+if (response.IsSucceed())
 {
     var token = response.AccessToken;
 }
 ```
-
-
