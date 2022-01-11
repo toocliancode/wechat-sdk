@@ -1,6 +1,6 @@
 ﻿namespace WeChat.Mp.Card;
 
-public class WeChatMpCardCodeConsumeReponse
+public class WeChatMpCardCodeConsumeResponse
     : WeChatHttpResponse
 {
     /// <summary>

@@ -8,7 +8,7 @@
 /// 消耗code接口是核销卡券的唯一接口,开发者可以调用当前接口将用户的优惠券进行核销，该过程不可逆
 /// </remarks>
 public class WeChatMpCardCodeConsumeRequest
-    : WeChatHttpRequest<WeChatMpCardCodeConsumeReponse>
+    : WeChatHttpRequest<WeChatMpCardCodeConsumeResponse>
     , IHasAccessToken
 {
     public static string Endpoint = "/card/code/consume?access_token={access_token}";
