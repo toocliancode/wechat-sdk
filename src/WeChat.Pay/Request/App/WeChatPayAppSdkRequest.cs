@@ -11,7 +11,7 @@ namespace WeChat.Pay;
 #pragma warning disable 8604
 
 /// <summary>
-///App调起支付API 参数获取
+/// App调起支付API 参数获取
 /// https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_8.shtml
 /// </summary>
 public class WeChatPayAppSdkRequest : WeChatPayRequest<WeChatPayAppSdkResponse>

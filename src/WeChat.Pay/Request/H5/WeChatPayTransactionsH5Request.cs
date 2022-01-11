@@ -5,7 +5,7 @@ using WeChat.Pay.H5;
 namespace WeChat.Pay;
 
 /// <summary>
-/// H5统一下单API
+/// H5下单API
 /// 
 /// https://pay.weixin.qq.com/wiki/doc/apiv3/wxpay/pay/transactions/chapter3_4.shtml
 /// </summary>

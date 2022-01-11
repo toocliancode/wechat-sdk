@@ -1,7 +1,7 @@
 ﻿namespace WeChat.Mp.Card;
 
 /// <summary>
-/// 【卡券】
+/// 【卡券】核销Code
 /// <a href="https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Redeeming_a_coupon_voucher_or_card.html#2"></a>
 /// </summary>
 /// <remarks>
