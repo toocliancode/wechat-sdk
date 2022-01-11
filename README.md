@@ -166,9 +166,9 @@ var ticket= await ticketStore.GetAsync("<appid>","<secret>");
 | WeChatMpPoiGetListRequest  | 查询门店列表   |      |     |
 | WeChatMpPoiUpdateRequest   | 修改门店服务信息 |      |     |
 
-### WeChat.Pay（微信支付）
+#### WeChat.Pay（微信支付）
 
-#### 商户版
+##### 商户版
 
 | 请求类                                         | 名称                  | 更新日期 | 说明  |
 |:------------------------------------------- |:------------------- | ---- | --- |
