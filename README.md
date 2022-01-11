@@ -182,4 +182,4 @@ var ticket= await ticketStore.GetAsync("<appid>","<secret>");
 | WeChatPayTransactionsNativeRequest          | Native下单API         |      |     |
 | WeChatPayTransactionsIdRequest              | 查询订单API - 微信支付订单号查询 |      |     |
 | WeChatPayTransactionsOutTradeNoRequest      | 查询订单API - 商户订单号查询   |      |     |
-| WeChatPayNotifyRequest<>                    |                     |      |     |
+| WeChatPayNotifyRequest<>                    | 微信支付通知请求            |      |     |
