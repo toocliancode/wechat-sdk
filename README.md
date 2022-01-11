@@ -58,7 +58,7 @@ var sender = serviceProvider.GetRequiredService<ISender>();
 var accessTokenRequest = WeChatAccessTokenRequest();
 
 // 设置微信应用号和密钥
-accessTokenRequest.Confiure(options=>
+accessTokenRequest.Configure(options=>
 {
     options.AppId = "<appid>";
     options.Secret = "<secret>";
