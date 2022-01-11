@@ -22,4 +22,4 @@ jobs:
         run: dotnet pack --configuration Release --no-restore --output nupkgs
       - name: Push
         working-directory: nupkgs
-        run: dotnet nuget push "*.nupkg" -s https://www.myget.org/F/toocliancode/api/v2/package -k 2d63a375-620d-408e-867d-22b869d067ba
+        run: dotnet nuget push "*.nupkg" -s https://www.myget.org/F/toocliancode/api/v2/package -k ${{ secrets.MYGET_API_KEY }}
