@@ -65,9 +65,9 @@ accessTokenRequest.Configure(options=>
 })
 var accessTokenResponse = await sender.Send(accessTokenRequest);
 
-if (response.IsSucceed())
+if (accessTokenResponse.IsSucceed())
 {
-    var token = response.AccessToken;
+    var token = accessTokenResponse.AccessToken;
 }
 
 // 内置 access_token 存储器使用
