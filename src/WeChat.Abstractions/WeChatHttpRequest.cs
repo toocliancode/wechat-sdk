@@ -134,6 +134,10 @@ public class WeChatHttpRequest<TWeChatResponse>
         : Method == HttpMethod.Post || Method == HttpMethod.Put
         ? new StringContent(JsonSerializer.Serialize((object)this, JsonSerializerOptions))
         : null;
+    protected virtual Task<HttpContent?> GetContent(IServiceProvider serviceProvider)
+    {
+        return GetContent();
+    }
 
     protected virtual void Configure(IHttpRequestContext context)
     {
@@ -171,7 +175,7 @@ public class WeChatHttpRequest<TWeChatResponse>
         }
         if (ContentFactory != null)
         {
-            context.Message.Content = await GetContent();
+            context.Message.Content = await GetContent(context.RequestServices);
         }
 
         Configure(context);
