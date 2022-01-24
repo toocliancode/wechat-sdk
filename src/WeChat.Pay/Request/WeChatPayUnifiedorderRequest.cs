@@ -207,9 +207,9 @@ public class WeChatPayUnifiedorderRequest
 
     protected override string GetRequestUri() => _type switch
     {
-        "App" => WeChatPayTransactionsAppRequest.Endpoint,
-        "Native" => WeChatPayTransactionsNativeRequest.Endpoint,
-        "H5" => WeChatPayTransactionsH5Request.Endpoint,
-        "Jsapi" or _ => WeChatPayTransactionsJsapiRequest.Endpoint,
+        "App" => $"{WeChatPayProperties.Domain}{WeChatPayTransactionsAppRequest.Endpoint}",
+        "Native" => $"{WeChatPayProperties.Domain}{WeChatPayTransactionsNativeRequest.Endpoint}",
+        "H5" => $"{WeChatPayProperties.Domain}{WeChatPayTransactionsH5Request.Endpoint}",
+        "Jsapi" or _ => $"{WeChatPayProperties.Domain}{WeChatPayTransactionsJsapiRequest.Endpoint}",
     };
 }

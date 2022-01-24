@@ -182,5 +182,5 @@ public class WeChatPayTransactionsAppRequest
     [JsonPropertyName("settle_info")]
     public SettleInfo? SettleInfo { get; set; }
 
-    protected override string GetRequestUri() => Endpoint;
+    protected override string GetRequestUri() => $"{WeChatPayProperties.Domain}{Endpoint}";
 }
