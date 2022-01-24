@@ -1,10 +1,8 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 
-namespace WeChat.Pay
+namespace WeChat.Pay;
+
+public interface IWeChatPayPlatformCertificateStore
 {
-    public interface IWeChatPayPlatformCertificateStore
-    {
-        Task<X509Certificate2> GetAsync(string serialNo, WeChatPaySettings settings);
-    }
+    Task<X509Certificate2> GetAsync(string serialNo, WeChatPayOptions settings);
 }

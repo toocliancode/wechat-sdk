@@ -1,11 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>$(TargetFrameworkVersion)</TargetFramework>
   </PropertyGroup>
 
+	<ItemGroup>
+		<Using Include="System.Text.Json"/>
+		<Using Include="System.Text.Json.Serialization"/>
+	</ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Mediator.Extensions.DependencyInjection" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
   </ItemGroup>

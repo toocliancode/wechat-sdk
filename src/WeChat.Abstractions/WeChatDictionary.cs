@@ -1,7 +1,6 @@
-﻿namespace WeChat
-{
-    public class WeChatDictionary : WeChatDictionary<string>
-    {
+﻿namespace WeChat;
 
-    }
+public class WeChatDictionary : WeChatDictionary<string>
+{
+
 }

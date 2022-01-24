@@ -1,16 +1,12 @@
-﻿
-using System;
+﻿namespace WeChat;
 
-namespace WeChat
+/// <summary>
+/// 微信请求上下文
+/// </summary>
+public interface IWeChatRequetHandleContext
 {
     /// <summary>
-    /// 微信请求上下文
+    /// 服务提供程序
     /// </summary>
-    public interface IWeChatRequetHandleContext
-    {
-        /// <summary>
-        /// 服务提供程序
-        /// </summary>
-        IServiceProvider RequestServices { get; }
-    }
+    IServiceProvider RequestServices { get; }
 }

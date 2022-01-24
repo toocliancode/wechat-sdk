@@ -1,50 +1,49 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using WeChat;
+using WeChat.AccessToken;
 using WeChat.Builder;
-using WeChat.Stores;
+using WeChat.Ticket;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static WeChatBuilder AddWeChat(this IServiceCollection services)
     {
-        public static WeChatBuilder AddWeChat(this IServiceCollection services)
+        if (services == null)
         {
-            if (services == null)
-            {
-                throw new ArgumentNullException(nameof(services));
-            }
-
-            services.Configure<WeChatOptions>(options =>
-            {
-                options.AddOrUpdateEndpoints(new Dictionary<string, string>
-                {
-                    [WeChatEndpoints.AccessToken] = WeChatEndpoints.AccessTokenValue,
-                    [WeChatEndpoints.Ticket] = WeChatEndpoints.TicketValue,
-                });
-            });
-
-            if (services
-                .LastOrDefault(d => d.ServiceType == typeof(WeChatBuilder))?
-                .ImplementationInstance is not WeChatBuilder builder)
-            {
-                builder = new WeChatBuilder(services);
-                services.AddSingleton(builder);
-            }
-
-            services.AddDistributedMemoryCache();
-
-            services.TryAddSingleton<IWeChatAccessTokenStore, WeChatAccessTokenStore>();
-            services.TryAddSingleton<IWeChatJsapiTicketStore, WeChatJsapiTicketStore>();
-            services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));
-            services.TryAddTransient(typeof(Mediator.HttpClient.IHttpRequestHandler<,>), typeof(Mediator.HttpClient.HttpRequestHandler<,>));
-
-            return builder;
+            throw new ArgumentNullException(nameof(services));
         }
+
+        if (services
+            .LastOrDefault(d => d.ServiceType == typeof(WeChatBuilder))?
+            .ImplementationInstance is not WeChatBuilder builder)
+        {
+            builder = new WeChatBuilder(services);
+            services.AddSingleton(builder);
+        }
+
+        services.AddDistributedMemoryCache();
+
+        services.TryAddTransient<IWeChatXmlSerializer, WeChatXmlSerializer>();
+        services.TryAddTransient<IWeChatAccessTokenStore, WeChatAccessTokenStore>();
+        services.TryAddTransient<IWeChatTicketStore, WeChatJsapiTicketStore>();
+        services.TryAddTransient(typeof(IWeChatRequestHandler<,>), typeof(WeChatRequestHandler<,>));
+
+        return builder;
+    }
+
+    public static WeChatBuilder GetWeChatBuilder(this IServiceCollection services)
+    {
+        if (services
+            .LastOrDefault(d => d.ServiceType == typeof(WeChatBuilder))?
+            .ImplementationInstance is not WeChatBuilder builder)
+        {
+            builder = new WeChatBuilder(services);
+            services.AddSingleton(builder);
+        }
+        return builder;
     }
 }
