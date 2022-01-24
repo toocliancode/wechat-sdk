@@ -4,7 +4,7 @@
     <LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-    <Version>2.0.4</Version>
+    <Version>2.0.5</Version>
     <NoWarn>$(NoWarn);CS1591;CS8618;CA2211</NoWarn>
     <Authors>tooclian</Authors>
     <Company>toocliancode</Company>
