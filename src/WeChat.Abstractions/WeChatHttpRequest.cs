@@ -169,11 +169,11 @@ public class WeChatHttpRequest<TWeChatResponse>
         }
 
         context.Message.Method = Method ?? HttpMethod.Get;
-        if (RequestUriFactory != null)
+        if (RequestUriFactory == null)
         {
             context.Message.RequestUri = new(GetRequestUri());
         }
-        if (ContentFactory != null)
+        if (ContentFactory == null)
         {
             context.Message.Content = await GetContent(context.RequestServices);
         }

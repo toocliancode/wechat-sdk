@@ -2,15 +2,17 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
+using System.Text.Encodings.Web;
+
 namespace WeChat.Pay;
 
 public class WeChatPayHttpRequest<TWeChatResponse>
-    : WeChatHttpRequest<TWeChatResponse>
+    : HttpRequestBase<TWeChatResponse>
     where TWeChatResponse : WeChatHttpResponseBase, new()
 {
     /// <inheritdoc/>
     [JsonIgnore]
-    public override HttpMethod Method { get; set; } = HttpMethod.Post;
+    public virtual HttpMethod Method { get; set; } = HttpMethod.Post;
 
     /// <summary>
     /// 是否需要检查签名。
@@ -23,11 +25,13 @@ public class WeChatPayHttpRequest<TWeChatResponse>
     /// 微信支付配置选项
     /// </summary>
     [JsonIgnore]
-    public virtual new WeChatPayOptions Options { get; set; }
+    public virtual WeChatPayOptions Options { get; set; }
 
     public virtual WeChatPayHttpRequest<TWeChatResponse> WithOptions(WeChatPayOptions options)
     {
         Options = options;
+        SetAppId(Options.AppId);
+        SetMchId(Options.MchId);
         return this;
     }
 
@@ -35,17 +39,33 @@ public class WeChatPayHttpRequest<TWeChatResponse>
     {
         Options ??= new();
         configure(Options);
+        SetAppId(Options.AppId);
+        SetMchId(Options.MchId);
         return this;
+    }
+
+    protected virtual void SetAppId(string appId)
+    {
+        if (!string.IsNullOrWhiteSpace(appId) &&
+            this is IHasAppId request &&
+            request.AppId != appId)
+        {
+            request.AppId = appId;
+        }
+    }
+
+    protected virtual void SetMchId(string mchId)
+    {
+        if (!string.IsNullOrWhiteSpace(mchId) &&
+            this is IHasMchId request &&
+            request.MchId != mchId)
+        {
+            request.MchId = mchId;
+        }
     }
 
     public override async Task Request(IHttpRequestContext context)
     {
-        if (this is IHasMchId mchId &&
-            string.IsNullOrWhiteSpace(mchId.MchId))
-        {
-            mchId.MchId = Options.MchId;
-        }
-
         if (!string.IsNullOrWhiteSpace(Options.TransactionNotifyUrl) &&
             this is IHasTransactionNotifyUrl transactionNotifyUrl &&
             string.IsNullOrWhiteSpace(transactionNotifyUrl.NotifyUrl))
@@ -60,7 +80,11 @@ public class WeChatPayHttpRequest<TWeChatResponse>
             mayRefundNotifyUrl.NotifyUrl = Options.RefundNotifyUrl;
         }
 
-        await base.Request(context);
+        context.Message.Method = Method ?? HttpMethod.Get;
+        context.Message.RequestUri = new(GetRequestUri());
+        context.Message.Content = await GetContent(context.RequestServices);
+
+        Configure(context);
 
         // 签名处理
         await context
@@ -69,10 +93,41 @@ public class WeChatPayHttpRequest<TWeChatResponse>
              .Handle(context.Message, Options);
     }
 
+    protected virtual string GetRequestUri()
+    {
+        return string.Empty;
+    }
+
+    protected virtual async Task<HttpContent?> GetContent()
+    {
+        await Task.CompletedTask;
+
+        return Method == HttpMethod.Post || Method == HttpMethod.Put
+            ? new StringContent(JsonSerializer.Serialize((object)this, JsonSerializerOptions))
+            : null;
+    }
+    protected virtual Task<HttpContent?> GetContent(IServiceProvider serviceProvider)
+    {
+        return GetContent();
+    }
+
+    protected virtual void Configure(IHttpRequestContext context)
+    {
+
+    }
+
     protected virtual void ParameterHandle()
     {
 
     }
+
+    [JsonIgnore]
+    public virtual JsonSerializerOptions? JsonSerializerOptions { get; set; } = new()
+    {
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
+    };
 
     public override async Task<TWeChatResponse> Response(IHttpResponseContext context)
     {
@@ -85,7 +140,11 @@ public class WeChatPayHttpRequest<TWeChatResponse>
                  .Check(context.Message, Options);
 
         }
+        var row = await context.Message.Content.ReadAsByteArrayAsync();
+        var response = JsonSerializer.Deserialize<TWeChatResponse>(row, JsonSerializerOptions) ?? new();
+        response.Raw = row;
+        response.StatusCode = context.Message.StatusCode;
 
-        return await base.Response(context);
+        return response;
     }
 }

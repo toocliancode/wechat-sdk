@@ -128,8 +128,3 @@ public class WeChatPayOptions : WeChatOptions
 #pragma warning restore CS8601
     }
 }
-
-public static class WeChatPayProperties
-{
-    public static string Domain = "";
-}
