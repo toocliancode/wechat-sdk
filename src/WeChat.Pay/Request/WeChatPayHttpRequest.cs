@@ -103,7 +103,7 @@ public class WeChatPayHttpRequest<TWeChatResponse>
         await Task.CompletedTask;
 
         return Method == HttpMethod.Post || Method == HttpMethod.Put
-            ? new StringContent(JsonSerializer.Serialize((object)this, JsonSerializerOptions))
+            ? new StringContent(JsonSerializer.Serialize((object)this, JsonSerializerOptions), System.Text.Encoding.UTF8, "application/json")
             : null;
     }
     protected virtual Task<HttpContent?> GetContent(IServiceProvider serviceProvider)
