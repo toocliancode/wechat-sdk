@@ -43,7 +43,16 @@ public class WeChatMpMediaGetRequest
     public override async Task<WeChatMpMediaGetResponse> Response(IHttpResponseContext context)
     {
         var content = await context.Message.Content.ReadAsByteArrayAsync();
-        var response = JsonSerializer.Deserialize<WeChatMpMediaGetResponse>(content) ?? new();
+        WeChatMpMediaGetResponse response;
+        try
+        {
+            response = JsonSerializer.Deserialize<WeChatMpMediaGetResponse>(content) ?? new();
+        }
+        catch (Exception)
+        {
+
+            response = new();
+        }
 
         response.Raw = content;
         response.StatusCode = context.Message.StatusCode;
