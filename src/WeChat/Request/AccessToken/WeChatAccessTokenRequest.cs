@@ -10,7 +10,7 @@ public class WeChatAccessTokenRequest
     , IHasAppId
     , IHasSecret
 {
-    public static string Endpoint = "/cgi-bin/token?appId={appId}&secret={secret}&grant_type={grant_type}";
+    public static string Endpoint = "/cgi-bin/token?appId={appid}&secret={secret}&grant_type={grant_type}";
 
     /// <summary>
     /// 微信应用号
