@@ -90,7 +90,15 @@ public class WeChatAppletGetWxaCodeRequest
     public override async Task<WeChatHttpResponse> Response(IHttpResponseContext context)
     {
         var data = await context.Message.Content.ReadAsByteArrayAsync();
-        var response = JsonSerializer.Deserialize<WeChatHttpResponse>(data, JsonSerializerOptions) ?? new();
+        WeChatHttpResponse response;
+        try
+        {
+            response = JsonSerializer.Deserialize<WeChatHttpResponse>(data, JsonSerializerOptions) ?? new();
+        }
+        catch (Exception)
+        {
+            response = new();
+        }
 
         response.Raw = data;
         response.StatusCode = context.Message.StatusCode;
