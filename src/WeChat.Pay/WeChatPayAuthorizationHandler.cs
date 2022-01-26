@@ -33,7 +33,7 @@ public class WeChatPayAuthorizationHandler : IWeChatPayAuthorizationHandler
         var nonce = HttpUtility.GenerateNonceStr();
         var body = method switch
         {
-            "POST" or "PUT" or "PATCH" => await message.Content.ReadAsStringAsync(),
+            "POST" or "PUT" or "PATCH" => await message.Content?.ReadAsStringAsync(),
             _ => ""
         };
 

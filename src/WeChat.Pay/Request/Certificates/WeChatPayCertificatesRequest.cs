@@ -11,6 +11,11 @@ public class WeChatPayCertificatesRequest : WeChatPayHttpRequest<WeChatPayCertif
 {
     public static string Endpoint = "/v3/certificates";
 
+    public WeChatPayCertificatesRequest()
+    {
+        Method = HttpMethod.Get;
+    }
+
     [JsonIgnore]
     protected override bool SignatureCheck => false;
 
