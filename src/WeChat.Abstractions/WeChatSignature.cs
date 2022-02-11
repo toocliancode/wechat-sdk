@@ -5,7 +5,7 @@ namespace WeChat;
 
 public static class WeChatSignature
 {
-    public static string Sign(WeChatDictionary dictionary, string signType)
+    public static string Sign(IDictionary<string, string> dictionary, string signType)
     {
         var sb = new StringBuilder();
         foreach (var iter in dictionary)

@@ -5,7 +5,7 @@ namespace WeChat;
 
 public class WeChatDictionary<T> : IDictionary<string, T>
 {
-    private readonly Dictionary<string, T> _dictionary = new();
+    private readonly SortedDictionary<string, T> _dictionary = new();
 
     public ICollection<string> Keys => _dictionary.Keys;
 
