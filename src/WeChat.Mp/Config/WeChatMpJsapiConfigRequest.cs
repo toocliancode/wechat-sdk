@@ -77,12 +77,12 @@ public class WeChatMpJsapiConfigRequest
         // 设置时间戳
         var timestamp = HttpUtility.GetTimeStamp();
 
-        var dictionary = new WeChatDictionary
+        var dictionary = new SortedDictionary<string, string>()
             {
+                {"jsapi_ticket",JsapiTicket },
                 {"noncestr",noncestr },
                 {"timestamp",timestamp },
                 {"url",Url },
-                {"jsapi_ticket",JsapiTicket }
             };
 
         var response = new WeChatMpJsapiConfigResponse(AppId, timestamp, noncestr)
