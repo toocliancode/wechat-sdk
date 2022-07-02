@@ -2,5 +2,5 @@
 
 public abstract class WeCahtDecryptResponseBase
 {
-    public WeCahtDecryptWatermark Watermark { get; set; }
+    public WeChatWatermark Watermark { get; set; }
 }

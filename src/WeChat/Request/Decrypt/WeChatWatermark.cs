@@ -1,6 +1,6 @@
-﻿namespace WeChat.Decrypt;
+﻿namespace WeChat;
 
-public class WeCahtDecryptWatermark
+public class WeChatWatermark
 {
     public string AppId { get; set; }
 
