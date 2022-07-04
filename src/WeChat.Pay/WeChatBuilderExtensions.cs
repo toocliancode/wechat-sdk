@@ -14,6 +14,7 @@ public static class WeChatBuilderExtensions
         builder.Services.TryAddSingleton<IWeChatPayPlatformCertificateStore, WeChatPayPlatformCertificateStore>();
         builder.Services.TryAddSingleton<IWeChatPayAuthorizationHandler, WeChatPayAuthorizationHandler>();
         builder.Services.TryAddSingleton<IWeChatPayResponseSignatureChecker, WeChatPayResponseSignatureChecker>();
+        builder.Services.TryAddTransient<IWeChatPayOptionsManager, WeChatPayOptionsManager>();
 
         return builder;
     }
