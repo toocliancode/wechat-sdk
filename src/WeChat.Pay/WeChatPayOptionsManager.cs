@@ -2,19 +2,19 @@
 
 namespace WeChat;
 
-public class WeChatOptionsManager : IWeChatOptionsManager
+public class WeChatPayOptionsManager : IWeChatPayOptionsManager
 {
     protected IConfiguration Configuration { get; }
 
-    public WeChatOptionsManager(IConfiguration configuration)
+    public WeChatPayOptionsManager(IConfiguration configuration)
     {
         Configuration = configuration;
     }
 
-    public Task<WeChatOptions> GetAsync(string? name = default)
+    public Task<WeChatPayOptions> GetAsync(string? name = default)
     {
         name ??= "Default";
-        var options = new WeChatOptions();
+        var options = new WeChatPayOptions();
         Configuration
             .GetSection("WeChat")
             .GetSection(name)
