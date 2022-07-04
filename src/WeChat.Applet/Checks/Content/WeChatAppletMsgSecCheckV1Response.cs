@@ -1,7 +1,7 @@
-﻿namespace WeChat.Applet.Checks;
+﻿using System.Text.Json;
+namespace WeChat.Applet.Checks;
 
-public class WeChatAppletMsgSecCheckV1Response
-    : WeChatHttpResponse
+public class WeChatAppletMsgSecCheckV1Response : WeChatHttpResponse
 {
     /// <summary>
     /// true:表示有敏感信息
