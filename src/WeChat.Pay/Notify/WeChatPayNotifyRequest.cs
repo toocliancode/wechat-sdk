@@ -37,7 +37,11 @@ public class WeChatPayNotifyRequest<TWeChatPayNotifyResponse>
     /// 通知类型
     /// </summary>
     /// <remarks>
-    /// 通知的类型，支付成功通知的类型为TRANSACTION.SUCCESS
+    /// 通知的类型
+    /// TRANSACTION.SUCCESS：支付成功
+    /// REFUND.SUCCESS：退款成功通知
+    /// REFUND.ABNORMAL：退款异常通知
+    /// REFUND.CLOSED：退款关闭通知
     /// <para>示例值：TRANSACTION.SUCCESS</para>
     /// </remarks>
     [JsonPropertyName("event_type")]
