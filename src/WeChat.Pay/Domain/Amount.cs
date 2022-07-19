@@ -3,6 +3,7 @@
 /// <summary>
 /// 订单金额信息
 /// </summary>    
+[Serializable]
 public class Amount
 {
     /// <summary>
