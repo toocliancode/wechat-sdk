@@ -155,7 +155,7 @@ public class WeChatPayTransactionsNotifyResponse
     /// 支付场景描述
     /// </remarks>
     [JsonPropertyName("scene_info")]
-    public SceneInfo SceneInfo { get; set; }
+    public SceneInfo? SceneInfo { get; set; }
 
     /// <summary>
     /// 优惠功能
@@ -164,5 +164,5 @@ public class WeChatPayTransactionsNotifyResponse
     /// 优惠功能，享受优惠时返回该字段。
     /// </remarks>
     [JsonPropertyName("promotion_detail")]
-    public List<PromotionDetail> PromotionDetail { get; set; }
+    public List<PromotionDetail>? PromotionDetail { get; set; }
 }
