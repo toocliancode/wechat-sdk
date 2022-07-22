@@ -118,7 +118,7 @@ public class WeChatPayTransactionsNotifyResponse
     /// <para>示例值：自定义数据</para>
     /// </remarks>
     [JsonPropertyName("attach")]
-    public string Attach { get; set; }
+    public string? Attach { get; set; }
 
     /// <summary>
     /// 支付完成时间
@@ -128,7 +128,7 @@ public class WeChatPayTransactionsNotifyResponse
     /// <para>示例值：2018-06-08T10:34:56+08:00</para>
     /// </remarks>
     [JsonPropertyName("success_time")]
-    public string SuccessTime { get; set; }
+    public DateTimeOffset SuccessTime { get; set; }
 
     /// <summary>
     /// 支付者
