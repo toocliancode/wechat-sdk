@@ -85,7 +85,7 @@ public class WeChatPayDomesticRefundsResponse : WeChatHttpResponseBase
     /// 示例值：2020-12-01T16:18:12+08:00
     /// </example>
     [JsonPropertyName("success_time")]
-    public string? SuccessTime { get; set; }
+    public DateTimeOffset? SuccessTime { get; set; }
 
     /// <summary>
     /// 退款创建时间
@@ -97,7 +97,7 @@ public class WeChatPayDomesticRefundsResponse : WeChatHttpResponseBase
     /// 示例值：2020-12-01T16:18:12+08:00
     /// </example>
     [JsonPropertyName("create_time")]
-    public string CreateTime { get; set; }
+    public DateTimeOffset CreateTime { get; set; }
 
     /// <summary>
     /// 退款状态
