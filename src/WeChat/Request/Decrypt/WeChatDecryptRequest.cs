@@ -58,7 +58,7 @@ public class WeChatDecryptRequest<TDecryptResponse>
         var cipher = Convert.FromBase64String(EncryptedData ?? "");
         var decryptText = aes.CreateDecryptor().TransformFinalBlock(cipher, 0, cipher.Length);
 
-        var response = JsonSerializer.Deserialize<TDecryptResponse>(decryptText);
+        var response = JsonSerializer.Deserialize<TDecryptResponse>(decryptText, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
         if (AppId != response?.Watermark?.AppId)
         {
