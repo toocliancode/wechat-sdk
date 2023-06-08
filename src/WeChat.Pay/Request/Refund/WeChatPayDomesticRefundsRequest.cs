@@ -21,6 +21,8 @@ public class WeChatPayDomesticRefundsRequest
     : WeChatPayHttpRequest<WeChatPayDomesticRefundsResponse>
     , IHasRefundNotifyUrl
 {
+    public static string Endpoint = "/v3/refund/domestic/refunds";
+
     /// <summary>
     /// 子商户号
     /// </summary>
@@ -110,4 +112,6 @@ public class WeChatPayDomesticRefundsRequest
     /// </remarks>
     [JsonPropertyName("goods_detail")]
     public List<RefundGoodsDetail>? GoodsDetail { get; set; }
+
+    protected override string GetRequestUri() => $"{WeChatPayProperties.Domain}{Endpoint}";
 }

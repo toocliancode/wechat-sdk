@@ -76,9 +76,8 @@ public class WeChatPayNotifyRequest<TWeChatPayNotifyResponse>
     [JsonPropertyName("resource")]
     public Resource Resource { get; set; }
 
-
     [JsonIgnore]
-    public virtual JsonSerializerOptions? JsonSerializerOptions { get; set; } = new()
+    protected virtual JsonSerializerOptions? JsonSerializerOptions { get; } = new()
     {
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
