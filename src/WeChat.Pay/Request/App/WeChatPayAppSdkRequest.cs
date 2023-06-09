@@ -47,7 +47,7 @@ public class WeChatPayAppSdkRequest : WeChatPayRequest<WeChatPayAppSdkResponse>
         var mchid = Options.MchId;
         var timeStamp = HttpUtility.GetTimeStamp();
         var nonceStr = HttpUtility.GenerateNonceStr();
-        var paySign = CryptographyExtensions.SHA256WithRSAEncrypt(rsa, $"{appId}\n{timeStamp}\n{nonceStr}\n{PrepayId}");
+        var paySign = CryptographyExtensions.SHA256WithRSAEncrypt(rsa, $"{appId}\n{timeStamp}\n{nonceStr}\n{PrepayId}\n");
 
         return Task.FromResult(new WeChatPayAppSdkResponse(appId, mchid, PrepayId, timeStamp, nonceStr, paySign));
     }
