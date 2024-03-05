@@ -3,7 +3,7 @@
     <TargetFrameworkVersion>net8.0</TargetFrameworkVersion>
 
     <MicrosoftPackageVersion>8.0.0</MicrosoftPackageVersion>
-    <MediationPackageVersion>8.0.0</MediationPackageVersion>
+    <MediationPackageVersion>8.1.0</MediationPackageVersion>
 
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
