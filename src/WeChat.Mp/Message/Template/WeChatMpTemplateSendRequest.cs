@@ -9,7 +9,7 @@ public class WeChatMpTemplateSendRequest
     : WeChatHttpRequest<WeChatMpTemplateSendResponse>
     , IHasAccessToken
 {
-    public static string Endpoint = "/cgi-bin/media/get?access_token={access_token}";
+    public static string Endpoint = "/cgi-bin/message/template/send??access_token={access_token}";
 
     public WeChatMpTemplateSendRequest()
         : base(HttpMethod.Post)

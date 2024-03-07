@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34607.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FF360454-90C1-4980-94D7-2B642A7B532C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Mp", "src\WeChat.Mp\WeChat.Mp.csproj", "{1238744A-79B5-48F2-BE02-8B34F206F5FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Applet", "src\WeChat.Applet\WeChat.Applet.csproj", "{19713C47-5735-45C4-A64F-27B601B03AFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Pay", "src\WeChat.Pay\WeChat.Pay.csproj", "{099552B5-FDB0-44D6-BBA3-0D31BFA7ACA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat", "src\WeChat\WeChat.csproj", "{137588DE-3A7D-442B-BEF0-3C14828C1885}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1238744A-79B5-48F2-BE02-8B34F206F5FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1238744A-79B5-48F2-BE02-8B34F206F5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1238744A-79B5-48F2-BE02-8B34F206F5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1238744A-79B5-48F2-BE02-8B34F206F5FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19713C47-5735-45C4-A64F-27B601B03AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19713C47-5735-45C4-A64F-27B601B03AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19713C47-5735-45C4-A64F-27B601B03AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19713C47-5735-45C4-A64F-27B601B03AFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{099552B5-FDB0-44D6-BBA3-0D31BFA7ACA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{099552B5-FDB0-44D6-BBA3-0D31BFA7ACA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{099552B5-FDB0-44D6-BBA3-0D31BFA7ACA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{099552B5-FDB0-44D6-BBA3-0D31BFA7ACA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{137588DE-3A7D-442B-BEF0-3C14828C1885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{137588DE-3A7D-442B-BEF0-3C14828C1885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{137588DE-3A7D-442B-BEF0-3C14828C1885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{137588DE-3A7D-442B-BEF0-3C14828C1885}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1238744A-79B5-48F2-BE02-8B34F206F5FE} = {FF360454-90C1-4980-94D7-2B642A7B532C}
+		{19713C47-5735-45C4-A64F-27B601B03AFF} = {FF360454-90C1-4980-94D7-2B642A7B532C}
+		{099552B5-FDB0-44D6-BBA3-0D31BFA7ACA0} = {FF360454-90C1-4980-94D7-2B642A7B532C}
+		{137588DE-3A7D-442B-BEF0-3C14828C1885} = {FF360454-90C1-4980-94D7-2B642A7B532C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86B7CC3F-8C9D-4F2D-B34B-D16F3477AACB}
+	EndGlobalSection
+EndGlobal
