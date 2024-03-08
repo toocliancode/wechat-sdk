@@ -29,4 +29,6 @@ public class PlatformCertificate
             return Task.CompletedTask;
         }
     }
+
+    public static Request ToRequest() => new();
 }

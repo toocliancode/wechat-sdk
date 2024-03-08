@@ -182,4 +182,10 @@ public class TransactionsQuery
             return Task.CompletedTask;
         }
     }
+
+    /// <param name="transactionId">微信支付系统生成的订单号</param>
+    public static GetById ToGetById(string transactionId) => new(transactionId);
+
+    /// <param name="outTradeNo">商户系统内部订单号</param>
+    public static GetByOutTradeNo ToGetByOutTradeNo(string outTradeNo) => new(outTradeNo);
 }

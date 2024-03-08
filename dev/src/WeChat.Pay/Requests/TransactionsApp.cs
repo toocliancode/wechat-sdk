@@ -139,4 +139,10 @@ public class TransactionsApp
             return Task.CompletedTask;
         }
     }
+
+    /// <param name="description">商品描述。</param>
+    /// <param name="outTradeNo">商户订单号</param>
+    /// <param name="amount">订单金额，单位分</param>
+    public static Request ToRequest(string description, string outTradeNo, int amount)
+        => new(new(description, outTradeNo, amount));
 }

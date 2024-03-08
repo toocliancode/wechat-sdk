@@ -287,4 +287,24 @@ public class Refunds
             return Task.CompletedTask;
         }
     }
+
+    /// <summary>
+    /// 关闭订单
+    /// </summary>
+    /// <param name="transactionId">微信支付订单号</param>
+    /// <param name="outTradeNo">商户订单号</param>
+    /// <param name="outRefundNo">商户退款单号</param>
+    /// <param name="amount">金额信息</param>
+    /// <param name="reason">退款原因</param>
+    /// <param name="notifyUrl">退款结果回调 url</param>
+    /// <param name="fundsAccount">退款资金来源</param>
+    public static Request ToRequest(
+        string? transactionId,
+        string? outTradeNo,
+        string outRefundNo,
+        RefundAmount amount,
+        string? reason = default,
+        string? notifyUrl = default,
+        string? fundsAccount = default)
+        => new(new(transactionId, outTradeNo, outRefundNo, amount, reason, notifyUrl, fundsAccount));
 }

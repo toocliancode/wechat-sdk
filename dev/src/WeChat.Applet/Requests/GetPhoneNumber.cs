@@ -84,4 +84,8 @@ public class GetPhoneNumber
             context.Message.RequestUri = new Uri(url);
         }
     }
+
+    /// <param name="code">手机号获取凭证</param>
+    /// <param name="openid">用户唯一标识</param>
+    public static Request ToRequest(string code, string? openid = default) => new(code, openid);
 }

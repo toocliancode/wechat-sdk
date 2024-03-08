@@ -41,7 +41,7 @@ public class GetQRCode
         }
         public Model(
             string path,
-            int width = 430,
+            int? width = null,
             bool autoColor = false,
             LineColor? lineColor = null,
             bool isHyaline = false,
@@ -130,4 +130,23 @@ public class GetQRCode
             return response;
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path">扫码进入的小程序页面路径，最大长度 1024 个字符，不能为空，scancode_time为系统保留参数，不允许配置；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"，即可在 wx.getLaunchOptionsSync 接口中的 query 参数获取到 {foo:"bar"}。</param>
+    /// <param name="width">二维码的宽度，单位 px。默认值为430，最小 280px，最大 1280px</param>
+    /// <param name="autoColor">默认值false；自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+    /// <param name="lineColor">默认值{"r":0,"g":0,"b":0} ；auto_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"} 十进制表示</param>
+    /// <param name="isHyaline">默认值false；是否需要透明底色，为 true 时，生成透明底色的小程序码</param>
+    /// <param name="envVersion"> 要打开的小程序版本。正式版为 "release"，体验版为 "trial"，开发版为 "develop"。默认是正式版。</param>
+    /// <returns></returns>
+    public static Request ToRequest(
+        string path,
+        int? width = null,
+        bool autoColor = false,
+        LineColor? lineColor = null,
+        bool isHyaline = false,
+        string? envVersion = null)
+        => new(new(path, width, autoColor, lineColor, isHyaline, envVersion));
 }

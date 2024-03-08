@@ -41,4 +41,6 @@ public class MediaUploadImg
             context.Message.Content = body;
         }
     }
+
+    public static Request ToRequest(byte[] buffer) => new(buffer);
 }

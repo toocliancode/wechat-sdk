@@ -113,4 +113,7 @@ public class TransactionsJsapiSdk
             return Task.FromResult(new Response(Options.AppId, timeStamp, nonceStr, package, paySign));
         }
     }
+
+    /// <param name="prepayId">预支付交易会话Id</param>
+    public static Request ToRequest(string prepayId) => new(prepayId);
 }

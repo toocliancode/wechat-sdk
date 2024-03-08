@@ -56,4 +56,7 @@ public class TransactionsClose
             return Task.FromResult(response);
         }
     }
+
+    /// <param name="outTradeNo">商户系统内部订单号</param>
+    public static Request ToRequest(string outTradeNo) => new(outTradeNo);
 }

@@ -50,4 +50,7 @@ public class Code2Session
             return Task.CompletedTask;
         }
     }
+
+    /// <param name="jsCode">登录时获取的 code，可通过wx.login获取</param>
+    public static Request ToRequest(string jsCode) => new(jsCode);
 }

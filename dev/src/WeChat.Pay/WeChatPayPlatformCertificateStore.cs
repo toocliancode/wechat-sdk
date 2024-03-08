@@ -19,7 +19,7 @@ public class WeChatPayPlatformCertificateStore(ISender sender) : IWeChatPayPlatf
             return certificate2;
         }
 
-        var request = new PlatformCertificate.Request();
+        var request = PlatformCertificate.ToRequest();
 
         var response = await Sender.Send(request);
 

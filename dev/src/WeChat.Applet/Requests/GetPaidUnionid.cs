@@ -51,4 +51,15 @@ public class GetPaidUnionid
             context.Message.RequestUri = new Uri(url);
         }
     }
+
+    /// <param name="openid">支付用户唯一标识</param>
+    /// <param name="mchId">微信支付分配的商户号，和商户订单号配合使用</param>
+    /// <param name="transactionId">微信支付订单号</param>
+    /// <param name="outTradeNo">微信支付商户订单号，和商户号配合使用</param>
+    public static Request ToRequest(
+        string openid,
+        string? transactionId = default,
+        string? mchId = default,
+        string? outTradeNo = default)
+        => new(openid, transactionId, mchId, outTradeNo);
 }

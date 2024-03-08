@@ -129,4 +129,12 @@ public class QueryScheme
             context.Message.Content = new StringContent(content);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="scheme">小程序 scheme 码。支持加密 scheme 和明文 scheme</param>
+    /// <param name="queryType">查询类型。默认值0，查询 scheme 码信息：0， 查询每天剩余访问次数：1</param>
+    /// <returns></returns>
+    public static Request ToRequest(string scheme, int? queryType = default) => new(new(scheme, queryType));
 }

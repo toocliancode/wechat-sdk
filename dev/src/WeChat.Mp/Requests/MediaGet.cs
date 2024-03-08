@@ -64,4 +64,11 @@ public class MediaGet
             return response;
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mediaId">媒体文件Id</param>
+    /// <returns></returns>
+    public static Request ToRequest(string mediaId) => new(mediaId);
 }

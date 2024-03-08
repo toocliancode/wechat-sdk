@@ -52,4 +52,8 @@ public class ResetSession
             context.Message.RequestUri = new Uri(url);
         }
     }
+
+    /// <param name="openid">用户唯一标识符</param>
+    /// <param name="sessionKey">用户登录态</param>
+    public static Request ToRequest(string openid, string sessionKey) => new(openid, sessionKey);
 }

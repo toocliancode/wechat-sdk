@@ -46,4 +46,15 @@ public class Ticket
             context.Message.RequestUri = new Uri(url);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="type">
+    /// 凭证类型。
+    /// 可选值：jsapi、wx_card。
+    /// 默认值：jsapi
+    /// </param>
+    /// <returns></returns>
+    public static Request ToRequest(string type = "jsapi") => new(type);
 }

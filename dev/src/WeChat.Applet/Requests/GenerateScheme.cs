@@ -44,11 +44,13 @@ public class GenerateScheme
         {
 
         }
-        public Model(long? expireTime = default, long? expireType = default, long? expireInterval = default)
+
+        public Model(long? expireTime = default, long? expireType = default, long? expireInterval = default, JumpWxa? jumpWxa = default)
         {
             ExpireTime = expireTime;
             ExpireType = expireType;
             ExpireInterval = expireInterval;
+            JumpWxa = jumpWxa;
         }
 
         /// <summary>
@@ -66,6 +68,10 @@ public class GenerateScheme
         /// </summary>
         public long? ExpireInterval { get => TryGetValue("expire_interval", out var value) && long.TryParse(value?.ToString(), out var result) ? result : null; set => this["expire_interval"] = value; }
 
+        /// <summary>
+        /// 跳转到的目标小程序信息。
+        /// </summary>
+        public JumpWxa? JumpWxa { get => GetValueOrDefault<JumpWxa?>("jump_wxa", null); set => this["jump_wxa"] = value; }
     }
 
     public class Response : WeChatAppletHttpResponse
@@ -100,4 +106,15 @@ public class GenerateScheme
             context.Message.Content = new StringContent(content);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="expireTime">到期失效的 scheme 码的失效时间，为 Unix 时间戳。生成的到期失效 scheme 码在该时间前有效。最长有效期为30天。is_expire 为 true 且 expire_type 为 0 时必填</param>
+    /// <param name="expireType">默认值0，到期失效的 scheme 码失效类型，失效时间：0，失效间隔天数：1</param>
+    /// <param name="expireInterval">到期失效的 scheme 码的失效间隔天数。生成的到期失效 scheme 码在该间隔时间到达前有效。最长间隔天数为30天。is_expire 为 true 且 expire_type 为 1 时必填</param>
+    /// <param name="jumpWxa">跳转到的目标小程序信息</param>
+    /// <returns></returns>
+    public static Request ToRequest(long? expireTime = default, long? expireType = default, long? expireInterval = default, JumpWxa? jumpWxa = default)
+        => new(new(expireTime, expireType, expireInterval, jumpWxa));
 }

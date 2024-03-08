@@ -28,7 +28,7 @@ public class WeChatAppletAccessTokenStore(
             return token;
         }
 
-        var request = new AccessToken.Request(Options.AppId, Options.Secret);
+        var request = AccessToken.ToRequest(Options.AppId, Options.Secret);
         var response = await Sender.Send(request);
 
         if (!response.IsSucceed())

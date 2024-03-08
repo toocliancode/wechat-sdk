@@ -44,10 +44,11 @@ public class GenerateNFCScheme
         {
 
         }
-        public Model(string? modelId, string? sn)
+        public Model(string modelId, string? sn = default, JumpWxa? jumpWxa = default)
         {
             ModelId = modelId;
             Sn = sn;
+            JumpWxa = jumpWxa;
         }
 
         /// <summary>
@@ -60,6 +61,10 @@ public class GenerateNFCScheme
         /// </summary>
         public string? Sn { get => TryGetValue("sn", out var value) ? value?.ToString() : null; set => this["sn"] = value; }
 
+        /// <summary>
+        /// 跳转到的目标小程序信息。
+        /// </summary>
+        public JumpWxa? JumpWxa { get => GetValueOrDefault<JumpWxa?>("jump_wxa", null); set => this["jump_wxa"] = value; }
     }
 
     public class Response : WeChatAppletHttpResponse
@@ -94,4 +99,13 @@ public class GenerateNFCScheme
             context.Message.Content = new StringContent(content);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="modelId">scheme对应的设备 model_id</param>
+    /// <param name="sn">scheme对应的设备sn，仅一机一码时填写</param>
+    /// <param name="jumpWxa">跳转到的目标小程序信息</param>
+    /// <returns></returns>
+    public static Request ToRequest(string modelId, string? sn = default, JumpWxa? jumpWxa = default) => new(new(modelId, sn, jumpWxa));
 }

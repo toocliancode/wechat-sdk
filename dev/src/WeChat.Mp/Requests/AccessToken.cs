@@ -40,13 +40,22 @@ public class AccessToken
     {
         protected override Task InitializeRequestMessageAsync(IHttpRequestContext context)
         {
-            context.Message.Method = HttpMethod.Get;
-            context.Message.RequestUri = new Uri(
-                $"{WeChatMpProperties.Domain}{Endpoint}"
+            var url = $"{WeChatMpProperties.Domain}{Endpoint}"
                 .Replace("{appid}", appId)
-                .Replace("{secret}", secret));
+                .Replace("{secret}", secret);
+
+            context.Message.Method = HttpMethod.Get;
+            context.Message.RequestUri = new Uri(url);
 
             return Task.CompletedTask;
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="appId">应用号</param>
+    /// <param name="secret">应用号密钥</param>
+    /// <returns></returns>
+    public static Request ToRequest(string appId, string secret) => new(appId, secret);
 }

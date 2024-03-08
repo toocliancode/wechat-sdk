@@ -120,4 +120,7 @@ public class TransactionsAppSdk
             return Task.FromResult(new Response(appId, mchid, request.PrepayId, timeStamp, nonceStr, paySign));
         }
     }
+
+    /// <param name="prepayId">预支付交易会话Id</param>
+    public static Request ToRequest(string prepayId) => new(prepayId);
 }
