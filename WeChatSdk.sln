@@ -11,7 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Applet", "src\WeChat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat.Pay", "src\WeChat.Pay\WeChat.Pay.csproj", "{099552B5-FDB0-44D6-BBA3-0D31BFA7ACA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat", "src\WeChat\WeChat.csproj", "{137588DE-3A7D-442B-BEF0-3C14828C1885}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeChat", "src\WeChat\WeChat.csproj", "{137588DE-3A7D-442B-BEF0-3C14828C1885}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{929A4BFF-5C94-489E-BD50-E7628AC13E2D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		NuGet.config = NuGet.config
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

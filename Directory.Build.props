@@ -8,7 +8,7 @@
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>8.0.0</Version>
+    <Version>8.1.0</Version>
     <NoWarn>$(NoWarn);CS1591;CS8618;CA2211</NoWarn>
     <Authors>tooclian</Authors>
     <Company>toocliancode</Company>
