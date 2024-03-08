@@ -1,21 +1,16 @@
-﻿namespace WeChat;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
-public class WeChatHttpResponse : WeChatHttpResponseBase
+namespace WeChat;
+
+[Serializable]
+public class WeChatHttpResponse : WeChatResponse
 {
-    /// <summary>
-    /// 错误码
-    /// </summary>
-    [JsonPropertyName("errcode")]
-    public int ErrCode { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [JsonPropertyName("errmsg")]
-    public string ErrMsg { get; set; }
+    [JsonIgnore]
+    public virtual HttpStatusCode StatusCode { get; set; }
 
     public override bool IsSucceed()
     {
-        return ErrCode == 0;
+        return StatusCode == HttpStatusCode.OK;
     }
 }

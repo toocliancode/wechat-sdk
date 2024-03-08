@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Security.Cryptography.X509Certificates;
 
-namespace WeChat.Pay;
+namespace WeChat;
 
 public class WeChatPayCertificateStore : IWeChatPayCertificateStore
 {
@@ -11,9 +11,9 @@ public class WeChatPayCertificateStore : IWeChatPayCertificateStore
     {
         if (string.IsNullOrEmpty(options.Certificate) || string.IsNullOrEmpty(options.CertificatePassword))
         {
-            throw new WeChatPayException($"{nameof(options.Certificate)} 或 {nameof(options.CertificatePassword)} 为空");
+            throw new WeChatException($"{nameof(options.Certificate)} 或 {nameof(options.CertificatePassword)} 为空");
         }
-        var key = options.Certificate.MD5Encrypt();
+        var key = WeChatSignature.MD5Encrypt(options.Certificate);
         if (_certificates.TryGetValue(key, out certificate2))
         {
             return true;

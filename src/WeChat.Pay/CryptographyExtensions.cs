@@ -1,29 +1,10 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace WeChat.Pay;
+namespace WeChat;
 
 internal static class CryptographyExtensions
 {
-    /// <summary>
-    /// MD5 加密
-    /// </summary>
-    /// <param name="input">需要加密的内容</param>
-    /// <param name="encoding">字符编码</param>
-    /// <returns></returns>
-    public static string MD5Encrypt(this string input, Encoding? encoding = null)
-    {
-        encoding ??= Encoding.UTF8;
-        using var md5Hasher = MD5.Create();
-        var data = md5Hasher.ComputeHash(encoding.GetBytes(input));
-        var sBuilder = new StringBuilder();
-        foreach (var item in data)
-        {
-            sBuilder.Append(item.ToString("x2"));
-        }
-        return sBuilder.ToString();
-    }
-
     public static string AesGcmDecrypt(string nonce, string ciphertext, string associatedData, string key)
     {
         if (string.IsNullOrEmpty(nonce))
@@ -46,7 +27,7 @@ internal static class CryptographyExtensions
             throw new ArgumentNullException(nameof(key));
         }
 
-        using var aesGcm = new AesGcm(Encoding.UTF8.GetBytes(key));
+        using var aesGcm = new AesGcm(Encoding.UTF8.GetBytes(key), 16);
         var nonceBytes = Encoding.UTF8.GetBytes(nonce);
         var ciphertextWithTagBytes = Convert.FromBase64String(ciphertext); // ciphertext 实际包含了 tag，即尾部16字节
         var ciphertextBytes = ciphertextWithTagBytes[0..^16]; // 排除尾部16字节
@@ -59,10 +40,7 @@ internal static class CryptographyExtensions
 
     public static string SHA256WithRSAEncrypt(RSA rsa, string data)
     {
-        if (rsa == null)
-        {
-            throw new ArgumentNullException(nameof(rsa));
-        }
+        ArgumentNullException.ThrowIfNull(rsa);
 
         if (string.IsNullOrEmpty(data))
         {
@@ -74,10 +52,7 @@ internal static class CryptographyExtensions
 
     public static bool SHA256WithRSAEqual(RSA rsa, string data, string sign)
     {
-        if (rsa == null)
-        {
-            throw new ArgumentNullException(nameof(rsa));
-        }
+        ArgumentNullException.ThrowIfNull(rsa);
 
         if (string.IsNullOrEmpty(data))
         {

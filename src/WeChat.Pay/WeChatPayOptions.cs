@@ -3,8 +3,18 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace WeChat;
 
-public class WeChatPayOptions : WeChatOptions
+public class WeChatPayOptions
 {
+    /// <summary>
+    /// 微信应用号
+    /// </summary>
+    public string AppId { get; set; }
+
+    /// <summary>
+    /// 微信应用密钥
+    /// </summary>
+    public string Secret { get; set; }
+
     /// <summary>
     /// 商户号
     /// </summary>

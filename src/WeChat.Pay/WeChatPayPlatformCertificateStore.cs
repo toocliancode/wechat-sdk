@@ -1,21 +1,16 @@
-﻿using Mediation;
-
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace WeChat.Pay;
+using WeChat.Pay;
 
-public class WeChatPayPlatformCertificateStore : IWeChatPayPlatformCertificateStore
+namespace WeChat;
+
+public class WeChatPayPlatformCertificateStore(ISender sender) : IWeChatPayPlatformCertificateStore
 {
     private readonly ConcurrentDictionary<string, X509Certificate2> _certificates = new();
 
-    private readonly IMediator _mediator;
-
-    public WeChatPayPlatformCertificateStore(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+    protected ISender Sender { get; } = sender;
 
     public async Task<X509Certificate2> GetAsync(string serialNo, WeChatPayOptions settings)
     {
@@ -24,14 +19,13 @@ public class WeChatPayPlatformCertificateStore : IWeChatPayPlatformCertificateSt
             return certificate2;
         }
 
-        var request = new WeChatPayCertificatesRequest();
-        request.WithOptions(settings);
+        var request = PlatformCertificate.ToRequest();
 
-        var response = await _mediator.Send(request);
+        var response = await Sender.Send(request);
 
         if (!response.IsSucceed())
         {
-            throw new WeChatPayException($"获取平台证书列表失败：Code={response.StatusCode}");
+            throw new WeChatException($"获取平台证书列表失败：Code={response.StatusCode}");
         }
 
         foreach (var certificate in response.Certificates)
@@ -48,7 +42,7 @@ public class WeChatPayPlatformCertificateStore : IWeChatPayPlatformCertificateSt
                     _certificates.TryAdd(certificate.SerialNo, cert);
                     break;
                 default:
-                    throw new WeChatPayException($"Unknown algorithm: {certificate.EncryptCertificate.Algorithm}");
+                    throw new WeChatException($"Unknown algorithm: {certificate.EncryptCertificate.Algorithm}");
             }
         }
 
@@ -59,7 +53,7 @@ public class WeChatPayPlatformCertificateStore : IWeChatPayPlatformCertificateSt
         }
         else
         {
-            throw new WeChatPayException("Download certificates failed!");
+            throw new WeChatException("Download certificates failed!");
         }
     }
 }

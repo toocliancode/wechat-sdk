@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace WeChat.Pay;
+namespace WeChat;
 
 public interface IWeChatPayCertificateStore
 {

@@ -1,16 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+	<PropertyGroup>
 		<TargetFramework>$(TargetFrameworkVersion)</TargetFramework>
-  </PropertyGroup>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(MicrosoftPackageVersion)" />
+	</ItemGroup>
 	
 	<ItemGroup>
-		<Using Include="System.Text.Json" />
-		<Using Include="System.Text.Json.Serialization" />
+	  <ProjectReference Include="..\WeChat\WeChat.csproj" />
 	</ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WeChat\WeChat.csproj" />
-  </ItemGroup>
 
 </Project>

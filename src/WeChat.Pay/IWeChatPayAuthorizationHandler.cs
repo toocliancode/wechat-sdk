@@ -1,6 +1,6 @@
-﻿namespace WeChat.Pay;
+﻿namespace WeChat;
 
 public interface IWeChatPayAuthorizationHandler
 {
-    Task Handle(HttpRequestMessage message, WeChatPayOptions settings);
+    Task Handle(HttpRequestMessage message, WeChatPayOptions options);
 }

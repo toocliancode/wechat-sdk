@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace WeChat.Pay;
-
+namespace WeChat;
 #pragma warning disable 8602
 
 public class WeChatPayResponseSignatureChecker : IWeChatPayResponseSignatureChecker
@@ -28,22 +26,22 @@ public class WeChatPayResponseSignatureChecker : IWeChatPayResponseSignatureChec
             if (!message.Headers.TryGetValues("Wechatpay-Serial", out var serialValues))
             {
                 _logger.LogError("响应签名检查：Wechatpay-Serial 为空");
-                throw new WeChatPayException("响应签名检查：Wechatpay-Serial 为空");
+                throw new WeChatException("响应签名检查：Wechatpay-Serial 为空");
             }
             if (!message.Headers.TryGetValues("Wechatpay-Timestamp", out var timestampValues))
             {
                 _logger.LogError("响应签名检查：Wechatpay-Timestamp 为空");
-                throw new WeChatPayException("响应签名检查：Wechatpay-Timestamp 为空");
+                throw new WeChatException("响应签名检查：Wechatpay-Timestamp 为空");
             }
             if (!message.Headers.TryGetValues("Wechatpay-Nonce", out var nonceValues))
             {
                 _logger.LogError("响应签名检查：Wechatpay-Nonce 为空");
-                throw new WeChatPayException("响应签名检查：Wechatpay-Nonce 为空");
+                throw new WeChatException("响应签名检查：Wechatpay-Nonce 为空");
             }
             if (!message.Headers.TryGetValues("Wechatpay-Signature", out var signatureValues))
             {
                 _logger.LogError("响应签名检查：Wechatpay-Signature 为空");
-                throw new WeChatPayException("响应签名检查：Wechatpay-Signature 为空");
+                throw new WeChatException("响应签名检查：Wechatpay-Signature 为空");
             }
             var body = await message.Content.ReadAsStringAsync();
             var serialNo = serialValues.First();
@@ -58,13 +56,13 @@ public class WeChatPayResponseSignatureChecker : IWeChatPayResponseSignatureChec
             if (!rsa.VerifyData(Encoding.UTF8.GetBytes(signatureSourceData), Convert.FromBase64String(signature), HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1))
             {
                 _logger.LogError("响应签名检查：检查不通过");
-                throw new WeChatPayException("响应签名检查：检查不通过");
+                throw new WeChatException("响应签名检查：检查不通过");
             }
         }
         catch (Exception ex)
         {
             _logger.LogError("响应签名检查：检查异常");
-            throw new WeChatPayException("响应签名检查：检查异常", ex);
+            throw new WeChatException("响应签名检查：检查异常", ex);
         }
     }
 }
