@@ -6,7 +6,7 @@
 /// <para>文档：<a href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_4_5.shtml"></a></para>
 /// </summary>
 [Serializable]
-public class TransactionsNotifyResponse : NotifyResponse
+public class TransactionsNotifyResponse : NotifyResponse, INotification
 {
     /// <summary>
     /// 应用ID

@@ -6,7 +6,7 @@
 /// <para>文档：<a href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_4_11.shtml"></a></para>
 /// </summary>
 [Serializable]
-public class RefundNotifyResponse : NotifyResponse
+public class RefundNotifyResponse : NotifyResponse, INotification
 {
     /// <summary>
     /// 商户号
