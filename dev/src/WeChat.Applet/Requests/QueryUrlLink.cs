@@ -9,29 +9,35 @@ using System.Text.Json.Serialization;
 namespace WeChat.Applet;
 
 /// <summary>
-/// 【微信小程序】查询 scheme 码
+/// 【微信小程序】查询加密URLLink
 /// 
-/// <para>文档：<a href="https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/qrcode-link/url-scheme/queryScheme.html"></a></para>
+/// <para>文档：<a href="https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/qrcode-link/url-link/queryUrlLink.html"></a></para>
 /// </summary>
-public class QueryScheme
+public class QueryUrlLink
 {
-    public static string Endpoint = "/wxa/queryscheme?access_token={access_token}";
+    public static string Endpoint = "/wxa/query_urllink?access_token={access_token}";
     public class Model : WeChatDictionary<object>
     {
         public Model()
         {
 
         }
-        public Model(string scheme, int? queryType = default)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="urlLink">小程序加密 url_link</param>
+        /// <param name="queryType">查询类型。默认值0，查询 scheme 码信息：0， 查询每天剩余访问次数：1</param>
+        public Model(string urlLink, int? queryType = default)
         {
-            Scheme = scheme;
+            UrlLink = urlLink;
             QueryType = queryType;
         }
 
         /// <summary>
-        /// 小程序 scheme 码。支持加密 scheme 和明文 scheme
+        /// 小程序加密 url_link
         /// </summary>
-        public string? Scheme { get => TryGetValue("scheme", out var value) ? value?.ToString() : null; set => this["scheme"] = value; }
+        public string? UrlLink { get => TryGetValue("url_link", out var value) ? value?.ToString() : null; set => this["url_link"] = value; }
 
         /// <summary>
         /// 查询类型。默认值0，查询 scheme 码信息：0， 查询每天剩余访问次数：1
@@ -40,7 +46,7 @@ public class QueryScheme
 
     }
 
-    public class SchemeInfo
+    public class UrlLinkInfo
     {
         /// <summary>
         /// 小程序 appid
@@ -94,10 +100,10 @@ public class QueryScheme
     public class Response : WeChatAppletHttpResponse
     {
         /// <summary>
-        /// scheme 信息
+        /// url_link 配置
         /// </summary>
-        [JsonPropertyName("scheme_info")]
-        public SchemeInfo SchemeInfo { get; set; }
+        [JsonPropertyName("url_link_info")]
+        public UrlLinkInfo UrlLinkInfo { get; set; }
 
         /// <summary>
         /// quota 配置
