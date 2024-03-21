@@ -1,8 +1,4 @@
-﻿using Mediation.HttpClient;
-
-using System.Text.Json.Serialization;
-
-namespace WeChat.Applet;
+﻿namespace WeChat.Applet;
 
 /// <summary>
 /// 【微信小程序】获取接口调用凭据

@@ -1,7 +1,4 @@
-﻿using Mediation;
-using Mediation.HttpClient;
-
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 
 namespace WeChat.Mp;
 
@@ -15,17 +12,26 @@ public class JsapiConfig
     /// <summary>
     /// 响应
     /// </summary>
-    /// <param name="AppId">应用号</param>
-    /// <param name="Timestamp">时间戳</param>
-    /// <param name="NonceStr">随机字符串</param>
-    /// <param name="Signature">签名</param>
-    public record Response(string AppId, string Timestamp, string NonceStr, string Signature);
+    /// <param name="appId">应用号</param>
+    /// <param name="timestamp">时间戳</param>
+    /// <param name="nonceStr">随机字符串</param>
+    /// <param name="signature">签名</param>
+    public class Response(string appId, string timestamp, string nonceStr, string signature)
+    {
+        public string AppId { get; } = appId;
+        public string Timestamp { get; } = timestamp;
+        public string NonceStr { get; } = nonceStr;
+        public string Signature { get; } = signature;
+    }
 
     /// <summary>
     /// 请求
     /// </summary>
-    /// <param name="Url">调用 jsapi 页面链接地址</param>
-    public record Request(string Url) : IRequest<Response>;
+    /// <param name="url">调用 jsapi 页面链接地址</param>
+    public class Request(string url) : IRequest<Response>
+    {
+        public string Url { get; } = url;
+    }
 
     /// <summary>
     /// 

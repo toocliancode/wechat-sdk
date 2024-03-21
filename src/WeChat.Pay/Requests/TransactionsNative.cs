@@ -1,5 +1,7 @@
 ﻿namespace WeChat.Pay;
 
+#pragma warning disable CS8601
+
 /// <summary>
 /// 【微信支付】Native下单
 /// 

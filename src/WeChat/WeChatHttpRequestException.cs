@@ -16,11 +16,10 @@ public class WeChatHttpRequestException : HttpRequestException
     {
     }
 
-    public WeChatHttpRequestException(string? message, Exception? inner, HttpStatusCode? statusCode) : base(message, inner, statusCode)
+    public WeChatHttpRequestException(string? message, Exception? inner, HttpStatusCode? statusCode) : base(message, inner)
     {
+        StatusCode = statusCode;
     }
 
-    public WeChatHttpRequestException(HttpRequestError httpRequestError, string? message = null, Exception? inner = null, HttpStatusCode? statusCode = null) : base(httpRequestError, message, inner, statusCode)
-    {
-    }
+    public HttpStatusCode? StatusCode { get; }
 }

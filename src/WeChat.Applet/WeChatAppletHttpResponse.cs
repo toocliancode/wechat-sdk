@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WeChat;
+﻿namespace WeChat;
 
 public class WeChatAppletHttpResponse : WeChatHttpResponse
 {

@@ -1,4 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.Crypto.Modes;
+using Org.BouncyCastle.Crypto.Parameters;
+
+using System.Security.Cryptography;
 using System.Text;
 
 namespace WeChat;
@@ -27,20 +31,40 @@ internal static class CryptographyExtensions
             throw new ArgumentNullException(nameof(key));
         }
 
-        using var aesGcm = new AesGcm(Encoding.UTF8.GetBytes(key), 16);
-        var nonceBytes = Encoding.UTF8.GetBytes(nonce);
-        var ciphertextWithTagBytes = Convert.FromBase64String(ciphertext); // ciphertext 实际包含了 tag，即尾部16字节
-        var ciphertextBytes = ciphertextWithTagBytes[0..^16]; // 排除尾部16字节
-        var tagBytes = ciphertextWithTagBytes[^16..]; // 获取尾部16字节
-        var plaintextBytes = new byte[ciphertextBytes.Length];
-        var associatedDataBytes = Encoding.UTF8.GetBytes(associatedData);
-        aesGcm.Decrypt(nonceBytes, ciphertextBytes, tagBytes, plaintextBytes, associatedDataBytes);
-        return Encoding.UTF8.GetString(plaintextBytes);
+        var cipher = new GcmBlockCipher(new AesEngine());
+        var parameters = new AeadParameters(
+            new KeyParameter(Encoding.UTF8.GetBytes(key)),
+            128,
+            Encoding.UTF8.GetBytes(nonce),
+            Encoding.UTF8.GetBytes(associatedData));
+
+        cipher.Init(false, parameters);
+
+        var data = Convert.FromBase64String(ciphertext);
+        var plaintext = new byte[cipher.GetOutputSize(data.Length)];
+        int length = cipher.ProcessBytes(data, 0, data.Length, plaintext, 0);
+
+        cipher.DoFinal(plaintext, length);
+
+        return Encoding.UTF8.GetString(plaintext);
+
+        //using var aesGcm = new AesGcm(Encoding.UTF8.GetBytes(key), 16);
+        //var nonceBytes = Encoding.UTF8.GetBytes(nonce);
+        //var ciphertextWithTagBytes = Convert.FromBase64String(ciphertext); // ciphertext 实际包含了 tag，即尾部16字节
+        //var ciphertextBytes = ciphertextWithTagBytes[0..^16]; // 排除尾部16字节
+        //var tagBytes = ciphertextWithTagBytes[^16..]; // 获取尾部16字节
+        //var plaintextBytes = new byte[ciphertextBytes.Length];
+        //var associatedDataBytes = Encoding.UTF8.GetBytes(associatedData);
+        //aesGcm.Decrypt(nonceBytes, ciphertextBytes, tagBytes, plaintextBytes, associatedDataBytes);
+        //return Encoding.UTF8.GetString(plaintextBytes);
     }
 
     public static string SHA256WithRSAEncrypt(RSA rsa, string data)
     {
-        ArgumentNullException.ThrowIfNull(rsa);
+        if (rsa is null)
+        {
+            throw new ArgumentNullException(nameof(rsa));
+        }
 
         if (string.IsNullOrEmpty(data))
         {
@@ -52,7 +76,10 @@ internal static class CryptographyExtensions
 
     public static bool SHA256WithRSAEqual(RSA rsa, string data, string sign)
     {
-        ArgumentNullException.ThrowIfNull(rsa);
+        if (rsa is null)
+        {
+            throw new ArgumentNullException(nameof(rsa));
+        }
 
         if (string.IsNullOrEmpty(data))
         {

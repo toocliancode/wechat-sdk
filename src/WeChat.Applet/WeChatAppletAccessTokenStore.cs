@@ -1,9 +1,5 @@
-﻿using Mediation;
-
-using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
-
-using System.Text.Json;
 
 using WeChat.Applet;
 

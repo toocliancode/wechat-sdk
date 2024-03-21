@@ -1,7 +1,4 @@
-﻿using Mediation.HttpClient;
-
-using System.Net.Http.Headers;
-using System.Text.Json.Serialization;
+﻿using System.Net.Http.Headers;
 
 namespace WeChat.Mp;
 

@@ -75,7 +75,8 @@ public static class WeChatSignature
     {
         encoding ??= Encoding.UTF8;
 
-        var data = MD5.HashData(encoding.GetBytes(input));
+        var md5 = MD5.Create();
+        var data = md5.ComputeHash(encoding.GetBytes(input));
         var sBuilder = new StringBuilder();
 
         foreach (var item in data)
@@ -98,7 +99,8 @@ public static class WeChatSignature
     {
         encoding ??= Encoding.UTF8;
 
-        var data = SHA1.HashData(encoding.GetBytes(input));
+        var sha1 = SHA1.Create();
+        var data = sha1.ComputeHash(encoding.GetBytes(input));
         var sBuilder = new StringBuilder();
 
         foreach (var item in data)
@@ -121,8 +123,8 @@ public static class WeChatSignature
     {
         encoding ??= Encoding.UTF8;
 
-        var bytes = encoding.GetBytes(input);
-        var data = SHA256.HashData(bytes);
+        var sha256 = SHA256.Create();
+        var data = sha256.ComputeHash(encoding.GetBytes(input));
 
         return Convert.ToBase64String(data);
     }

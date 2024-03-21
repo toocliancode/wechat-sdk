@@ -1,8 +1,4 @@
-﻿using Mediation.HttpClient;
-
-using System.Text.Json.Serialization;
-
-namespace WeChat.Mp;
+﻿namespace WeChat.Mp;
 
 /// <summary>
 /// 【微信公众号】 access_token 请求

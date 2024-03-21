@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 
 namespace WeChat;
 
@@ -83,7 +82,7 @@ public class WeChatDictionary<T> : IDictionary<string, T>
 
     public bool Remove(string key) => _dictionary.Remove(key);
 
-    public bool TryGetValue(string key, [MaybeNullWhen(false)] out T value) => _dictionary.TryGetValue(key, out value);
+    public bool TryGetValue(string key, out T value) => _dictionary.TryGetValue(key, out value);
 
     public void Add(KeyValuePair<string, T> item) => Add(item.Key, item.Value);
 

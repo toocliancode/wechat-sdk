@@ -1,7 +1,4 @@
-﻿using Mediation.HttpClient;
-
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Text;
 
 namespace WeChat.Mp;
 
@@ -47,7 +44,7 @@ public class MediaGet
             var content = await context.Message.Content.ReadAsStringAsync();
             Response? response = null;
 
-            if (content != null && content.StartsWith('{') && content.EndsWith('}'))
+            if (content != null && content.StartsWith("{") && content.EndsWith("}"))
             {
                 try
                 {

@@ -1,6 +1,4 @@
-﻿using Mediation.HttpClient;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 using System.Text;
 
@@ -69,7 +67,7 @@ public class CreateQRCode
             var content = await context.Message.Content.ReadAsStringAsync();
             WeChatAppletHttpResponse? response = null;
 
-            if (content != null && content.StartsWith('{') && content.EndsWith('}'))
+            if (content != null && content.StartsWith("{") && content.EndsWith("}"))
             {
                 try
                 {

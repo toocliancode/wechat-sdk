@@ -1,6 +1,4 @@
-﻿using Mediation.HttpClient;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace WeChat.Applet;
 

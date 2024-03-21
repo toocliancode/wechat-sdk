@@ -5,18 +5,11 @@ using System.Text;
 
 namespace WeChat;
 
-public class WeChatPayAuthorizationHandler : IWeChatPayAuthorizationHandler
+public class WeChatPayAuthorizationHandler(IWeChatPayCertificateStore certificateStore) : IWeChatPayAuthorizationHandler
 {
-    private readonly IWeChatPayCertificateStore _certificateStore;
-
-    public WeChatPayAuthorizationHandler(IWeChatPayCertificateStore certificateStore)
-    {
-        _certificateStore = certificateStore;
-    }
-
     public async Task Handle(HttpRequestMessage message, WeChatPayOptions options)
     {
-        if (!_certificateStore.TryGet(options, out var certificate))
+        if (!certificateStore.TryGet(options, out var certificate))
         {
             throw new ArgumentException("证书获取失败");
         }

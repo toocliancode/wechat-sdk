@@ -1,14 +1,14 @@
 ﻿<Project>
   <PropertyGroup>
-    <TargetFrameworkVersion>net8.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>netstandard2.0;netstandard2.1</TargetFrameworkVersion>
 
     <MicrosoftPackageVersion>8.0.0</MicrosoftPackageVersion>
-    <MediationPackageVersion>8.1.0</MediationPackageVersion>
+    <MediationPackageVersion>8.2.0</MediationPackageVersion>
 
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>8.1.0</Version>
+    <Version>8.2.0</Version>
     <NoWarn>$(NoWarn);CS1591;CS8618;CA2211</NoWarn>
     <Authors>tooclian</Authors>
     <Company>toocliancode</Company>

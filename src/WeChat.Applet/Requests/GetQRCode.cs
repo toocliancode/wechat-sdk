@@ -1,9 +1,6 @@
-﻿using Mediation.HttpClient;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 using System.Text;
-using System.Text.Json.Serialization;
 
 #pragma warning disable CS8601
 
@@ -114,7 +111,7 @@ public class GetQRCode
             var content = await context.Message.Content.ReadAsStringAsync();
             WeChatAppletHttpResponse? response = null;
 
-            if (content != null && content.StartsWith('{') && content.EndsWith('}'))
+            if (content != null && content.StartsWith("{") && content.EndsWith("}"))
             {
                 try
                 {

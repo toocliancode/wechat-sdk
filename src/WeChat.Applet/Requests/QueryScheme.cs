@@ -1,8 +1,4 @@
-﻿using Mediation.HttpClient;
-
-using Microsoft.Extensions.DependencyInjection;
-
-using System.Text.Json.Serialization;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 #pragma warning disable CS8601
 

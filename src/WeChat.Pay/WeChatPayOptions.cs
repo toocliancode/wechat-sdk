@@ -133,8 +133,6 @@ public class WeChatPayOptions
         }
 
         CertificateSerialNo = Certificate2.GetSerialNumberString();
-#pragma warning disable CS8601
         CertificateRSAPrivateKey = Certificate2.GetRSAPrivateKey();
-#pragma warning restore CS8601
     }
 }
