@@ -21,18 +21,6 @@ public class WeChatPayOptions
     public string MchId { get; set; }
 
     /// <summary>
-    /// 子商户应用号
-    /// 仅服务商使用
-    /// </summary>
-    public string SubAppId { get; set; }
-
-    /// <summary>
-    /// 子商户号
-    /// 仅服务商使用
-    /// </summary>
-    public string SubMchId { get; set; }
-
-    /// <summary>
     /// 默认的支付通知地址。如果未设置，则请求接口时必须传入
     /// </summary>
     public string? TransactionNotifyUrl { get; set; }
@@ -79,21 +67,21 @@ public class WeChatPayOptions
         }
     }
 
-    /// <summary>
-    /// API密钥
-    /// </summary>
-    public string Key { get; set; }
+    ///// <summary>
+    ///// API密钥
+    ///// </summary>
+    //public string Key { get; set; }
 
     /// <summary>
     /// APIv3密钥
     /// </summary>
     public string V3Key { get; set; }
 
-    /// <summary>
-    /// RSA公钥
-    /// 目前仅调用"企业付款到银行卡API"时使用，执行"获取RSA加密公钥API"即可获取。
-    /// </summary>
-    public string RsaPublicKey { get; set; }
+    ///// <summary>
+    ///// RSA公钥
+    ///// 目前仅调用"企业付款到银行卡API"时使用，执行"获取RSA加密公钥API"即可获取。
+    ///// </summary>
+    //public string RsaPublicKey { get; set; }
 
     ///// <summary>
     ///// RSA私钥
