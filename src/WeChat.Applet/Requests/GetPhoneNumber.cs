@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace WeChat.Applet;
+﻿namespace WeChat.Applet;
 
 /// <summary>
 /// 【微信小程序】获取手机号
@@ -68,7 +66,7 @@ public class GetPhoneNumber
     {
         protected override async Task InitializeRequestMessageAsync(IHttpRequestContext context)
         {
-            var token = await context.RequestServices.GetRequiredService<IWeChatAppletAccessTokenStore>().GetAsync();
+            var token = await GetAccessTokenAsync();
 
             var url = $"{WeChatAppletProperties.Domain}{Endpoint}"
                 .Replace("{access_token}", token)
