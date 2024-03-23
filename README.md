@@ -93,7 +93,7 @@ var accessTokenStore = serviceProvider.GetRequiredService<IWeChatMpAccessTokenSt
 var token = await accessTokenStore.GetAsync();
 
 // 内置 ticket 存储器使用
-var ticketStore = serviceProvider.GetRequiredService<Mp.IWeChatMpTicketStore>();
+var ticketStore = serviceProvider.GetRequiredService<IWeChatMpTicketStore>();
 var ticket= await ticketStore.GetAsync();
 
 ```
