@@ -129,10 +129,12 @@ var ticket= await ticketStore.GetAsync();
 - PlatformCertificate
 - Refunds
 - TransactionsApp
-- TransactionsAppSdk
+- TransactionsAppSdk 客户端支付参数获取
 - TransactionsClose
 - TransactionsH5
 - TransactionsJsapi
-- TransactionsJsapiSdk
+- TransactionsJsapiSdk 客户端支付参数获取
 - TransactionsNative
 - TransactionsQuery
+- Notify< TransactionsNotifyResponse > 付款通知
+- Notify< RefundNotifyResponse > 退款通知
