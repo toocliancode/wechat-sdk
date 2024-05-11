@@ -38,8 +38,8 @@ dotnet add package WeChat.Pay
 // 1.服务注册
 var services = new ServiceCollection();
 
-// 1.1 添加必要的Medation服务
-services.AddMedation(config =>
+// 1.1 添加必要的Mediation服务
+services.AddMediation(config =>
 {
   config.AddHttpClient();
 
