@@ -2,6 +2,8 @@
 
 namespace WeChat;
 
+#pragma warning disable CS8601
+
 public class WeChatDictionary<T> : IDictionary<string, T>
 {
     private readonly SortedDictionary<string, T> _dictionary = [];

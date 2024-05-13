@@ -16,10 +16,18 @@ public class WeChatHttpRequestException : HttpRequestException
     {
     }
 
+
+#if NETSTANDARD
     public WeChatHttpRequestException(string? message, Exception? inner, HttpStatusCode? statusCode) : base(message, inner)
     {
         StatusCode = statusCode;
     }
-
     public HttpStatusCode? StatusCode { get; }
+#endif
+#if NET
+    public WeChatHttpRequestException(string? message, Exception? inner, HttpStatusCode? statusCode) : base(message, inner,statusCode)
+    {
+
+    }
+#endif
 }

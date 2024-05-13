@@ -121,6 +121,6 @@ public class WeChatPayOptions
         }
 
         CertificateSerialNo = Certificate2.GetSerialNumberString();
-        CertificateRSAPrivateKey = Certificate2.GetRSAPrivateKey();
+        CertificateRSAPrivateKey = Certificate2.GetRSAPrivateKey()!;
     }
 }

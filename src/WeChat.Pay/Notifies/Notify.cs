@@ -31,7 +31,7 @@ public class Notify<TNotifyResponse> where TNotifyResponse : NotifyResponse
         /// 通知创建时间
         /// </summary>
         /// <remarks>
-        /// 通知创建的时间，格式为yyyyMMddHHmmss
+        /// 通知创建的时间，格式为 yyyyMMddHHmmss
         /// <para>示例值：20180225112233</para>
         /// </remarks>
         [JsonPropertyName("create_time")]
@@ -64,7 +64,7 @@ public class Notify<TNotifyResponse> where TNotifyResponse : NotifyResponse
         /// 通知数据类型
         /// </summary>
         /// <remarks>
-        /// 通知的资源数据类型，支付成功通知为encrypt-resource
+        /// 通知的资源数据类型，支付成功通知为 encrypt-resource
         /// <para>示例值：encrypt-resource</para>
         /// </remarks>
         [JsonPropertyName("resource_type")]

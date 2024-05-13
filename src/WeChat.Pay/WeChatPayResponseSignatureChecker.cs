@@ -43,7 +43,7 @@ public class WeChatPayResponseSignatureChecker(
             var certificate2 = await certificateStore.GetAsync(serialNo, settings);
             var signatureSourceData = $"{timestamp}\n{nonce}\n{body}\n";
 
-            var rsa = certificate2.GetRSAPublicKey();
+            var rsa = certificate2.GetRSAPublicKey()!;
             if (!rsa.VerifyData(Encoding.UTF8.GetBytes(signatureSourceData), Convert.FromBase64String(signature), HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1))
             {
                 logger.LogError("响应签名检查：检查不通过");
