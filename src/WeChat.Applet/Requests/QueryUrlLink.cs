@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-#pragma warning disable CS8601
+﻿#pragma warning disable CS8601
 
 namespace WeChat.Applet;
 
@@ -118,7 +116,7 @@ public class QueryUrlLink
 
         protected override async Task InitializeRequestMessageAsync(IHttpRequestContext context)
         {
-            var token = await context.RequestServices.GetRequiredService<IWeChatAppletAccessTokenStore>().GetAsync();
+            var token = await GetAccessTokenAsync();
 
             var url = $"{WeChatAppletProperties.Domain}{Endpoint}"
                 .Replace("{access_token}", token)

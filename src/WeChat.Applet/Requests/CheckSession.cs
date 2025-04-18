@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace WeChat.Applet;
+﻿namespace WeChat.Applet;
 
 /// <summary>
 /// 【微信小程序】检验登录态
@@ -17,7 +15,7 @@ public class CheckSession
     {
         protected override async Task InitializeRequestMessageAsync(IHttpRequestContext context)
         {
-            var token = await context.RequestServices.GetRequiredService<IWeChatAppletAccessTokenStore>().GetAsync();
+            var token = await GetAccessTokenAsync();
             var dictionary = new SortedDictionary<string, string>()
             {
                 {sessionKey,"" }

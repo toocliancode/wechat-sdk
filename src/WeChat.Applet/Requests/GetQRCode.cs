@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-using System.Text;
+﻿using System.Text;
 
 #pragma warning disable CS8601
 
@@ -94,7 +92,7 @@ public class GetQRCode
 
         protected override async Task InitializeRequestMessageAsync(IHttpRequestContext context)
         {
-            var token = await context.RequestServices.GetRequiredService<IWeChatAppletAccessTokenStore>().GetAsync();
+            var token = await GetAccessTokenAsync();
 
             var url = $"{WeChatAppletProperties.Domain}{Endpoint}"
                 .Replace("{access_token}", token)
