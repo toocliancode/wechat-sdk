@@ -7,7 +7,6 @@
 /// </summary>
 public class MediaCheckAsync
 {
-
     public static string Endpoint = "/wxa/media_check_async?access_token={access_token}";
 
     public class Response : WeChatAppletHttpResponse
