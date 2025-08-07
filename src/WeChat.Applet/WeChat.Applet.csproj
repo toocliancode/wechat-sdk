@@ -35,6 +35,10 @@
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9' ">
 		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
 	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net10' ">
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.0" />
+	</ItemGroup>
 	
 	<ItemGroup>
 	  <ProjectReference Include="..\WeChat\WeChat.csproj" />

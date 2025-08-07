@@ -1,6 +1,6 @@
 ﻿using WeChat;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Mediation;
 
 public static class WeChatAppletSenderExtensions
 {
