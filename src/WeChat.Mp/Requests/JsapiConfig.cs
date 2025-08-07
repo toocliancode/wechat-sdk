@@ -47,6 +47,19 @@ public class JsapiConfig
     /// <returns><see cref="Request"/></returns>
     public static Request ToRequest(string Url) => new(Url);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Url">调用 jsapi 页面链接地址</param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public static Request ToRequest(string Url, WeChatMpOptions options)
+    {
+        var request = new Request(Url);
+        request.WithOptions(options);
+        return request;
+    }
+
     public class Handler(IWeChatMpTicketStore ticketStore, IOptions<WeChatMpOptions> optionAccessor) : IRequestHandler<Request, Response>
     {
         protected IWeChatMpTicketStore TicketStore { get; } = ticketStore;

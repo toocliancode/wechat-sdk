@@ -21,8 +21,8 @@ public class WeChatMpTicketStore(
             return ticket;
         }
 
-        var request = Ticket.ToRequest(options, ticketType);
-        var response = await Sender.Send(request);
+        var request = Ticket.ToRequest(ticketType);
+        var response = await Sender.SendAsync(request, options);
 
         if (!response.IsSucceed())
         {

@@ -53,21 +53,4 @@ public class Ticket
     /// </param>
     /// <returns></returns>
     public static Request ToRequest(string type = "jsapi") => new(type);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="options"></param>
-    /// <param name="type">
-    /// 凭证类型。
-    /// 可选值：jsapi、wx_card。
-    /// 默认值：jsapi
-    /// </param>
-    /// <returns></returns>
-    public static Request ToRequest(WeChatMpOptions options, string type = "jsapi")
-    {
-        var request = ToRequest(type);
-        request.WithOptions(options);
-        return request;
-    }
 }
