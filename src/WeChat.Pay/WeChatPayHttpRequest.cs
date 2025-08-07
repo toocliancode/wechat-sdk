@@ -18,7 +18,12 @@ public abstract class WeChatPayHttpRequest<TResponse> : WeChatHttpRequest<TRespo
     {
         await base.InitializeAsync(serviceProvider);
 
-        Options = serviceProvider.GetRequiredService<IOptions<WeChatPayOptions>>().Value;
+        Options ??= serviceProvider.GetRequiredService<IOptions<WeChatPayOptions>>().Value;
+    }
+
+    public virtual void WithOptions(WeChatPayOptions options)
+    {
+        Options = options;
     }
 
     public override async Task Request(IHttpRequestContext context)

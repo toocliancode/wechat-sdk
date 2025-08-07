@@ -7,16 +7,14 @@ namespace WeChat;
 
 public class WeChatAppletAccessTokenStore(
     ISender sender,
-    IDistributedCache cache,
-    IOptions<WeChatAppletOptions> options) : IWeChatAppletAccessTokenStore
+    IDistributedCache cache) : IWeChatAppletAccessTokenStore
 {
     protected ISender Sender { get; } = sender;
     protected IDistributedCache Cache { get; } = cache;
-    protected WeChatAppletOptions Options { get; } = options.Value;
 
-    public virtual async Task<string> GetAsync()
+    public virtual async Task<string> GetAsync(WeChatAppletOptions options)
     {
-        var cacheKey = $"WeChatApplet:AppId-{Options.AppId}:AccessToken";
+        var cacheKey = $"WeChatApplet:AppId-{options.AppId}:AccessToken";
         var token = await Cache.GetStringAsync(cacheKey);
 
         if (token != null)
@@ -24,7 +22,7 @@ public class WeChatAppletAccessTokenStore(
             return token;
         }
 
-        var request = AccessToken.ToRequest(Options.AppId, Options.Secret);
+        var request = AccessToken.ToRequest(options.AppId, options.Secret);
         var response = await Sender.Send(request);
 
         if (!response.IsSucceed())

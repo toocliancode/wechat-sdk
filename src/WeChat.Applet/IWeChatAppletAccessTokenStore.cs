@@ -1,9 +1,9 @@
 ﻿namespace WeChat;
 
 /// <summary>
-/// 【微信小程序】 acces_token 存储器
+/// 【微信小程序】 access_token 存储器
 /// </summary>
 public interface IWeChatAppletAccessTokenStore
 {
-    Task<string> GetAsync();
+    Task<string> GetAsync(WeChatAppletOptions options);
 }

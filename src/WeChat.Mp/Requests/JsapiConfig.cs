@@ -31,6 +31,13 @@ public class JsapiConfig
     public class Request(string url) : IRequest<Response>
     {
         public string Url { get; } = url;
+
+        public WeChatMpOptions? Options { get; private set; }
+
+        public void WithOptions(WeChatMpOptions options)
+        {
+            Options = options;
+        }
     }
 
     /// <summary>
@@ -40,15 +47,16 @@ public class JsapiConfig
     /// <returns><see cref="Request"/></returns>
     public static Request ToRequest(string Url) => new(Url);
 
-    public class Handler(IWeChatMpTicketStore ticketStore, IOptions<WeChatMpOptions> options) : IRequestHandler<Request, Response>
+    public class Handler(IWeChatMpTicketStore ticketStore, IOptions<WeChatMpOptions> optionAccessor) : IRequestHandler<Request, Response>
     {
         protected IWeChatMpTicketStore TicketStore { get; } = ticketStore;
-        protected WeChatMpOptions Options { get; } = options.Value;
 
         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
+            var options = request.Options?? optionAccessor.Value;
+
             // 票据
-            var ticket = await TicketStore.GetAsync();
+            var ticket = await TicketStore.GetAsync(options);
             // 设置时间戳
             var timestamp = HttpUtility.GetTimeStamp();
             // 设置随机字符串
@@ -62,7 +70,7 @@ public class JsapiConfig
                 {"url",request.Url },
             };
 
-            var response = new Response(Options.AppId, timestamp, noncestr, WeChatSignature.Sign(dictionary, WeChatSignType.SHA1));
+            var response = new Response(options.AppId, timestamp, noncestr, WeChatSignature.Sign(dictionary, WeChatSignType.SHA1));
 
             return response;
         }

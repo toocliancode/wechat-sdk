@@ -15,10 +15,8 @@ public abstract class WeChatHttpRequest<TResponse> : HttpRequestBase<TResponse> 
 
     protected virtual Task InitializeAsync(IServiceProvider serviceProvider)
     {
-        var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-
-        Logger = loggerFactory.CreateLogger(this.GetType().FullName!);
-        WeChatSerializer = serviceProvider.GetRequiredService<IWeChatSerializer>();
+        Logger ??= serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(this.GetType().FullName!);
+        WeChatSerializer ??= serviceProvider.GetRequiredService<IWeChatSerializer>();
 
         return Task.CompletedTask;
     }

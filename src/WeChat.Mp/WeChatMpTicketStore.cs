@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
 
 using WeChat.Mp;
 
@@ -7,16 +6,14 @@ namespace WeChat;
 
 public class WeChatMpTicketStore(
     ISender sender,
-    IDistributedCache cache,
-    IOptions<WeChatMpOptions> options) : IWeChatMpTicketStore
+    IDistributedCache cache) : IWeChatMpTicketStore
 {
     protected ISender Sender { get; } = sender;
     protected IDistributedCache Cache { get; } = cache;
-    protected WeChatMpOptions Options { get; } = options.Value;
 
-    public async Task<string> GetAsync(string ticketType = "jsapi")
+    public async Task<string> GetAsync(WeChatMpOptions options, string ticketType = "jsapi")
     {
-        var cacheKey = $"WeChatMp:AppId-{Options.AppId}:Ticket";
+        var cacheKey = $"WeChatMp:AppId-{options.AppId}:Ticket";
         var ticket = await Cache.GetStringAsync(cacheKey);
 
         if (ticket != null)
@@ -24,7 +21,7 @@ public class WeChatMpTicketStore(
             return ticket;
         }
 
-        var request = Ticket.ToRequest(ticketType);
+        var request = Ticket.ToRequest(options, ticketType);
         var response = await Sender.Send(request);
 
         if (!response.IsSucceed())

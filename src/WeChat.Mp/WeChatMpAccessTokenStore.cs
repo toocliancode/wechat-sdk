@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
 
 using WeChat.Mp;
 
@@ -7,16 +6,14 @@ namespace WeChat;
 
 public class WeChatMpAccessTokenStore(
     ISender sender,
-    IDistributedCache cache,
-    IOptions<WeChatMpOptions> options) : IWeChatMpAccessTokenStore
+    IDistributedCache cache) : IWeChatMpAccessTokenStore
 {
     protected ISender Sender { get; } = sender;
     protected IDistributedCache Cache { get; } = cache;
-    protected WeChatMpOptions Options { get; } = options.Value;
 
-    public virtual async Task<string> GetAsync()
+    public virtual async Task<string> GetAsync(WeChatMpOptions options)
     {
-        var cacheKey = $"WeChatMp:AppId-{Options.AppId}:AccessToken";
+        var cacheKey = $"WeChatMp:AppId-{options.AppId}:AccessToken";
         var token = await Cache.GetStringAsync(cacheKey);
 
         if (token != null)
@@ -24,7 +21,7 @@ public class WeChatMpAccessTokenStore(
             return token;
         }
 
-        var request = AccessToken.ToRequest(Options.AppId, Options.Secret);
+        var request = AccessToken.ToRequest(options.AppId, options.Secret);
         var response = await Sender.Send(request);
 
         if (!response.IsSucceed())
