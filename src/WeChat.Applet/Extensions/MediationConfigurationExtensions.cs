@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using WeChat;
 
-namespace Mediation;
+namespace Microsoft.Extensions.DependencyInjection;
 
 public static class MediationConfigurationExtensions
 {

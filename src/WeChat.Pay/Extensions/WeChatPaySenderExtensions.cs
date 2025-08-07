@@ -1,6 +1,6 @@
 ﻿using WeChat;
 
-namespace Mediation;
+namespace Microsoft.Extensions.DependencyInjection;
 
 public static class WeChatPaySenderExtensions
 {
