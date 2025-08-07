@@ -1,8 +1,18 @@
 # WeChat-Sdk
 
-WeChat-Sdk 是微信接口的请求封装，涵盖公众号、小程序及支付接口，主要用于日常业务方便而编写，所以只实现了一些需要的接口。
+WeChat-Sdk 是一个功能全面的微信接口封装库，提供了对微信公众号、小程序和支付接口的便捷访问。本库采用现代化的 .NET 开发方式，基于 Mediation 模式设计，具有以下特点：
 
-### 使用方式
+- 模块化设计 ：公众号、小程序和支付功能各自独立，可按需使用
+- 异步支持 ：全面支持异步编程模型
+- 类型安全 ：所有接口参数和返回值均有强类型定义
+- 易于集成 ：可轻松集成到 ASP.NET Core 或其他 .NET 项目中
+- 缓存支持 ：内置 AccessToken 和 Ticket 缓存机制，提高性能
+
+### 快速开始
+
+#### 环境要求
+
+- .NET Standard 2.0+ 或 .NET 5.0+
 
 #### 设置 NuGet 源（NuGet.config）
 
@@ -32,7 +42,7 @@ dotnet add package WeChat.Mp
 dotnet add package WeChat.Pay
 ```
 
-#### 使用
+#### 使用示例
 
 ```csharp
 // 1.服务注册
@@ -43,7 +53,7 @@ services.AddMediation(config =>
 {
   config.AddHttpClient();
 
-  # 添加需要的服务配置
+  // 添加需要的服务配置
   config.AddWeChatMp();
   config.AddWeChatApplet();
   config.AddWeChatPay();
