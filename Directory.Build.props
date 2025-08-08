@@ -3,12 +3,12 @@
 		<TargetFrameworkVersions>netstandard2.0;net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworkVersions>
 
 		<MicrosoftPackageVersion>9.0.0</MicrosoftPackageVersion>
-		<MediationPackageVersion>9.0.2</MediationPackageVersion>
+		<MediationPackageVersion>9.0.3</MediationPackageVersion>
 
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>9.0.2</Version>
+		<Version>9.0.3</Version>
 		<NoWarn>$(NoWarn);CS1591;CS8618;CA2211</NoWarn>
 		<Authors>tooclian</Authors>
 		<Company>toocliancode</Company>
